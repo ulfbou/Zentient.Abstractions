@@ -7,7 +7,7 @@ namespace Zentient.Abstractions
     /// <summary>
     /// Represents a factory for creating immutable <see cref="IErrorInfo"/> instances.
     /// This factory abstracts the construction process, ensuring consistency and adherence to
-    /// Zentient's core principles of structured errors using <see cref="ICode"/> and <see cref="IMetadata"/>.
+    /// Zentient's core principles of structured errors using <see cref="ICode{TCode}"/> and <see cref="IMetadata"/>.
     /// </summary>
     /// <remarks>
     /// This factory is responsible for creating new instances of <see cref="IErrorInfo"/>.

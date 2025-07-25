@@ -1,4 +1,4 @@
-// <copyright file="IEnvelope.cs" company="Zentient Framework Team">
+﻿// <copyright file="IEnvelope.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
@@ -6,7 +6,6 @@ namespace Zentient.Abstractions
 {
     /// <summary>
     /// Represents a universal, protocol-agnostic code for an operation outcome or detail.
-    /// This code provides a symbolic name and an optional numeric value.
     /// </summary>
     public interface ICode
     {
@@ -14,12 +13,26 @@ namespace Zentient.Abstractions
         /// Gets the symbolic name of the code (e.g., "NotFound", "ValidationError", "Success", "InsufficientFunds").
         /// This provides a human-readable or machine-interpretable identifier for the specific situation.
         /// </summary>
+        /// <value>The symbolic name of the code.</value>
         string Name { get; }
 
-        /// <summary>
-        /// Gets an optional numeric value associated with the code (e.g., 404, 200, 1001 for a custom business error).
-        /// This value is context-dependent and should not, at this abstraction level, imply a specific transport protocol (e.g., HTTP).
-        /// </summary>
-        int? Value { get; }
+        /// <summary>Default recommended severity for this code.</summary>
+        /// <value>The default severity level for this code.</value>
+        ErrorSeverity? DefaultSeverity { get; }
+
+        /// <summary>Optional error category for classification.</summary>
+        /// <value>The category of the error, providing additional context for diagnostics.</value>
+        ErrorCategory? Category { get; }
+
+        /// <summary>Human-readable description of the code.</summary>
+        /// <value>The description of the code, providing additional context or explanation.</value>
+        string? Description { get; }
+
+        /// <summary>Extensible metadata for diagnostics, integration, or future use.</summary>
+        /// <value>
+        /// The metadata associated with this code, which can include additional information such as error 
+        /// codes, timestamps, or other relevant details.
+        /// </value>
+        IReadOnlyDictionary<string, object?>? Metadata { get; }
     }
 }
