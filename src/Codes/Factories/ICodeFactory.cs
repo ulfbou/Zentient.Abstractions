@@ -2,7 +2,7 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
-namespace Zentient.Abstractions
+namespace Zentient.Abstractions.Codes.Factories
 {
     /// <summary>
     /// Factory for creating universal ICode instances.
