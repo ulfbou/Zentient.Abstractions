@@ -2,7 +2,7 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
-namespace Zentient.Abstractions
+namespace Zentient.Abstractions.Metadata
 {
     /// <summary>
     /// Factory interface for creating <see cref="IMetadata"/> instances.
