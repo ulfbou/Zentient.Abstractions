@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
+		<TargetFramework>net9.0</TargetFramework>
 
 		<RootNamespace>Zentient.Abstractions</RootNamespace>
 		<IsPackable>true</IsPackable>
@@ -14,10 +14,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="$(SolutionDir)README.md" Pack="true" PackagePath="\"/>
-		<None Include="$(SolutionDir)LICENSE" Pack="true" PackagePath="\"/>
-		<None Include="$(SolutionDir)Zentient.snk" Pack="true" PackagePath="\"/>
-		<None Include="$(SolutionDir)CHANGELOG.md" Pack="true" PackagePath="\"/>
+		<None Include="$(SolutionDir)README.md" Pack="true" PackagePath="\" />
+		<None Include="$(SolutionDir)LICENSE" Pack="true" PackagePath="\" />
+		<None Include="$(SolutionDir)Zentient.snk" Pack="true" PackagePath="\" />
+		<None Include="$(SolutionDir)CHANGELOG.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Serialization\" />
 	</ItemGroup>
 
 </Project>

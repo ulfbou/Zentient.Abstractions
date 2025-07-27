@@ -19,7 +19,7 @@
 		<RepositoryUrl>https://github.com/ulfbou/Zentient.Abstractions.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-		<TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+		<TargetFramework>net9.0</TargetFramework>
 
 		<SignAssembly>false</SignAssembly>
 		<PublicSign>false</PublicSign>
