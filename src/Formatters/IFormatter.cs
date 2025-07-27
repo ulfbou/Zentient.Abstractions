@@ -2,7 +2,7 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
-namespace Zentient.Abstractions
+namespace Zentient.Abstractions.Formatters
 {
     /// <summary>
     /// Transforms a value of type <typeparamref name="TIn"/> into a value of type <typeparamref name="TOut"/>.
