@@ -2,7 +2,7 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
-namespace Zentient.Abstractions
+namespace Zentient.Abstractions.Policies
 {
     /// <summary>
     /// Represents a policy that can be applied to an operation producing a result of type <typeparamref name="T"/>.

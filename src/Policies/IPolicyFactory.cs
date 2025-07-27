@@ -2,7 +2,7 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
-namespace Zentient.Abstractions
+namespace Zentient.Abstractions.Policies
 {
     /// <summary>
     /// Factory for creating common policy instances and combinators for operation execution.
