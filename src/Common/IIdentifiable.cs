@@ -14,9 +14,7 @@ namespace Zentient.Abstractions.Common
     /// </remarks>
     public interface IIdentifiable
     {
-        /// <summary>
-        /// Gets the unique identifier for the entity or definition.
-        /// </summary>
+        /// <summary>Gets the unique identifier for the entity or definition.</summary>
         /// <value>A non-null, non-empty string representing the unique identifier.</value>
         string Id { get; }
     }

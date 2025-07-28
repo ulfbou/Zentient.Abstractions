@@ -14,10 +14,5 @@ namespace Zentient.Abstractions.Common
     /// relation types, and error types.
     /// </remarks>
     public interface ITypeDefinition : IIdentifiable, IHasName, IHasVersion, IHasDescription
-    {
-        static abstract string DefaultId { get; }
-        static abstract string DefaultName { get; }
-        static abstract string DefaultVersion { get; }
-        static abstract string DefaultDescription { get; }
-    }
+    { }
 }
