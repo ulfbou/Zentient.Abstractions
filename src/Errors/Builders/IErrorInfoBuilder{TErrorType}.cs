@@ -2,6 +2,8 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.Metadata;
+
 namespace Zentient.Abstractions.Errors.Builders
 {
     /// <summary>
@@ -48,14 +50,14 @@ namespace Zentient.Abstractions.Errors.Builders
         /// <param name="innerError">The inner error to add. Must not be null.</param>
         /// <returns>The current builder instance.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="innerError"/> is <see langword="null"/>.</exception>
-        IErrorInfoBuilder<TErrorType> WithInnerError(IErrorInfo<IErrorType> innerError);
+        IErrorInfoBuilder<TErrorType> WithInnerError(IErrorInfo<TErrorType> innerError);
 
         /// <summary>
         /// Sets the collection of inner errors, replacing any existing inner errors.
         /// </summary>
         /// <param name="innerErrors">The collection of inner errors. Can be null or empty.</param>
         /// <returns>The current builder instance.</returns>
-        IErrorInfoBuilder<TErrorType> WithInnerErrors(IEnumerable<IErrorInfo<IErrorType>>? innerErrors);
+        IErrorInfoBuilder<TErrorType> WithInnerErrors(IEnumerable<IErrorInfo<TErrorType>>? innerErrors);
 
         /// <summary>
         /// Adds or updates a metadata entry for the error info.

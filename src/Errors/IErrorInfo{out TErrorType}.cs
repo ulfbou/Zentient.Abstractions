@@ -45,6 +45,6 @@ namespace Zentient.Abstractions.Errors
         /// <see cref="IErrorType"/> to prevent excessive generic depth in complex nested error structures,
         /// allowing for simpler handling of compound errors.
         /// </remarks>
-        IReadOnlyCollection<IErrorInfo<IErrorType>> InnerErrors { get; }
+        IReadOnlyCollection<IErrorInfo<TErrorType>> InnerErrors { get; }
     }
 }
