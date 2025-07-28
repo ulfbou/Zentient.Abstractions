@@ -6,7 +6,6 @@ using Zentient.Abstractions.Common;
 
 namespace Zentient.Abstractions.Codes
 {
-
     /// <summary>
     /// Defines a category or type for a specific code.
     /// </summary>
