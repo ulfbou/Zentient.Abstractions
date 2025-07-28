@@ -3,6 +3,7 @@
 // </copyright>
 
 using Zentient.Abstractions.Errors;
+using Zentient.Abstractions.Relations;
 
 namespace Zentient.Abstractions.Endpoints.Relations
 {
@@ -15,6 +16,6 @@ namespace Zentient.Abstractions.Endpoints.Relations
     /// </remarks>
     public interface IEndpointRelationType : IRelationType
     {
-        ErrorSeverity Severity { get; set; }
+        ErrorSeverity Severity { get; }
     }
 }
