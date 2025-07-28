@@ -3,6 +3,7 @@
 // </copyright>
 
 using Zentient.Abstractions.Common;
+using Zentient.Abstractions.Contexts.Builders;
 using Zentient.Abstractions.Metadata;
 
 namespace Zentient.Abstractions.Contexts.Factories

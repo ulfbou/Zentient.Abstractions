@@ -1,9 +1,10 @@
-﻿// <copyright file="IEnvelope.cs" company="Zentient Framework Team">
+﻿// <copyright file="IRootContextFactory.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
 using Zentient.Abstractions.Common;
 using Zentient.Abstractions.Contexts;
+using Zentient.Abstractions.Contexts.Builders;
 using Zentient.Abstractions.Metadata;
 
 namespace Zentient.Abstractions.Contexts.Factories

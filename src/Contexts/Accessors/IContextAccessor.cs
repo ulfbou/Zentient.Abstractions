@@ -1,8 +1,9 @@
-﻿// <copyright file="IEnvelope.cs" company="Zentient Framework Team">
+﻿// <copyright file="IContextAccessor.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
 using Zentient.Abstractions.Common;
+using Zentient.Abstractions.Contexts;
 using Zentient.Abstractions.Diagnostics;
 
 namespace Zentient.Abstractions.Contexts.Accessors

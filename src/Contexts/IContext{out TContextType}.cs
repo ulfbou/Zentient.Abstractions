@@ -3,6 +3,7 @@
 // </copyright>
 
 using Zentient.Abstractions.Common;
+using Zentient.Abstractions.Diagnostics;
 using Zentient.Abstractions.Metadata;
 
 namespace Zentient.Abstractions.Contexts
@@ -15,7 +16,7 @@ namespace Zentient.Abstractions.Contexts
     /// A context encapsulates ambient information relevant to an operation, providing
     /// environmental data, correlation IDs, and hierarchical relationships.
     /// </remarks>
-    public interface IContext<out TContextType> : IHasMetadata, IHasParent<IContext<IContextType>>
+    public interface IContext<out TContextType> : IHasMetadata, IHasParent<IContext<IContextType>>, IHasCorrelationId
         where TContextType : IContextType
     {
         /// <summary>
