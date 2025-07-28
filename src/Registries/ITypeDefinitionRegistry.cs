@@ -39,10 +39,9 @@ namespace Zentient.Abstractions.Registries
         /// Retrieves a <see cref="ITypeDefinition"/> by its unique identifier, throwing an exception if not found.
         /// </summary>
         /// <param name="id">The unique identifier of the type definition to retrieve. Must not be null or empty.</param>
-        /// <returns>The <see cref="ITypeDefinition"/> associated with the specified ID.</returns>
+        /// <returns>The <see cref="ITypeDefinition"/> associated with the specified ID, or <see langword="null"/> if not found.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="id"/> is <see langword="null"/>.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="id"/> is empty or whitespace.</exception>
-        /// <exception cref="KeyNotFoundException">Thrown if the type definition with the specified ID is not found.</exception>
-        ITypeDefinition GetById(string id); // Added for convenience where existence is guaranteed.
+        ITypeDefinition? GetById(string id);
     }
 }
