@@ -58,6 +58,6 @@ namespace Zentient.Abstractions.Metadata
         /// <param name="defaultValue">The value to return if the key is not found or the cast fails.</param>
         /// <returns>The metadata value if found and castable; otherwise, <paramref name="defaultValue"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="key"/> is <see langword="null"/>.</exception>
-        TValue GetValueOrDefault<TValue>(string key, TValue defaultValue = default!);
+        TValue GetValueOrDefault<TValue>(string key, TValue defaultValue = default(TValue)!);
     }
 }

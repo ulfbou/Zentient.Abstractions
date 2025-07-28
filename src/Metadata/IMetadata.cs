@@ -16,27 +16,6 @@ namespace Zentient.Abstractions.Metadata
     public interface IMetadata : IMetadataReader
     {
         /// <summary>
-        /// Gets an empty, immutable instance of <see cref="IMetadata"/>.
-        /// </summary>
-        /// <remarks>
-        /// This static abstract property (requires .NET 9.0+) provides a convenient
-        /// way to access a canonical empty metadata instance directly from the interface type.
-        /// </remarks>
-        static abstract IMetadata Empty { get; }
-
-        /// <summary>
-        /// Creates an immutable <see cref="IMetadata"/> instance from a source dictionary.
-        /// </summary>
-        /// <param name="data">The read-only dictionary containing the metadata. Must not be null.</param>
-        /// <returns>A new, immutable <see cref="IMetadata"/> instance populated with the provided data.</returns>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="data"/> is <see langword="null"/>.</exception>
-        /// <remarks>
-        /// This static abstract method (requires .NET 9.0+) provides a standardized way
-        /// to create metadata instances from existing data structures.
-        /// </remarks>
-        static abstract IMetadata FromDictionary(IReadOnlyDictionary<string, object?> data);
-
-        /// <summary>
         /// Creates a new <see cref="IMetadata"/> instance by adding or updating a key-value pair.
         /// </summary>
         /// <param name="key">The key of the metadata entry. Must not be null or empty.</param>

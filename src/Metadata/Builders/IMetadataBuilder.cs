@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Zentient.Abstractions.Metadata
+namespace Zentient.Abstractions.Metadata.Builders
 {
     /// <summary>
     /// Provides a mutable fluent API for constructing immutable <see cref="IMetadata"/> instances.
