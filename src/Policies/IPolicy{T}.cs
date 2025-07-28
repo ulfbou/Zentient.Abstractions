@@ -8,11 +8,15 @@ namespace Zentient.Abstractions.Policies
     /// Represents a policy that can be applied to an operation producing a result of type <typeparamref name="T"/>.
     /// Supports combinators for building policy pipelines.
     /// </summary>
+    /// <typeparam name="T">The type of the result produced by the operation the policy is applied to.</typeparam>
     public interface IPolicy<T>
     {
         /// <summary>
-        /// Executes the given delegate under the policy’s behavior.
+        /// Executes the given asynchronous operation under the policy’s behavior.
         /// </summary>
+        /// <param name="operation">A delegate representing the asynchronous operation to execute. Accepts a <see cref="CancellationToken"/> and returns a <see cref="Task{T}"/>.</param>
+        /// <param name="cancellationToken">A token to observe while waiting for the operation to complete.</param>
+        /// <returns>A <see cref="Task{T}"/> representing the result of the operation, subject to the policy's behavior.</returns>
         Task<T> Execute(Func<CancellationToken, Task<T>> operation, CancellationToken cancellationToken = default);
 
         /// <summary>
