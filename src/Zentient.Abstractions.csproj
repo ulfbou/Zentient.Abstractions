@@ -20,8 +20,4 @@
 		<None Include="$(SolutionDir)CHANGELOG.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Serialization\" />
-	</ItemGroup>
-
 </Project>
