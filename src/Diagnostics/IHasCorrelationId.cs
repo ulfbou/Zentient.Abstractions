@@ -2,6 +2,11 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.Codes;
+using Zentient.Abstractions.Common;
+using Zentient.Abstractions.Envelopes;
+using Zentient.Abstractions.Errors;
+
 namespace Zentient.Abstractions.Diagnostics
 {
     /// <summary>
