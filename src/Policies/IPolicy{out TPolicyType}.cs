@@ -1,11 +1,11 @@
-// <copyright file="IEnvelope.cs" company="Zentient Framework Team">
+// <copyright file="IPolicy{out TPolicyType}.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
 namespace Zentient.Abstractions.Policies
 {
     /// <summary>
-    /// Represents a policy that can be applied to an operation producing a result of type <typeparamref name="T"/>.
+    /// Represents a policy that can be applied to an operation producing a result of type <typeparamref name="TPolicyType"/>.
     /// Supports combinators for building policy pipelines.
     /// </summary>
     /// <typeparam name="TPolicyType">The type of the result produced by the operation the policy is applied to.</typeparam>
