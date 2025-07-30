@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="IRelationTypeBuilder{out TRelationType}.cs" company="Zentient Framework Team">
+// Copyright © 2025 Zentient Framework Team. All rights reserved.
+// </copyright>
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

@@ -1,9 +1,10 @@
-﻿// <copyright file="IValidator{in TIn, out TOut}.cs" company="Zentient Framework Team">
+﻿// <copyright file="IValidatorFactory.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
 using Zentient.Abstractions.Codes;
 using Zentient.Abstractions.Errors;
+
 namespace Zentient.Abstractions.Validation.Factories
 {
     /// <summary>
