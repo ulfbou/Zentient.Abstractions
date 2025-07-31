@@ -15,11 +15,4 @@ namespace Zentient.Abstractions.Policies
     /// </remarks>
     public interface IPolicyOptionsType : IOptionsType
     { }
-    public interface IPolicyOptionsType<out TValue> : IPolicyOptionsType, IOptionsType<TValue>
-    {
-        /// <summary>
-        /// Gets the type of the value associated with the policy options.
-        /// </summary>
-        Type ValueType { get; }
-    }
 }

@@ -4,7 +4,7 @@
 
 using Zentient.Abstractions.Metadata;
 
-namespace Zentient.Abstractions.Policies
+namespace Zentient.Abstractions.Policies.Builders
 {
     /// <summary>Builder interface for constructing a policy pipeline.</summary>
     /// <typeparam name="TPolicyType">The type of policy in the pipeline, must implement <see cref="IPolicyType"/>.</typeparam>
