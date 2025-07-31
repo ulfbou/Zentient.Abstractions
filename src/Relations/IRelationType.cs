@@ -3,6 +3,7 @@
 // </copyright>
 
 using Zentient.Abstractions.Common;
+using Zentient.Abstractions.Relations.Builders;
 
 namespace Zentient.Abstractions.Relations
 {
@@ -14,5 +15,9 @@ namespace Zentient.Abstractions.Relations
     /// This marker interface allows expressing that certain codes and contexts belong to a common
     /// logical domain or concern, facilitating sophisticated, relationship-aware abstractions.
     /// </remarks>
-    public interface IRelationType : ITypeDefinition { }
+    public interface IRelationType : ITypeDefinition, IHasParent<IRelationType>
+    {
+        /// <summary>Gets the category of the relation associated with this entity.</summary>
+        IRelationCategory? RelationCategory { get; }
+    }
 }
