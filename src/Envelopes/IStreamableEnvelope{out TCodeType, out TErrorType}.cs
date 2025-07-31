@@ -18,4 +18,4 @@ namespace Zentient.Abstractions.Envelopes
         /// <value>The stream.</value>
         Stream Stream { get; }
     }
-}
+ }
