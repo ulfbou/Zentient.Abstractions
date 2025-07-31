@@ -1,7 +1,8 @@
-// <copyright file="IEnvelope.cs" company="Zentient Framework Team">
+// <copyright file="IErrorInfo{out TErrorType}.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.Codes;
 using Zentient.Abstractions.Common;
 using Zentient.Abstractions.Metadata;
 
@@ -19,15 +20,15 @@ namespace Zentient.Abstractions.Errors
     public interface IErrorInfo<out TErrorType> : IHasMetadata
         where TErrorType : IErrorType
     {
-        /// <summary>
-        /// Gets the specific <see cref="IErrorType"/> instance that defines this error.
-        /// </summary>
+        /// <summary>Gets the specific <see cref="IErrorType"/> instance that defines this error.</summary>
         /// <value>The definition of this error, providing its semantic meaning and core characteristics.</value>
         TErrorType ErrorDefinition { get; }
 
-        /// <summary>
-        /// Gets a specific message detailing this particular occurrence of the error.
-        /// </summary>
+        /// <summary>Gets a symbolic code that describes the semantic meaning of this error.</summary>
+        /// <value>The message should provide context and details about the error, suitable for logging or user feedback.</value>
+        ICode<ICodeType> Code { get; }
+
+        /// <summary>Gets a specific message detailing this particular occurrence of the error.</summary>
         /// <value>A human-readable message providing context for this error instance.</value>
         string Message { get; }
 
