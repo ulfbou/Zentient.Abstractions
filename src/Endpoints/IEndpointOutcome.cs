@@ -1,34 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="IEndpointOutcome.cs" company="Zentient Framework Team">
+// Copyright © 2025 Zentient Framework Team. All rights reserved.
+// </copyright>
 
 using Zentient.Abstractions.Codes;
 using Zentient.Abstractions.Common;
-using Zentient.Abstractions.Endpoints.Internal;
 using Zentient.Abstractions.Errors;
-using Zentient.Abstractions.Results;
 using Zentient.Abstractions.Validation;
 
 namespace Zentient.Abstractions.Endpoints
 {
-    /// <summary>
-    /// Represents a canonical, symbolic code that describes the semantic meaning of an endpoint outcome
-    /// to an API consumer, independent of transport-specific numeric codes (e.g., HTTP status codes).
-    /// </summary>
-    /// <remarks>
-    /// This is a specialized <see cref="ICode{IEndpointCodeType}"/>. This ensures strong typing
-    /// and consistency within the Zentient code system.
-    /// </remarks>
-    public interface IEndpointCode : ICode<IEndpointCodeType>
-    { }
-    /// <summary>
-    /// Defines the metadata and semantic type for specific endpoint codes.
-    /// This allows for categorizing and describing different types of endpoint outcomes.
-    /// </summary>
-    public interface IEndpointCodeType : ICodeType
-    { }
     /// <summary>
     /// Represents the outcome of an endpoint operation, bridging the internal business logic
     /// (<see cref="Zentient.Abstractions.Results.IResult"/>) with external API needs,
@@ -128,12 +108,4 @@ namespace Zentient.Abstractions.Endpoints
         IEnumerable<IErrorInfo<IErrorType>> FlattenErrors() =>
             Errors.SelectMany(e => new[] { e }.Concat(e.InnerErrors));
     }
-
-    /// <summary>
-    /// Represents the outcome of an endpoint operation that produces a value,
-    /// encapsulating an internal <see cref="Zentient.Abstractions.Results.IResult{TValue}"/> with endpoint-specific semantics.
-    /// </summary>
-    /// <typeparam name="TValue">The type of the value produced by the operation.</typeparam>
-    public interface IEndpointOutcome<out TValue> : IEndpointOutcome
-    { }
 }
