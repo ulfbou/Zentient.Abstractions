@@ -1,4 +1,4 @@
-﻿// <copyright file="IOptionsType.cs" company="Zentient Framework Team">
+﻿// <copyright file="IOptionsType{out TValue}.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
@@ -18,5 +18,8 @@ namespace Zentient.Abstractions.Options
     /// </summary>
     /// <typeparam name="TValue">The concrete type of the option values (e.g., MyServiceOptions).</typeparam>
     public interface IOptionsType<out TValue> : IOptionsType
-    { }
+    {
+        /// <summary>Gets the type of the value associated with the policy options.</summary>
+        Type ValueType { get; }
+    }
 }
