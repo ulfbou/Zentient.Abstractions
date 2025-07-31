@@ -24,6 +24,6 @@ namespace Zentient.Abstractions.Diagnostics
         /// <summary>
         /// Gets the category of this check (e.g., Health, Performance, Configuration).
         /// </summary>
-        string Category { get; }
+        string DiagnosticsCategory { get; }
     }
 }

@@ -18,14 +18,13 @@ namespace Zentient.Abstractions.Diagnostics
         where TCodeType : ICodeType
         where TErrorType : IErrorType
     {
-        /// <summary>
-        /// Gets the duration of the diagnostic check.
-        /// </summary>
+        /// <summary>Gets the status of the diagnostic check.</summary>
+        DiagnosticStatus Status { get; }
+
+        /// <summary>Gets the duration of the diagnostic check.</summary>
         TimeSpan CheckDuration { get; }
 
-        /// <summary>
-        /// Gets the timestamp when the check completed.
-        /// </summary>
+        /// <summary>Gets the timestamp when the check completed.</summary>
         DateTimeOffset Timestamp { get; }
     }
 }
