@@ -5,7 +5,7 @@
 using Zentient.Abstractions.Contexts;
 using Zentient.Abstractions.Execution.Accessors;
 
-namespace Zentient.Abstractions.Execution
+namespace Zentient.Abstractions.Execution.Factories
 {
     /// <summary>
     /// Factory for creating and activating new <see cref="IExecutionScope"/> instances.
