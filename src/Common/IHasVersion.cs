@@ -4,9 +4,7 @@
 
 namespace Zentient.Abstractions.Common
 {
-    /// <summary>
-    /// Represents an entity or definition that is versioned.
-    /// </summary>
+    /// <summary>Represents an entity or definition that is versioned.</summary>
     /// <remarks>
     /// This interface provides a way to specify the version of an abstraction,
     /// particularly useful for schema evolution, contract management, or compatibility checks.
@@ -14,9 +12,7 @@ namespace Zentient.Abstractions.Common
     /// </remarks>
     public interface IHasVersion
     {
-        /// <summary>
-        /// Gets the version of the entity or definition.
-        /// </summary>
+        /// <summary>Gets the version of the entity or definition.</summary>
         /// <value>A non-null, non-empty string representing the version.</value>
         string Version { get; }
     }

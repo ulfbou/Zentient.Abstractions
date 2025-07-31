@@ -4,9 +4,7 @@
 
 namespace Zentient.Abstractions.Common
 {
-    /// <summary>
-    /// Represents an entity or definition that possesses a human-readable name.
-    /// </summary>
+    /// <summary>Represents an entity or definition that possesses a human-readable name.</summary>
     /// <remarks>
     /// This name is typically a concise label that can be used for logging,
     /// debugging, or simple display purposes, distinguishing it from a potentially
