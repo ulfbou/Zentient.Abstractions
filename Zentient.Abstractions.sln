@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		docs.yml = docs.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "analyzers", "analyzers", "{C6124D39-43F4-4120-9E13-C6B95CD88A3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,5 +45,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{4AC835A0-C002-4D79-A6F1-CF4A0A3D1324} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{FB9E6AC7-6813-408E-AEE4-70B4BA8DFE47} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {414DBF63-2E69-41B9-8039-4B6A7A8F27B3}
 	EndGlobalSection
 EndGlobal
