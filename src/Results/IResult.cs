@@ -1,0 +1,46 @@
+﻿// <copyright file="IResult.cs" company="Zentient Framework Team">
+// Copyright © 2025 Zentient Framework Team. All rights reserved.
+// </copyright>
+
+using Zentient.Abstractions.Errors;
+
+namespace Zentient.Abstractions.Results
+{
+    /// <summary>
+    /// Represents the result of an operation, including success state, messages, and errors.
+    /// </summary>
+    public interface IResult
+    {
+        /// <summary>Gets a value indicating whether the result is successful.</summary>
+        /// <value>
+        /// <see langword="true" /> if the result is successful and contains no errors; otherwise, <see langword="false" />.
+        /// </value>
+        bool IsSuccess
+            => !Errors.Any();
+
+        /// <summary>
+        /// Gets a read-only list of messages associated with the result (success or failure).
+        /// </summary>
+        /// <value>
+        /// A read-only list of informational or diagnostic messages related to the result.
+        /// </value>
+        IReadOnlyList<string> Messages { get; }
+
+        /// <summary>Gets a collection of error messages if the result is not successful.</summary>
+        /// <value>
+        /// A collection of <see cref="IErrorInfo{IErrorType}"/> instances describing
+        /// the errors for this result.
+        /// </value>
+        IEnumerable<IErrorInfo<IErrorType>> Errors { get; }
+
+        /// <summary>
+        /// Gets the message of the first error if the operation failed;
+        /// otherwise, <see langword="null" />
+        /// </summary>
+        /// <value>
+        /// The message of the first error if present; otherwise, <see langword="null" />.
+        /// </value>
+        string? ErrorMessage
+            => Errors.FirstOrDefault()?.Message;
+    }
+}
