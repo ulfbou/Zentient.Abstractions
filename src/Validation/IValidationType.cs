@@ -3,6 +3,7 @@
 // </copyright>
 
 using Zentient.Abstractions.Common;
+using Zentient.Abstractions.Errors;
 
 namespace Zentient.Abstractions.Validation
 {
