@@ -9,14 +9,18 @@ namespace Zentient.Abstractions.Common
     /// <summary>Represents an entity or definition that has a category.</summary>
     public interface IHasCategory
     {
-        /// <summary>Gets the category of the entity or definition.</summary>
-        /// <value>A non-null, non-empty string representing the category.</value>
+        /// <summary>Gets the category name of the entity or definition.</summary>
+        /// <value>A non-null, non-empty string representing the category name.</value>
         string CategoryName { get; }
 
         /// <summary>
-        /// Gets the category that this <see cref="IRelationType"/> belongs to, providing a higher-level classification
-        /// for the relation itself (e.g., a "Login" relation might belong to the "BusinessDomain" category).
+        /// Gets the category object that this entity or definition belongs to,
+        /// providing a higher-level classification.
         /// </summary>
+        /// <value>
+        /// The <see cref="IRelationCategory"/> instance representing the category,
+        /// or <see langword="null" /> if not categorized.
+        /// </value>
         IRelationCategory? Category { get; }
     }
 }
