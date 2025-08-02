@@ -1,8 +1,9 @@
-﻿// <copyright file="IDiagnosticReport.cs" company="Zentient Framework Team">
+﻿// <copyright file="IDiagnosticReport{out TCodeType, out TErrorType}.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
 using Zentient.Abstractions.Codes;
+using Zentient.Abstractions.Common;
 using Zentient.Abstractions.Errors;
 
 namespace Zentient.Abstractions.Diagnostics
@@ -12,7 +13,8 @@ namespace Zentient.Abstractions.Diagnostics
     /// </summary>
     /// <typeparam name="TCodeType">The code type shared by all checks in this report.</typeparam>
     /// <typeparam name="TErrorType">The error type shared by all checks in this report.</typeparam>
-    public interface IDiagnosticReport<out TCodeType, out TErrorType> : IHasCorrelationId
+    public interface IDiagnosticReport<out TCodeType, out TErrorType>
+        : IHasCorrelationId, IHasTimestamp
         where TCodeType : ICodeType
         where TErrorType : IErrorType
     {

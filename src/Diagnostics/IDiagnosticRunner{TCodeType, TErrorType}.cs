@@ -1,4 +1,4 @@
-﻿// <copyright file="IDiagnosticRunner.cs" company="Zentient Framework Team">
+﻿// <copyright file="IDiagnosticRunner{TCodeType, TErrorType}.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 

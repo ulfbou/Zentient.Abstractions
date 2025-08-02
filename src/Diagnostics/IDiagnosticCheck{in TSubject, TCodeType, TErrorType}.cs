@@ -1,4 +1,4 @@
-﻿// <copyright file="IDiagnosticCheck.cs" company="Zentient Framework Team">
+﻿// <copyright file="IDiagnosticCheck{in TSubject, TCodeType, TErrorType}.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
@@ -13,7 +13,7 @@ namespace Zentient.Abstractions.Diagnostics
     /// <typeparam name="TSubject">The type of object or service to diagnose.</typeparam>
     /// <typeparam name="TCodeType">The code type used for result classification.</typeparam>
     /// <typeparam name="TErrorType">The error type used for detailed issue reporting.</typeparam>
-    public interface IDiagnosticCheck<TSubject, TCodeType, TErrorType>
+    public interface IDiagnosticCheck<in TSubject, TCodeType, TErrorType>
         where TCodeType : ICodeType
         where TErrorType : IErrorType
     {
