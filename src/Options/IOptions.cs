@@ -4,24 +4,19 @@
 
 namespace Zentient.Abstractions.Options
 {
-    /// <summary>
-    /// Represents a concrete instance of a set of options, linked to its type definition.
-    /// </summary>
-    /// <typeparam name="TOptionsType">The type of the option definition (e.g., MyServiceOptionsType).</typeparam>
-    /// <typeparam name="TValue">The concrete type of the option values (e.g., MyServiceOptions).</typeparam>
+    /// <summary>Represents a set of options.</summary>
+    /// <typeparam name="TOptionsType">The type definition for these options (e.g., MyServiceOptionsType).</typeparam>
+    /// <typeparam name="TValue">The concrete type of the options values (e.g., MyServiceOptions).</typeparam>
     /// <remarks>
-    /// This allows for strongly-typed access to option values while also providing metadata
-    /// about the option set via its definition.
+    /// This abstraction carries the generic type parameter for the value, not the IOptionsType.
     /// </remarks>
     public interface IOptions<out TOptionsType, out TValue>
-        where TOptionsType : IOptionsType<TValue>
+        where TOptionsType : IOptionsType
     {
-        /// <summary>Gets the type definition for this set of options.</summary>
-        /// <value>The definition of the options type.</value>
+        /// <summary>Gets the type definition for the options.</summary>
         TOptionsType Definition { get; }
 
-        /// <summary>Gets the actual option values.</summary>
-        /// <value>The concrete values of the options.</value>
+        /// <summary>Gets the concrete options value.</summary>
         TValue Value { get; }
     }
 }

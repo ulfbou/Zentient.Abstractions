@@ -6,7 +6,6 @@ using Zentient.Abstractions.Common;
 
 namespace Zentient.Abstractions.Options
 {
-    /// <summary>Represents a type definition for a set of options or configuration values.</summary>
-    public interface IOptionsType : ITypeDefinition
-    { }
+    /// <summary>Represents a type definition for options. This is a non-generic marker interface.</summary>
+    public interface IOptionsType : ITypeDefinition { }
 }

@@ -17,13 +17,13 @@ namespace Zentient.Abstractions.Options.Providers
         /// otherwise, <see langword="null" />.
         /// </returns>
         IOptions<TOptionsType, TValue>? GetOptions<TOptionsType, TValue>()
-            where TOptionsType : IOptionsType<TValue>;
+            where TOptionsType : IOptionsType;
 
         /// <summary>Retrieves an instance of options by its unique identifier.</summary>
         /// <typeparam name="TValue">The concrete type of the option values.</typeparam>
         /// <param name="optionsTypeId">The unique identifier of the options type.</param>
         /// <param name="options">When found, the resulting options instance.</param>
         /// <returns><see langword="true" /> if the options were found; otherwise, <see langword="false" />.</returns>
-        bool TryGetOptions<TValue>(string optionsTypeId, out IOptions<IOptionsType<TValue>, TValue> options);
+        bool TryGetOptions<TValue>(string optionsTypeId, out IOptions<IOptionsType, TValue> options);
     }
 }

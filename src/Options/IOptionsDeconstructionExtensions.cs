@@ -21,7 +21,7 @@ namespace Zentient.Abstractions.Options
             this IOptions<TOptionsType, TValue> options,
             out TOptionsType definition,
             out TValue value)
-            where TOptionsType : IOptionsType<TValue>
+            where TOptionsType : IOptionsType
         {
             ArgumentNullException.ThrowIfNull(options, nameof(options));
             definition = options.Definition;
@@ -38,7 +38,7 @@ namespace Zentient.Abstractions.Options
         public static void Deconstruct<TOptionsType, TValue>(
             this IOptions<TOptionsType, TValue> options,
             out TOptionsType definition)
-            where TOptionsType : IOptionsType<TValue>
+            where TOptionsType : IOptionsType
         {
             ArgumentNullException.ThrowIfNull(options, nameof(options));
             definition = options.Definition;
@@ -54,7 +54,7 @@ namespace Zentient.Abstractions.Options
         public static void Deconstruct<TOptionsType, TValue>(
             this IOptions<TOptionsType, TValue> options,
             out TValue value)
-            where TOptionsType : IOptionsType<TValue>
+            where TOptionsType : IOptionsType
         {
             ArgumentNullException.ThrowIfNull(options, nameof(options));
             value = options.Value;
