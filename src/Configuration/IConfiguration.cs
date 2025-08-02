@@ -1,0 +1,57 @@
+﻿// <copyright file="IConfiguration.cs" company="Zentient Framework Team">
+// Copyright © 2025 Zentient Framework Team. All rights reserved.
+// </copyright>
+
+using System.Diagnostics.CodeAnalysis;
+
+using Zentient.Abstractions.Common;
+using Zentient.Abstractions.Contexts;
+
+namespace Zentient.Abstractions.Configuration
+{
+    /// <summary>
+    /// Represents a read-only, structured view of configuration data loaded into memory.
+    /// </summary>
+    /// <remarks>
+    /// This interface is the primary entry point for a consumer to retrieve strongly-typed
+    /// configuration sections, using an <see cref="IConfigurationSectionType"/> definition.
+    /// It also provides a mechanism for subscribing to configuration changes.
+    /// </remarks>
+    public interface IConfiguration
+    {
+        /// <summary>
+        /// Gets a specific configuration section and binds it to the specified type.
+        /// </summary>
+        /// <typeparam name="TValue">The type to bind the configuration section to.</typeparam>
+        /// <param name="type">The type definition of the configuration section to retrieve.</param>
+        /// <returns>
+        /// An instance of the bound type, or null if the section cannot be found or bound.
+        /// </returns>
+        TValue? GetSection<TValue>(IConfigurationSectionType type);
+
+        /// <summary>
+        /// Gets a specific configuration section and binds it to the specified type,
+        /// using a context.
+        /// </summary>
+        /// <typeparam name="TValue">The type to bind to.</typeparam>
+        /// <typeparam name="TContextType">The type of the context definition.</typeparam>
+        /// <param name="type">The type definition of the configuration section to retrieve.</param>
+        /// <param name="context">The context instance to guide binding behavior.</param>
+        /// <returns>An instance of the bound type or null if binding fails.</returns>
+        TValue? GetSection<TValue, TContextType>(IConfigurationSectionType type, IContext<TContextType> context)
+            where TContextType : IContextType;
+
+        /// <summary>Gets the value associated with the specified configuration key.</summary>
+        /// <param name="key">The configuration key string.</param>
+        /// <returns>The configuration value, or null if the key is not found.</returns>
+        string? this[string key] { get; }
+
+        /// <summary>
+        /// Gets a token that can be used to listen for changes to this configuration.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="IChangeToken"/> that can be used to subscribe to change notifications.
+        /// </returns>
+        IChangeToken GetReloadToken();
+    }
+}
