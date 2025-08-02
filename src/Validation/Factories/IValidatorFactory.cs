@@ -7,33 +7,44 @@ using Zentient.Abstractions.Errors;
 
 namespace Zentient.Abstractions.Validation.Factories
 {
-    /// <summary>
-    /// Resolves or creates validators by type, input type, or identifier.
-    /// Mirrors IFormatterFactory / IOptionsProvider patterns.
-    /// </summary>
+    /// <summary>Provides methods for creating instances of validators.</summary>
     public interface IValidatorFactory
     {
-        /// <summary>
-        /// Create a validator instance for the given validation definition.
-        /// </summary>
-        IValidator<TIn, TCodeType, TErrorType> Create<TIn, TCodeType, TErrorType>(
-            IValidationType definition)
-            where TCodeType : ICodeType
-            where TErrorType : IErrorType;
+        /// <summary>Creates a validator for a given validation type definition.</summary>
+        /// <typeparam name="TIn">The type of the input the validator will process.</typeparam>
+        /// <typeparam name="TCodeType">The type of the code for the validation result.</typeparam>
+        /// <typeparam name="TErrorType">
+        /// The type of the error for the validation result.
+        /// </typeparam>
+        /// <param name="definition">The type definition of the validator to create.</param>
+        /// <returns>A new instance of a validator.</returns>
+        IValidator<TIn, TCodeType, TErrorType> Create<TIn, TCodeType, TErrorType>(IValidationType definition)
+            where TCodeType : IValidationCodeType
+            where TErrorType : IValidationErrorType;
 
         /// <summary>
-        /// Auto-resolve the best-matching validator for inputs of type TIn.
+        /// Creates a validator by inferring its type from the generic parameters.
         /// </summary>
+        /// <typeparam name="TIn">The type of the input the validator will process.</typeparam>
+        /// <typeparam name="TCodeType">The type of the code for the validation result.</typeparam>
+        /// <typeparam name="TErrorType">
+        /// The type of the error for the validation result.
+        /// </typeparam>
+        /// <returns>A new instance of a validator.</returns>
         IValidator<TIn, TCodeType, TErrorType> Create<TIn, TCodeType, TErrorType>()
-            where TCodeType : ICodeType
-            where TErrorType : IErrorType;
+            where TCodeType : IValidationCodeType
+            where TErrorType : IValidationErrorType;
 
-        /// <summary>
-        /// Create a validator by its well-known string identifier.
-        /// </summary>
+        /// <summary>Creates a validator based on its unique identifier.</summary>
+        /// <typeparam name="TIn">The type of the input the validator will process.</typeparam>
+        /// <typeparam name="TCodeType">The type of the code for the validation result.</typeparam>
+        /// <typeparam name="TErrorType">The type of the error for the validation result.
+        /// </typeparam>
+        /// <param name="validatorTypeId">The unique identifier of the validator type.</param>
+        /// <returns>A new instance of a validator.</returns>
         IValidator<TIn, TCodeType, TErrorType> Create<TIn, TCodeType, TErrorType>(
             string validatorTypeId)
-            where TCodeType : ICodeType
-            where TErrorType : IErrorType;
+            where TCodeType : IValidationCodeType
+            where TErrorType : IValidationErrorType;
     }
 }

@@ -1,4 +1,4 @@
-﻿// <copyright file="IValidator{in TIn, out TOut}.cs" company="Zentient Framework Team">
+﻿// <copyright file="IValidatorType.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
@@ -7,10 +7,10 @@ using Zentient.Abstractions.Errors;
 
 namespace Zentient.Abstractions.Validation
 {
-    /// <summary>
-    /// Defines the metadata for a validation strategy: its unique identifier, version,
-    /// description and any other introspection details.
-    /// </summary>
-    public interface IValidationType : ITypeDefinition
-    { }
+    /// <summary>Represents a type definition for a validator.</summary>
+    /// <remarks>
+    /// This interface is used to uniquely identify and describe a specific validator.
+    /// It is a first-class entity in the Zentient type system.
+    /// </remarks>
+    public interface IValidationType : ITypeDefinition { }
 }

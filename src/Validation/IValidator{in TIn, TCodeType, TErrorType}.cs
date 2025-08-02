@@ -16,38 +16,38 @@ using Zentient.Abstractions.Errors;
 
 namespace Zentient.Abstractions.Validation
 {
-    /// <summary>
-    /// Core abstraction for validating inputs of type <typeparamref name="TIn"/>,
-    /// yielding a standard envelope result whose Value is true when valid.
-    /// </summary>
-    /// <typeparam name="TIn">The type to validate.</typeparam>
+    /// <summary>Represents a validator for a specific input type.</summary>
+    /// <typeparam name="TIn">The type of the input to validate.</typeparam>
     /// <typeparam name="TCodeType">
-    /// Semantic code categorizing success/failure (e.g. Success, InvalidInput,
-    /// BusinessRuleViolation).
+    /// The type of the code associated with the validation result.
     /// </typeparam>
-    /// <typeparam name="TErrorType">Enumerates detailed validation errors.</typeparam>
-    public interface IValidator<in TIn, TCodeType, TErrorType>
-        where TCodeType : ICodeType
-        where TErrorType : IErrorType
+    /// <typeparam name="TErrorType">
+    /// The type of the error associated with the validation result.
+    /// </typeparam>
+    /// <remarks>
+    /// The validator's primary method, Validate, returns a specialized IEnvelope to
+    /// ensure a consistent result model across the entire framework.
+    /// </remarks>
+    public interface IValidator<TIn, TCodeType, TErrorType>
+        where TCodeType : IValidationCodeType
+        where TErrorType : IValidationErrorType
     {
-        /// <summary>Descriptor for this validator (identifier, version, docs).</summary>
+        /// <summary>Gets the type definition for this validator.</summary>
         IValidationType Type { get; }
 
-        /// <summary>Performs validation asynchronously.</summary>
-        /// <param name="input">Input to validate.</param>
-        /// <param name="context">
-        /// Optional context for metadata, localization, correlation, etc.
+        /// <summary>Asynchronously validates the specified input.</summary>
+        /// <param name="input">The object to validate.</param>
+        /// <param name="metadata">
+        /// An optional set of metadata and options for the validation.
         /// </param>
-        /// <param name="cancellationToken">Token to cancel validation early.</param>
+        /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
         /// <returns>
-        /// Envelope containing:
-        ///   – <typeparamref name="TCodeType"/> code  
-        ///   – zero or more <typeparamref name="TErrorType"/> entries  
-        ///   – <c>bool</c> indicating overall validity  
+        /// A task that represents the asynchronous validation operation. The task's result is an
+        /// IEnvelope containing the validated input, a validation code, and any errors.
         /// </returns>
-        Task<IEnvelope<TCodeType, TErrorType, bool>> Validate(
+        Task<IEnvelope<TCodeType, TErrorType, TIn>> Validate(
             TIn input,
-            IValidationContext? context = default,
+            IValidationMetadata? metadata = default,
             CancellationToken cancellationToken = default);
     }
 }

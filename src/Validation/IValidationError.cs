@@ -1,4 +1,4 @@
-﻿// <copyright file="IValidator{in TIn, out TOut}.cs" company="Zentient Framework Team">
+﻿// <copyright file="IValidatorError.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
@@ -6,17 +6,16 @@ using Zentient.Abstractions.Errors;
 
 namespace Zentient.Abstractions.Validation
 {
-    /// <summary>
-    /// Represents a validation error that is specific to a validation type.
-    /// </summary>
-    public interface IValidationError : IErrorInfo<IValidationErrorType>
+    /// <summary>Represents a validation error.</summary>
+    /// <typeparam name="TErrorType">The specific type of the validation error.</typeparam>
+    /// <remarks>
+    /// This abstraction composes from IErrorInfo, providing a rich, consistent way to represent
+    /// validation failures with metadata, messages, and a reference to the validator's type.
+    /// </remarks>
+    public interface IValidationError<out TErrorType> : IErrorInfo<TErrorType>
+        where TErrorType : IValidationErrorType
     {
-        /// <summary>
-        /// Gets the validation type associated with this error.
-        /// </summary>
-        /// <value>
-        /// The <see cref="IValidationType"/> that defines the validation strategy for this error instance.
-        /// </value>
+        /// <summary>Gets the definition of the validation type that generated this error.</summary>
         IValidationType ValidationType { get; }
     }
 }
