@@ -15,12 +15,8 @@ namespace Zentient.Abstractions.Observability
     /// <summary>
     /// Represents a structured log record with core properties and extensible metadata.
     /// </summary>
-    public interface ILogEntry : IHasMetadata
+    public interface ILogEntry : IHasMetadata, IHasTimestamp
     {
-        /// <summary>The UTC timestamp when the log event occurred.</summary>
-        /// <value>The timestamp of the log event.</value>
-        DateTimeOffset Timestamp { get; }
-
         /// <summary>The severity level of the log event.</summary>
         /// <value>The log level indicating the severity of the event.</value>
         LogLevel Level { get; }
