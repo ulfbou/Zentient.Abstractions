@@ -2,6 +2,8 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using System;
+
 namespace Zentient.Abstractions.Configuration
 {
     /// <summary>Represents a registration to a change notification source.</summary>
@@ -11,9 +13,11 @@ namespace Zentient.Abstractions.Configuration
         /// Indicates if this token will proactively raise callbacks.
         /// If <see langword="false" />, the token will never fire.
         /// </summary>
+        /// If <see langword="false" />, the token will never fire.
         bool ActiveChangeCallbacks { get; }
 
         /// <summary>Gets a value that indicates if a change has occurred.</summary>
+        /// <value><see langword="true" /> if a change has occurred; otherwise, <see langword="false" />.</value>
         bool HasChanged { get; }
 
         /// <summary>

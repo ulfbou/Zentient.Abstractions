@@ -2,7 +2,7 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
-namespace Zentient.Abstractions.Configuration
+namespace Zentient.Abstractions.Configuration.Providers
 {
     /// <summary>Provides configuration values from a specific source.</summary>
     /// <remarks>

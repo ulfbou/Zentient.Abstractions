@@ -4,7 +4,11 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace Zentient.Abstractions.Configuration
+using Zentient.Abstractions.Configuration.Definitions;
+using Zentient.Abstractions.Configuration.Providers;
+using Zentient.Abstractions.Metadata;
+
+namespace Zentient.Abstractions.Configuration.Sources
 {
     /// <summary>Represents an abstraction for a source of raw configuration data.</summary>
     /// <remarks>
@@ -16,9 +20,10 @@ namespace Zentient.Abstractions.Configuration
     /// The specific type definition for this configuration source.
     /// </typeparam>
     public interface IConfigurationSource<out TConfigurationSourceType>
-        where TConfigurationSourceType : IConfigurationSourceType
+        : IConfigurationSource
+        where TConfigurationSourceType : IConfigurationSourceDefinition
     {
         /// <summary>Gets the type definition for this configuration source.</summary>
-        TConfigurationSourceType Type { get; }
+        TConfigurationSourceType SourceType { get; }
     }
 }

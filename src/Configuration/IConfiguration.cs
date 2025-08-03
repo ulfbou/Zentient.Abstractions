@@ -3,9 +3,12 @@
 // </copyright>
 
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Intrinsics.X86;
 
 using Zentient.Abstractions.Common;
+using Zentient.Abstractions.Configuration.Definitions;
 using Zentient.Abstractions.Contexts;
+using Zentient.Abstractions.Contexts.Definitions;
 
 namespace Zentient.Abstractions.Configuration
 {
@@ -14,7 +17,7 @@ namespace Zentient.Abstractions.Configuration
     /// </summary>
     /// <remarks>
     /// This interface is the primary entry point for a consumer to retrieve strongly-typed
-    /// configuration sections, using an <see cref="IConfigurationSectionType"/> definition.
+    /// configuration sections, using an <see cref="IConfigurationSectionDefinition"/> definition.
     /// It also provides a mechanism for subscribing to configuration changes.
     /// </remarks>
     public interface IConfiguration
@@ -27,7 +30,7 @@ namespace Zentient.Abstractions.Configuration
         /// <returns>
         /// An instance of the bound type, or null if the section cannot be found or bound.
         /// </returns>
-        TValue? GetSection<TValue>(IConfigurationSectionType type);
+        TValue? GetSection<TValue>(IConfigurationSectionDefinition type);
 
         /// <summary>
         /// Gets a specific configuration section and binds it to the specified type,
@@ -38,20 +41,20 @@ namespace Zentient.Abstractions.Configuration
         /// <param name="type">The type definition of the configuration section to retrieve.</param>
         /// <param name="context">The context instance to guide binding behavior.</param>
         /// <returns>An instance of the bound type or null if binding fails.</returns>
-        TValue? GetSection<TValue, TContextType>(IConfigurationSectionType type, IContext<TContextType> context)
-            where TContextType : IContextType;
+        TValue? GetSection<TValue, TContextType>(IConfigurationSectionDefinition type, IContext<TContextType> context)
+            where TContextType : IContextDefinition;
 
         /// <summary>Gets the value associated with the specified configuration key.</summary>
         /// <param name="key">The configuration key string.</param>
-        /// <returns>The configuration value, or null if the key is not found.</returns>
+        /// <returns>
+        /// The configuration value, or<see langword = "null" /> if the key does not exist.
+        /// </returns>
         string? this[string key] { get; }
 
         /// <summary>
         /// Gets a token that can be used to listen for changes to this configuration.
         /// </summary>
-        /// <returns>
-        /// An <see cref="IChangeToken"/> that can be used to subscribe to change notifications.
-        /// </returns>
-        IChangeToken GetReloadToken();
+        /// <returns>A change token that can be used to subscribe to change notifications.</returns>
+        Zentient.Abstractions.Configuration.IChangeToken GetReloadToken();
     }
 }
