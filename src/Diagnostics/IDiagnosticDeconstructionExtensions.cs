@@ -12,30 +12,30 @@ using Zentient.Abstractions.Errors.Definitions;
 namespace Zentient.Abstractions.Diagnostics
 {
     /// <summary>
-    /// Provides extension methods for deconstructing <see cref="IDiagnosticResult{TCodeType, TErrorType}" /> and related types.
+    /// Provides extension methods for deconstructing <see cref="IDiagnosticResult{TCodeDefinition, TErrorDefinition}" /> and related types.
     /// </summary>
     public static class IDiagnosticDeconstructionExtensions
     {
         /// <summary>
-        /// Deconstructs an <see cref="IDiagnosticResult{TCodeType, TErrorType}"/> into its full components.
+        /// Deconstructs an <see cref="IDiagnosticResult{TCodeDefinition, TErrorDefinition}"/> into its full components.
         /// </summary>
-        /// <typeparam name="TCodeType">The specific type of the code definition for the diagnostic result.</typeparam>
-        /// <typeparam name="TErrorType">The specific type of the error definition for the diagnostic result.</typeparam>
+        /// <typeparam name="TCodeDefinition">The specific type of the code definition for the diagnostic result.</typeparam>
+        /// <typeparam name="TErrorDefinition">The specific type of the error definition for the diagnostic result.</typeparam>
         /// <param name="diagnosticResult">The diagnostic result instance to deconstruct.</param>
         /// <param name="code">The result code of the diagnostic check.</param>
         /// <param name="errors">The collection of errors detected by the diagnostic check.</param>
         /// <param name="status">The status of the diagnostic check.</param>
         /// <param name="checkDuration">The duration of the diagnostic check.</param>
         /// <param name="timestamp">The timestamp when the check completed.</param>
-        public static void Deconstruct<TCodeType, TErrorType>(
-            this IDiagnosticResult<TCodeType, TErrorType> diagnosticResult,
-            out ICode<TCodeType> code,
-            out IReadOnlyCollection<IErrorInfo<TErrorType>> errors,
+        public static void Deconstruct<TCodeDefinition, TErrorDefinition>(
+            this IDiagnosticResult<TCodeDefinition, TErrorDefinition> diagnosticResult,
+            out ICode<TCodeDefinition> code,
+            out IReadOnlyCollection<IErrorInfo<TErrorDefinition>> errors,
             out DiagnosticStatus status,
             out TimeSpan checkDuration,
             out DateTimeOffset timestamp)
-            where TCodeType : ICodeDefinition
-            where TErrorType : IErrorDefinition
+            where TCodeDefinition : ICodeDefinition
+            where TErrorDefinition : IErrorDefinition
         {
             ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
             code = diagnosticResult.Code;
@@ -46,36 +46,36 @@ namespace Zentient.Abstractions.Diagnostics
         }
 
         /// <summary>
-        /// Deconstructs an <see cref="IDiagnosticResult{TCodeType, TErrorType}"/> into its status (quick check subset).
+        /// Deconstructs an <see cref="IDiagnosticResult{TCodeDefinition, TErrorDefinition}"/> into its status (quick check subset).
         /// </summary>
-        /// <typeparam name="TCodeType">The specific type of the code definition for the diagnostic result.</typeparam>
-        /// <typeparam name="TErrorType">The specific type of the error definition for the diagnostic result.</typeparam>
+        /// <typeparam name="TCodeDefinition">The specific type of the code definition for the diagnostic result.</typeparam>
+        /// <typeparam name="TErrorDefinition">The specific type of the error definition for the diagnostic result.</typeparam>
         /// <param name="diagnosticResult">The diagnostic result instance to deconstruct.</param>
         /// <param name="status">The status of the diagnostic check.</param>
-        public static void Deconstruct<TCodeType, TErrorType>(
-            this IDiagnosticResult<TCodeType, TErrorType> diagnosticResult,
+        public static void Deconstruct<TCodeDefinition, TErrorDefinition>(
+            this IDiagnosticResult<TCodeDefinition, TErrorDefinition> diagnosticResult,
             out DiagnosticStatus status)
-            where TCodeType : ICodeDefinition
-            where TErrorType : IErrorDefinition
+            where TCodeDefinition : ICodeDefinition
+            where TErrorDefinition : IErrorDefinition
         {
             ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
             status = diagnosticResult.Status;
         }
 
         /// <summary>
-        /// Deconstructs an <see cref="IDiagnosticResult{TCodeType, TErrorType}"/> into its status and errors.
+        /// Deconstructs an <see cref="IDiagnosticResult{TCodeDefinition, TErrorDefinition}"/> into its status and errors.
         /// </summary>
-        /// <typeparam name="TCodeType">The specific type of the code definition for the diagnostic result.</typeparam>
-        /// <typeparam name="TErrorType">The specific type of the error definition for the diagnostic result.</typeparam>
+        /// <typeparam name="TCodeDefinition">The specific type of the code definition for the diagnostic result.</typeparam>
+        /// <typeparam name="TErrorDefinition">The specific type of the error definition for the diagnostic result.</typeparam>
         /// <param name="diagnosticResult">The diagnostic result instance to deconstruct.</param>
         /// <param name="status">The status of the diagnostic check.</param>
         /// <param name="errors">The collection of errors detected by the diagnostic check.</param>
-        public static void Deconstruct<TCodeType, TErrorType>(
-            this IDiagnosticResult<TCodeType, TErrorType> diagnosticResult,
+        public static void Deconstruct<TCodeDefinition, TErrorDefinition>(
+            this IDiagnosticResult<TCodeDefinition, TErrorDefinition> diagnosticResult,
             out DiagnosticStatus status,
-            out IReadOnlyCollection<IErrorInfo<TErrorType>> errors)
-            where TCodeType : ICodeDefinition
-            where TErrorType : IErrorDefinition
+            out IReadOnlyCollection<IErrorInfo<TErrorDefinition>> errors)
+            where TCodeDefinition : ICodeDefinition
+            where TErrorDefinition : IErrorDefinition
         {
             ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
             status = diagnosticResult.Status;
@@ -83,19 +83,19 @@ namespace Zentient.Abstractions.Diagnostics
         }
 
         /// <summary>
-        /// Deconstructs an <see cref="IDiagnosticResult{TCodeType, TErrorType}"/> into its status and check duration (performance subset).
+        /// Deconstructs an <see cref="IDiagnosticResult{TCodeDefinition, TErrorDefinition}"/> into its status and check duration (performance subset).
         /// </summary>
-        /// <typeparam name="TCodeType">The specific type of the code definition for the diagnostic result.</typeparam>
-        /// <typeparam name="TErrorType">The specific type of the error definition for the diagnostic result.</typeparam>
+        /// <typeparam name="TCodeDefinition">The specific type of the code definition for the diagnostic result.</typeparam>
+        /// <typeparam name="TErrorDefinition">The specific type of the error definition for the diagnostic result.</typeparam>
         /// <param name="diagnosticResult">The diagnostic result instance to deconstruct.</param>
         /// <param name="status">The status of the diagnostic check.</param>
         /// <param name="checkDuration">The duration of the diagnostic check.</param>
-        public static void Deconstruct<TCodeType, TErrorType>(
-            this IDiagnosticResult<TCodeType, TErrorType> diagnosticResult,
+        public static void Deconstruct<TCodeDefinition, TErrorDefinition>(
+            this IDiagnosticResult<TCodeDefinition, TErrorDefinition> diagnosticResult,
             out DiagnosticStatus status,
             out TimeSpan checkDuration)
-            where TCodeType : ICodeDefinition
-            where TErrorType : IErrorDefinition
+            where TCodeDefinition : ICodeDefinition
+            where TErrorDefinition : IErrorDefinition
         {
             ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
             status = diagnosticResult.Status;
@@ -103,19 +103,19 @@ namespace Zentient.Abstractions.Diagnostics
         }
 
         /// <summary>
-        /// Deconstructs an <see cref="IDiagnosticResult{TCodeType, TErrorType}"/> into its code and status.
+        /// Deconstructs an <see cref="IDiagnosticResult{TCodeDefinition, TErrorDefinition}"/> into its code and status.
         /// </summary>
-        /// <typeparam name="TCodeType">The specific type of the code definition for the diagnostic result.</typeparam>
-        /// <typeparam name="TErrorType">The specific type of the error definition for the diagnostic result.</typeparam>
+        /// <typeparam name="TCodeDefinition">The specific type of the code definition for the diagnostic result.</typeparam>
+        /// <typeparam name="TErrorDefinition">The specific type of the error definition for the diagnostic result.</typeparam>
         /// <param name="diagnosticResult">The diagnostic result instance to deconstruct.</param>
         /// <param name="code">The result code of the diagnostic check.</param>
         /// <param name="status">The status of the diagnostic check.</param>
-        public static void Deconstruct<TCodeType, TErrorType>(
-            this IDiagnosticResult<TCodeType, TErrorType> diagnosticResult,
-            out ICode<TCodeType> code,
+        public static void Deconstruct<TCodeDefinition, TErrorDefinition>(
+            this IDiagnosticResult<TCodeDefinition, TErrorDefinition> diagnosticResult,
+            out ICode<TCodeDefinition> code,
             out DiagnosticStatus status)
-            where TCodeType : ICodeDefinition
-            where TErrorType : IErrorDefinition
+            where TCodeDefinition : ICodeDefinition
+            where TErrorDefinition : IErrorDefinition
         {
             ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
             code = diagnosticResult.Code;
@@ -123,21 +123,21 @@ namespace Zentient.Abstractions.Diagnostics
         }
 
         /// <summary>
-        /// Deconstructs an <see cref="IDiagnosticResult{TCodeType, TErrorType}"/> into its code, errors, and status.
+        /// Deconstructs an <see cref="IDiagnosticResult{TCodeDefinition, TErrorDefinition}"/> into its code, errors, and status.
         /// </summary>
-        /// <typeparam name="TCodeType">The specific type of the code definition for the diagnostic result.</typeparam>
-        /// <typeparam name="TErrorType">The specific type of the error definition for the diagnostic result.</typeparam>
+        /// <typeparam name="TCodeDefinition">The specific type of the code definition for the diagnostic result.</typeparam>
+        /// <typeparam name="TErrorDefinition">The specific type of the error definition for the diagnostic result.</typeparam>
         /// <param name="diagnosticResult">The diagnostic result instance to deconstruct.</param>
         /// <param name="code">The result code of the diagnostic check.</param>
         /// <param name="errors">The collection of errors detected by the diagnostic check.</param>
         /// <param name="status">The status of the diagnostic check.</param>
-        public static void Deconstruct<TCodeType, TErrorType>(
-            this IDiagnosticResult<TCodeType, TErrorType> diagnosticResult,
-            out ICode<TCodeType> code,
-            out IReadOnlyCollection<IErrorInfo<TErrorType>> errors,
+        public static void Deconstruct<TCodeDefinition, TErrorDefinition>(
+            this IDiagnosticResult<TCodeDefinition, TErrorDefinition> diagnosticResult,
+            out ICode<TCodeDefinition> code,
+            out IReadOnlyCollection<IErrorInfo<TErrorDefinition>> errors,
             out DiagnosticStatus status)
-            where TCodeType : ICodeDefinition
-            where TErrorType : IErrorDefinition
+            where TCodeDefinition : ICodeDefinition
+            where TErrorDefinition : IErrorDefinition
         {
             ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
             code = diagnosticResult.Code;
@@ -146,23 +146,23 @@ namespace Zentient.Abstractions.Diagnostics
         }
 
         /// <summary>
-        /// Deconstructs an <see cref="IDiagnosticResult{TCodeType, TErrorType}"/> into its code, errors, status, and check duration.
+        /// Deconstructs an <see cref="IDiagnosticResult{TCodeDefinition, TErrorDefinition}"/> into its code, errors, status, and check duration.
         /// </summary>
-        /// <typeparam name="TCodeType">The specific type of the code definition for the diagnostic result.</typeparam>
-        /// <typeparam name="TErrorType">The specific type of the error definition for the diagnostic result.</typeparam>
+        /// <typeparam name="TCodeDefinition">The specific type of the code definition for the diagnostic result.</typeparam>
+        /// <typeparam name="TErrorDefinition">The specific type of the error definition for the diagnostic result.</typeparam>
         /// <param name="diagnosticResult">The diagnostic result instance to deconstruct.</param>
         /// <param name="code">The result code of the diagnostic check.</param>
         /// <param name="errors">The collection of errors detected by the diagnostic check.</param>
         /// <param name="status">The status of the diagnostic check.</param>
         /// <param name="checkDuration">The duration of the diagnostic check.</param>
-        public static void Deconstruct<TCodeType, TErrorType>(
-            this IDiagnosticResult<TCodeType, TErrorType> diagnosticResult,
-            out ICode<TCodeType> code,
-            out IReadOnlyCollection<IErrorInfo<TErrorType>> errors,
+        public static void Deconstruct<TCodeDefinition, TErrorDefinition>(
+            this IDiagnosticResult<TCodeDefinition, TErrorDefinition> diagnosticResult,
+            out ICode<TCodeDefinition> code,
+            out IReadOnlyCollection<IErrorInfo<TErrorDefinition>> errors,
             out DiagnosticStatus status,
             out TimeSpan checkDuration)
-            where TCodeType : ICodeDefinition
-            where TErrorType : IErrorDefinition
+            where TCodeDefinition : ICodeDefinition
+            where TErrorDefinition : IErrorDefinition
         {
             ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
             code = diagnosticResult.Code;

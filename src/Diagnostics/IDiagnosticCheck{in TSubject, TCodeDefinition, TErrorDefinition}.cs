@@ -1,4 +1,4 @@
-﻿// <copyright file="IDiagnosticCheck{in TSubject, TCodeType, TErrorType}.cs" company="Zentient Framework Team">
+﻿// <copyright file="IDiagnosticCheck{in TSubject, TCodeDefinition, TErrorDefinition}.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
@@ -34,7 +34,7 @@ namespace Zentient.Abstractions.Diagnostics
         /// </param>
         /// <param name="cancellationToken">A token to cancel the check early.</param>
         /// <returns>
-        /// A task that resolves to an <see cref="IDiagnosticResult{TCodeType,TErrorType}"/>.
+        /// A task that resolves to an <see cref="IDiagnosticResult{TCodeDefinition,TErrorDefinition}"/>.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="subject"/> is null.

@@ -1,4 +1,4 @@
-﻿// <copyright file="IDiagnosticResult{out TCodeType, out TErrorType}.cs" company="Zentient Framework Team">
+﻿// <copyright file="IDiagnosticResult{out TCodeDefinition, out TErrorDefinition}.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
@@ -14,12 +14,12 @@ namespace Zentient.Abstractions.Diagnostics
     /// <summary>
     /// Represents the outcome of a single diagnostic check, including status, timing, and details.
     /// </summary>
-    /// <typeparam name="TCodeType">The code type categorizing the check result.</typeparam>
-    /// <typeparam name="TErrorType">The error information type for any detected issues.</typeparam>
-    public interface IDiagnosticResult<out TCodeType, out TErrorType>
-        : IEnvelope<TCodeType, TErrorType, DiagnosticStatus>, IHasTimestamp
-        where TCodeType : ICodeDefinition
-        where TErrorType : IErrorDefinition
+    /// <typeparam name="TCodeDefinition">The code type categorizing the check result.</typeparam>
+    /// <typeparam name="TErrorDefinition">The error information type for any detected issues.</typeparam>
+    public interface IDiagnosticResult<out TCodeDefinition, out TErrorDefinition>
+        : IEnvelope<TCodeDefinition, TErrorDefinition, DiagnosticStatus>, IHasTimestamp
+        where TCodeDefinition : ICodeDefinition
+        where TErrorDefinition : IErrorDefinition
     {
         /// <summary>Gets the status of the diagnostic check.</summary>
         DiagnosticStatus Status { get; }
