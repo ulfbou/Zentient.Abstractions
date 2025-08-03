@@ -7,24 +7,16 @@ using Zentient.Abstractions.Metadata;
 
 namespace Zentient.Abstractions.DependencyInjection
 {
-    /// <summary>
-    /// Describes a registered service in the dependency injection container.
-    /// </summary>
+    /// <summary>Describes a registered service in the dependency injection container.</summary>
     public interface IServiceDescriptor
     {
-        /// <summary>
-        /// Gets the type-safe definition for the service.
-        /// </summary>
+        /// <summary>Gets the type-safe definition for the service.</summary>
         IServiceDefinition Definition { get; }
 
-        /// <summary>
-        /// Gets the CLR type of the contract being registered.
-        /// </summary>
+        /// <summary>Gets the CLR type of the contract being registered.</summary>
         Type ServiceContract { get; }
 
-        /// <summary>
-        /// Gets the lifetime of the registered service.
-        /// </summary>
+        /// <summary>Gets the lifetime of the registered service.</summary>
         ServiceLifetime Lifetime { get; }
 
         /// <summary>
@@ -32,9 +24,7 @@ namespace Zentient.Abstractions.DependencyInjection
         /// </summary>
         Func<IServiceResolver, Task<object>> Factory { get; }
 
-        /// <summary>
-        /// Gets metadata associated with this service registration.
-        /// </summary>
+        /// <summary>Gets metadata associated with this service registration.</summary>
         IMetadata Metadata { get; }
     }
 }

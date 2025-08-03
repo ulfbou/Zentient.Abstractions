@@ -13,6 +13,6 @@ namespace Zentient.Abstractions.DependencyInjection.Definitions
     /// <remarks>
     /// The 'Definition' suffix is used to avoid ambiguity with the CLR type 'ServiceType'.
     /// </remarks>
-    public interface IServiceDefinition : ITypeDefinition
+    public interface IServiceDefinition : ITypeDefinition 
     { }
 }
