@@ -4,6 +4,7 @@
 
 using Zentient.Abstractions.Common;
 using Zentient.Abstractions.Execution;
+using Zentient.Abstractions.Validation.Definitions;
 
 namespace Zentient.Abstractions.Validation
 {
@@ -20,7 +21,7 @@ namespace Zentient.Abstractions.Validation
         /// <summary>
         /// Gets the type definition of the primary validator associated with this context.
         /// </summary>
-        IValidationType ValidatorType { get; }
+        IValidationDefinition ValidatorType { get; }
 
         /// <summary>Gets the input object currently being validated.</summary>
         object? Input { get; }

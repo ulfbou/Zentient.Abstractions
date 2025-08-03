@@ -4,6 +4,8 @@
 
 using System.Diagnostics.CodeAnalysis;
 
+using Zentient.Abstractions.Validation.Definitions;
+
 namespace Zentient.Abstractions.Validation.Registry
 {
     /// <summary>
@@ -14,7 +16,7 @@ namespace Zentient.Abstractions.Validation.Registry
         /// <summary>
         /// Attempts to retrieve a validator type definition by its unique identifier.
         /// </summary>
-        /// <typeparam name="TValidationType">
+        /// <typeparam name="TValidationDefinition">
         /// The specific type of the validation definition.
         /// </typeparam>
         /// <param name="validatorTypeId">The unique identifier of the validator type.</param>
@@ -26,14 +28,14 @@ namespace Zentient.Abstractions.Validation.Registry
         /// <see langword="true"/> if the validator type definition was found;
         /// otherwise, <see langword="false"/>.
         /// </returns>
-        bool TryGet<TValidationType>(
+        bool TryGet<TValidationDefinition>(
         string validatorTypeId,
-        [MaybeNullWhen(false)] out TValidationType? definition)
-            where TValidationType : IValidationType;
+        [MaybeNullWhen(false)] out TValidationDefinition? definition)
+            where TValidationDefinition : IValidationDefinition;
 
         /// <summary>
         /// Gets a read-only collection of all registered validator type definitions.
         /// </summary>
-        IReadOnlyCollection<IValidationType> AllDefinitions { get; }
+        IReadOnlyCollection<IValidationDefinition> AllDefinitions { get; }
     }
 }
