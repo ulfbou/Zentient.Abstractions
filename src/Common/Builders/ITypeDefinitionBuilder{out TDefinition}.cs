@@ -97,6 +97,10 @@ namespace Zentient.Abstractions.Common.Builders
         /// <returns>The current builder instance for fluent chaining.</returns>
         ITypeDefinitionBuilder<TDefinition> WithRelations(IEnumerable<IRelationDefinition>? relations, bool clearExisting = true);
 
+        /// <summary>Sets the creation or last update timestamp for the type definition.</summary>
+        /// <param name="timestamp">The <see cref="DateTimeOffset"/> representing the timestamp.</param>
+        /// <returns>The current builder instance for fluent chaining.</returns>
+        ITypeDefinitionBuilder<TDefinition> WithTimestamp(DateTimeOffset timestamp);
 
         /// <summary>Finalizes construction and returns a fully-initialized type definition.</summary>
         /// <returns>A new instance of the specified type definition.</returns>

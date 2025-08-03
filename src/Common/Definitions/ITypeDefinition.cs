@@ -8,13 +8,13 @@ namespace Zentient.Abstractions.Common.Definitions
 {
     /// <summary>
     /// Represents a base interface for all Definition definitions within Zentient,
-    /// combining identity, naming, versioning, and description.
+    /// combining identity, naming, versioning, description, category, relations, and metadata.
     /// </summary>
     /// <remarks>
     /// This interface serves as a foundational contract for categorizing,
     /// identifying, and describing various concepts like code types, context types,
     /// relation types, and error types.
     /// </remarks>
-    public interface ITypeDefinition : IIdentifiable, IHasName, IHasVersion, IHasDescription, IHasCategory, IHasRelation
+    public interface ITypeDefinition : IIdentifiable, IHasName, IHasVersion, IHasDescription, IHasCategory, IHasRelation, IHasMetadata
     { }
 }

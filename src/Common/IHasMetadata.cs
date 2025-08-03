@@ -6,20 +6,17 @@ using Zentient.Abstractions.Metadata;
 
 namespace Zentient.Abstractions.Common
 {
-    /// <summary>
-    /// Represents an entity that carries an extensible collection of key-value metadata.
-    /// </summary>
+    /// <summary>Represents an entity that has associated metadata.</summary>
     /// <remarks>
-    /// Metadata provides a flexible way to associate additional, often unstructured,
-    /// data with an object without directly extending its public contract. This can be
-    /// used for diagnostic tags, tracing information, or other contextual details.
+    /// This interface provides a standardized way for any object to expose its
+    /// metadata, facilitating introspection, extensibility, and dynamic behavior
+    /// throughout the Zentient Framework. The metadata is expected to be immutable.
     /// </remarks>
     public interface IHasMetadata
     {
         /// <summary>
-        /// Gets an immutable collection of key-value metadata associated with this entity.
+        /// Gets the immutable collection of metadata associated with this entity.
         /// </summary>
-        /// <value>An instance of <see cref="IMetadata"/>, never <see langword="null"/>.</value>
         IMetadata Metadata { get; }
     }
 }
