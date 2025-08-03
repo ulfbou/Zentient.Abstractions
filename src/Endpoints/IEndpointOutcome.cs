@@ -3,9 +3,12 @@
 // </copyright>
 
 using Zentient.Abstractions.Codes;
+using Zentient.Abstractions.Codes.Definitions;
 using Zentient.Abstractions.Common;
 using Zentient.Abstractions.Errors;
+using Zentient.Abstractions.Errors.Definitions;
 using Zentient.Abstractions.Validation;
+using Zentient.Abstractions.Validation.Definitions;
 
 namespace Zentient.Abstractions.Endpoints
 {
@@ -31,7 +34,7 @@ namespace Zentient.Abstractions.Endpoints
 
         /// <summary>Gets a collection of structured error details.</summary>
         /// <value>A read-only list of errors that occurred during the operation.</value>
-        IReadOnlyList<IErrorInfo<IErrorType>> Errors { get; }
+        IReadOnlyList<IErrorInfo<IErrorDefinition>> Errors { get; }
 
         /// <summary>Gets a value indicating whether the operation succeeded.</summary>
         /// <value><see langword="true"/> if the operation succeeded; otherwise, <see langword="false"/>.</value>
@@ -69,21 +72,21 @@ namespace Zentient.Abstractions.Endpoints
                 : string.Join("; ", ErrorMessages);
 
         /// <summary>
-        /// Gets errors grouped by their <see cref="IErrorType"/>,
+        /// Gets errors grouped by their <see cref="IErrorDefinition"/>,
         /// useful for stratified handling in adapters or telemetry.
         /// </summary>
-        IReadOnlyDictionary<IErrorType, IReadOnlyList<IErrorInfo<IErrorType>>> ErrorsByCategory =>
+        IReadOnlyDictionary<IErrorDefinition, IReadOnlyList<IErrorInfo<IErrorDefinition>>> ErrorsByCategory =>
             Errors
                 .GroupBy(e => e.ErrorDefinition)
                 .ToDictionary(
                     g => g.Key,
-                    g => (IReadOnlyList<IErrorInfo<IErrorType>>)g.ToList());
+                    g => (IReadOnlyList<IErrorInfo<IErrorDefinition>>)g.ToList());
 
         /// <summary>
-        /// Indicates whether any errors of category <see cref="IValidationType"/> are present.
+        /// Indicates whether any errors of category <see cref="IValidationDefinition"/> are present.
         /// </summary>
         bool HasValidationErrors =>
-            Errors.Any(e => e.ErrorDefinition is IValidationType);
+            Errors.Any(e => e.ErrorDefinition is IValidationDefinition);
 
         /// <summary>Indicates whether any errors exist.</summary>
         bool HasErrors =>
@@ -92,20 +95,20 @@ namespace Zentient.Abstractions.Endpoints
         /// <summary>
         /// Gets all distinct error codes in the result, in order of occurrence.
         /// </summary>
-        IReadOnlyList<ICode<ICodeType>> ErrorCodes =>
+        IReadOnlyList<ICode<ICodeDefinition>> ErrorCodes =>
             Errors.Select(e => e.Code).Distinct().ToList();
 
         /// <summary>
         /// Gets the first error's code, or <see langword="null"/> if no errors exist.
         /// </summary>
-        ICode<ICodeType>? PrimaryErrorCode => Errors.Count == 0
+        ICode<ICodeDefinition>? PrimaryErrorCode => Errors.Count == 0
             ? null
             : Errors[0].Code;
 
         /// <summary>
         /// Flattens nested <see cref="Errors"/> into a single sequence.
         /// </summary>
-        IEnumerable<IErrorInfo<IErrorType>> FlattenErrors() =>
+        IEnumerable<IErrorInfo<IErrorDefinition>> FlattenErrors() =>
             Errors.SelectMany(e => new[] { e }.Concat(e.InnerErrors));
     }
 }

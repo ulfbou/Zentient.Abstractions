@@ -1,4 +1,5 @@
 ﻿using Zentient.Abstractions.Codes;
+using Zentient.Abstractions.Endpoints.Definitions;
 
 namespace Zentient.Abstractions.Endpoints
 {
@@ -10,6 +11,6 @@ namespace Zentient.Abstractions.Endpoints
     /// This is a specialized <see cref="ICode{IEndpointCodeType}"/>. This ensures strong typing
     /// and consistency within the Zentient code system.
     /// </remarks>
-    public interface IEndpointCode : ICode<IEndpointCodeType>
+    public interface IEndpointCode : ICode<IEndpointCodeDefinition>
     { }
 }
