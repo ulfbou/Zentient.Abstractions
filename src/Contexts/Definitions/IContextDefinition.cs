@@ -13,5 +13,5 @@ namespace Zentient.Abstractions.Contexts.Definitions
     /// Inherits from <see cref="ITypeDefinition"/> to provide metadata for the context category itself,
     /// such as unique identification and description.
     /// </remarks>
-    public interface IContexTDefinition : ITypeDefinition { }
+    public interface IContextDefinition : ITypeDefinition { }
 }

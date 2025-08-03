@@ -10,10 +10,10 @@ namespace Zentient.Abstractions.Policies.Definitions
 {
     /// <summary>Represents a context type specifically for policy execution.</summary>
     /// <remarks>
-    /// Inherits from <see cref="IContexTDefinition"/> and provides a strongly-typed reference
+    /// Inherits from <see cref="IContextDefinition"/> and provides a strongly-typed reference
     /// to the policy context type for advanced scenarios.
     /// </remarks>
-    public interface IPolicyContexTDefinition : IContexTDefinition
+    public interface IPolicyContexTDefinition : IContextDefinition
     {
         /// <summary>Gets the <see cref="Type"/> representing the policy context.</summary>
         /// <value>The <see cref="Type"/> of the policy context.</value>

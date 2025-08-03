@@ -37,12 +37,12 @@ namespace Zentient.Abstractions.Configuration
         /// using a context.
         /// </summary>
         /// <typeparam name="TValue">The type to bind to.</typeparam>
-        /// <typeparam name="TContexTDefinition">The type of the context definition.</typeparam>
+        /// <typeparam name="TContextDefinition">The type of the context definition.</typeparam>
         /// <param name="definition">The type definition of the configuration section to retrieve.</param>
         /// <param name="context">The context instance to guide binding behavior.</param>
         /// <returns>An instance of the bound type or null if binding fails.</returns>
-        TValue? GetSection<TValue, TContexTDefinition>(IConfigurationSectionDefinition definition, IContext<TContexTDefinition> context)
-            where TContexTDefinition : IContexTDefinition;
+        TValue? GetSection<TValue, TContextDefinition>(IConfigurationSectionDefinition definition, IContext<TContextDefinition> context)
+            where TContextDefinition : IContextDefinition;
 
         /// <summary>Gets the value associated with the specified configuration key.</summary>
         /// <param name="key">The configuration key string.</param>

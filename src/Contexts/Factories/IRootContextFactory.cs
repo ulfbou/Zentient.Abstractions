@@ -22,20 +22,20 @@ namespace Zentient.Abstractions.Contexts.Factories
         /// <summary>
         /// Creates a new root context instance with the specified type.
         /// </summary>
-        /// <typeparam name="TContexTDefinition">The specific <see cref="IContexTDefinition"/> of the root context.</typeparam>
+        /// <typeparam name="TContextDefinition">The specific <see cref="IContextDefinition"/> of the root context.</typeparam>
         /// <param name="correlationId">An optional correlation ID for the root context.</param>
         /// <param name="metadata">Optional initial metadata for the root context.</param>
-        /// <returns>A new <see cref="IContext{TContexTDefinition}"/> instance representing the root context.</returns>
-        IContext<TContexTDefinition> CreateRoot<TContexTDefinition>(string? correlationId = null, IMetadata? metadata = null)
-            where TContexTDefinition : IContexTDefinition;
+        /// <returns>A new <see cref="IContext{TContextDefinition}"/> instance representing the root context.</returns>
+        IContext<TContextDefinition> CreateRoot<TContextDefinition>(string? correlationId = null, IMetadata? metadata = null)
+            where TContextDefinition : IContextDefinition;
 
         /// <summary>
         /// Creates a new root context instance using a builder for more detailed configuration.
         /// </summary>
-        /// <typeparam name="TContexTDefinition">The specific <see cref="IContexTDefinition"/> of the root context.</typeparam>
-        /// <param name="builderAction">An action to configure the <see cref="IContextBuilder{TContexTDefinition}"/>.</param>
-        /// <returns>A new <see cref="IContext{TContexTDefinition}"/> instance representing the root context.</returns>
-        IContext<TContexTDefinition> CreateRoot<TContexTDefinition>(Action<IContextBuilder<TContexTDefinition>> builderAction)
-            where TContexTDefinition : IContexTDefinition;
+        /// <typeparam name="TContextDefinition">The specific <see cref="IContextDefinition"/> of the root context.</typeparam>
+        /// <param name="builderAction">An action to configure the <see cref="IContextBuilder{TContextDefinition}"/>.</param>
+        /// <returns>A new <see cref="IContext{TContextDefinition}"/> instance representing the root context.</returns>
+        IContext<TContextDefinition> CreateRoot<TContextDefinition>(Action<IContextBuilder<TContextDefinition>> builderAction)
+            where TContextDefinition : IContextDefinition;
     }
 }

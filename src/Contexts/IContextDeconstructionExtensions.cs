@@ -8,26 +8,26 @@ using Zentient.Abstractions.Metadata;
 namespace Zentient.Abstractions.Contexts
 {
     /// <summary>
-    /// Provides extension methods for deconstructing <see cref="IContext{TContexTDefinition}" /> and related types.
+    /// Provides extension methods for deconstructing <see cref="IContext{TContextDefinition}" /> and related types.
     /// </summary>
     public static class IContextDeconstructionExtensions
     {
         /// <summary>
-        /// Deconstructs an <see cref="IContext{TContexTDefinition}"/> into its definition, metadata, parent context, and correlation ID.
+        /// Deconstructs an <see cref="IContext{TContextDefinition}"/> into its definition, metadata, parent context, and correlation ID.
         /// </summary>
-        /// <typeparam name="TContexTDefinition">The specific type of the context definition.</typeparam>
+        /// <typeparam name="TContextDefinition">The specific type of the context definition.</typeparam>
         /// <param name="context">The context instance to deconstruct.</param>
         /// <param name="definition">The context type definition.</param>
         /// <param name="metadata">The metadata associated with the context.</param>
         /// <param name="parent">The parent context, or <c>null</c> if this is a root context.</param>
         /// <param name="correlationId">The correlation identifier for the context.</param>
-        public static void Deconstruct<TContexTDefinition>(
-            this IContext<TContexTDefinition> context,
-            out TContexTDefinition definition,
+        public static void Deconstruct<TContextDefinition>(
+            this IContext<TContextDefinition> context,
+            out TContextDefinition definition,
             out IMetadata metadata,
-            out IContext<IContexTDefinition>? parent,
+            out IContext<IContextDefinition>? parent,
             out string correlationId)
-            where TContexTDefinition : IContexTDefinition
+            where TContextDefinition : IContextDefinition
         {
             ArgumentNullException.ThrowIfNull(context, nameof(context));
             definition = context.Definition;
@@ -37,17 +37,17 @@ namespace Zentient.Abstractions.Contexts
         }
 
         /// <summary>
-        /// Deconstructs an <see cref="IContext{TContexTDefinition}"/> into its definition and metadata.
+        /// Deconstructs an <see cref="IContext{TContextDefinition}"/> into its definition and metadata.
         /// </summary>
-        /// <typeparam name="TContexTDefinition">The specific type of the context definition.</typeparam>
+        /// <typeparam name="TContextDefinition">The specific type of the context definition.</typeparam>
         /// <param name="context">The context instance to deconstruct.</param>
         /// <param name="definition">The context type definition.</param>
         /// <param name="metadata">The metadata associated with the context.</param>
-        public static void Deconstruct<TContexTDefinition>(
-            this IContext<TContexTDefinition> context,
-            out TContexTDefinition definition,
+        public static void Deconstruct<TContextDefinition>(
+            this IContext<TContextDefinition> context,
+            out TContextDefinition definition,
             out IMetadata metadata)
-            where TContexTDefinition : IContexTDefinition
+            where TContextDefinition : IContextDefinition
         {
             ArgumentNullException.ThrowIfNull(context, nameof(context));
             definition = context.Definition;
@@ -55,19 +55,19 @@ namespace Zentient.Abstractions.Contexts
         }
 
         /// <summary>
-        /// Deconstructs an <see cref="IContext{TContexTDefinition}"/> into its definition, metadata, and correlation ID.
+        /// Deconstructs an <see cref="IContext{TContextDefinition}"/> into its definition, metadata, and correlation ID.
         /// </summary>
-        /// <typeparam name="TContexTDefinition">The specific type of the context definition.</typeparam>
+        /// <typeparam name="TContextDefinition">The specific type of the context definition.</typeparam>
         /// <param name="context">The context instance to deconstruct.</param>
         /// <param name="definition">The context type definition.</param>
         /// <param name="metadata">The metadata associated with the context.</param>
         /// <param name="correlationId">The correlation identifier for the context.</param>
-        public static void Deconstruct<TContexTDefinition>(
-            this IContext<TContexTDefinition> context,
-            out TContexTDefinition definition,
+        public static void Deconstruct<TContextDefinition>(
+            this IContext<TContextDefinition> context,
+            out TContextDefinition definition,
             out IMetadata metadata,
             out string correlationId)
-            where TContexTDefinition : IContexTDefinition
+            where TContextDefinition : IContextDefinition
         {
             ArgumentNullException.ThrowIfNull(context, nameof(context));
             definition = context.Definition;
@@ -76,19 +76,19 @@ namespace Zentient.Abstractions.Contexts
         }
 
         /// <summary>
-        /// Deconstructs an <see cref="IContext{TContexTDefinition}"/> into its definition, metadata, and parent context.
+        /// Deconstructs an <see cref="IContext{TContextDefinition}"/> into its definition, metadata, and parent context.
         /// </summary>
-        /// <typeparam name="TContexTDefinition">The specific type of the context definition.</typeparam>
+        /// <typeparam name="TContextDefinition">The specific type of the context definition.</typeparam>
         /// <param name="context">The context instance to deconstruct.</param>
         /// <param name="definition">The context type definition.</param>
         /// <param name="metadata">The metadata associated with the context.</param>
         /// <param name="parent">The parent context, or <c>null</c> if this is a root context.</param>
-        public static void Deconstruct<TContexTDefinition>(
-            this IContext<TContexTDefinition> context,
-            out TContexTDefinition definition,
+        public static void Deconstruct<TContextDefinition>(
+            this IContext<TContextDefinition> context,
+            out TContextDefinition definition,
             out IMetadata metadata,
-            out IContext<IContexTDefinition>? parent)
-            where TContexTDefinition : IContexTDefinition
+            out IContext<IContextDefinition>? parent)
+            where TContextDefinition : IContextDefinition
         {
             ArgumentNullException.ThrowIfNull(context, nameof(context));
             definition = context.Definition;
@@ -97,15 +97,15 @@ namespace Zentient.Abstractions.Contexts
         }
 
         /// <summary>
-        /// Deconstructs an <see cref="IContext{TContexTDefinition}"/> into its definition only.
+        /// Deconstructs an <see cref="IContext{TContextDefinition}"/> into its definition only.
         /// </summary>
-        /// <typeparam name="TContexTDefinition">The specific type of the context definition.</typeparam>
+        /// <typeparam name="TContextDefinition">The specific type of the context definition.</typeparam>
         /// <param name="context">The context instance to deconstruct.</param>
         /// <param name="definition">The context type definition.</param>
-        public static void Deconstruct<TContexTDefinition>(
-            this IContext<TContexTDefinition> context,
-            out TContexTDefinition definition)
-            where TContexTDefinition : IContexTDefinition
+        public static void Deconstruct<TContextDefinition>(
+            this IContext<TContextDefinition> context,
+            out TContextDefinition definition)
+            where TContextDefinition : IContextDefinition
         {
             ArgumentNullException.ThrowIfNull(context, nameof(context));
             definition = context.Definition;

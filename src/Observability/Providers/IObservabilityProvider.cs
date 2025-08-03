@@ -18,13 +18,13 @@ namespace Zentient.Abstractions.Observability.Providers
     /// <summary>Central factory for obtaining logger, tracer, and meter instances.</summary>
     public interface IObservabilityProvider
     {
-        /// <summary>Gets a context-aware logger for <typeparamref name="TContexTDefinition"/>.</summary>
-        ILogger<TContexTDefinition> GetLogger<TContexTDefinition>() 
-            where TContexTDefinition : IContexTDefinition;
+        /// <summary>Gets a context-aware logger for <typeparamref name="TContextDefinition"/>.</summary>
+        ILogger<TContextDefinition> GetLogger<TContextDefinition>() 
+            where TContextDefinition : IContextDefinition;
 
-        /// <summary>Gets a context-aware tracer for <typeparamref name="TContexTDefinition"/>.</summary>
-        ITracer<TContexTDefinition> GetTracer<TContexTDefinition>()
-            where TContexTDefinition : IContexTDefinition;
+        /// <summary>Gets a context-aware tracer for <typeparamref name="TContextDefinition"/>.</summary>
+        ITracer<TContextDefinition> GetTracer<TContextDefinition>()
+            where TContextDefinition : IContextDefinition;
 
         /// <summary>Gets a shared meter for recording metrics.</summary>
         IMeter GetMeter();

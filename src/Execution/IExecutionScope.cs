@@ -31,7 +31,7 @@ namespace Zentient.Abstractions.Execution
         /// <summary>
         /// Gets the primary operational context associated with this execution scope.
         /// </summary>
-        IContext<IContexTDefinition>? CurrentContext { get; }
+        IContext<IContextDefinition>? CurrentContext { get; }
 
         /// <summary>
         /// Gets the current validation context active within this execution scope, if any.
@@ -41,10 +41,10 @@ namespace Zentient.Abstractions.Execution
         /// <summary>
         /// Gets the primary operational context associated with this execution scope.
         /// </summary>
-        /// <typeparam name="TContexTDefinition">The type definition of the current context.</typeparam>
+        /// <typeparam name="TContextDefinition">The type definition of the current context.</typeparam>
         /// <returns>The current operational context instance, or <see langword="null"/> if no context of that type is active in this scope.</returns>
         [return: NotNullIfNotNull("CurrentContext")]
-        IContext<TContexTDefinition>? GetContext<TContexTDefinition>() where TContexTDefinition : IContexTDefinition;
+        IContext<TContextDefinition>? GetContext<TContextDefinition>() where TContextDefinition : IContextDefinition;
 
         /// <summary>
         /// Pushes a new validation context onto the scope's internal stack.
@@ -60,16 +60,16 @@ namespace Zentient.Abstractions.Execution
         /// <summary>
         /// Gets a logger instance that is aware of the current execution scope's context.
         /// </summary>
-        /// <typeparam name="TContexTDefinition">The type definition of the context for which to get the logger.</typeparam>
-        /// <returns>An <see cref="ILogger{TContexTDefinition}"/> instance.</returns>
-        ILogger<TContexTDefinition> GetLogger<TContexTDefinition>() where TContexTDefinition : IContexTDefinition;
+        /// <typeparam name="TContextDefinition">The type definition of the context for which to get the logger.</typeparam>
+        /// <returns>An <see cref="ILogger{TContextDefinition}"/> instance.</returns>
+        ILogger<TContextDefinition> GetLogger<TContextDefinition>() where TContextDefinition : IContextDefinition;
 
         /// <summary>
         /// Gets a tracer instance that is aware of the current execution scope's context.
         /// </summary>
-        /// <typeparam name="TContexTDefinition">The type definition of the context for which to get the tracer.</typeparam>
-        /// <returns>An <see cref="ITracer{TContexTDefinition}"/> instance.</returns>
-        ITracer<TContexTDefinition> GetTracer<TContexTDefinition>() where TContexTDefinition : IContexTDefinition;
+        /// <typeparam name="TContextDefinition">The type definition of the context for which to get the tracer.</typeparam>
+        /// <returns>An <see cref="ITracer{TContextDefinition}"/> instance.</returns>
+        ITracer<TContextDefinition> GetTracer<TContextDefinition>() where TContextDefinition : IContextDefinition;
 
         /// <summary>
         /// Gets a meter instance for general application metrics,

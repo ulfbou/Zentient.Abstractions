@@ -11,7 +11,7 @@ namespace Zentient.Abstractions.Configuration.Definitions
     /// <remarks>
     /// Provides metadata about the context type, including the associated .NET <see cref="Type"/>.
     /// </remarks>
-    public interface IConfigurationBuilderContexTDefinition : IContexTDefinition
+    public interface IConfigurationBuilderContexTDefinition : IContextDefinition
     {
         /// <summary>
         /// Gets the .NET <see cref="Type"/> that defines this configuration builder context type.

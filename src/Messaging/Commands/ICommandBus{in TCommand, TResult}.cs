@@ -2,8 +2,8 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.Messaging.Definitions;
 using Zentient.Abstractions.Messaging.Options;
-using Zentient.Abstractions.Messaging.Options.Definitions;
 using Zentient.Abstractions.Results;
 
 namespace Zentient.Abstractions.Messaging.Commands.Definitions

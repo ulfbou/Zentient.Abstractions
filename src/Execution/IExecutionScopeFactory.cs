@@ -26,12 +26,12 @@ namespace Zentient.Abstractions.Execution.Factories
         /// The new scope becomes the <see cref="IExecutionScopeAccessor.Current"/> for the duration of its lifecycle
         /// (typically managed via an <see cref="System.Threading.AsyncLocal{T}"/> mechanism in the implementation).
         /// </remarks>
-        IExecutionScope BeginScope<TContexTDefinition>(
-            IContext<TContexTDefinition>? initialContext = null,
+        IExecutionScope BeginScope<TContextDefinition>(
+            IContext<TContextDefinition>? initialContext = null,
             IExecutionScope? parentScope = null,
             string? correlationId = null,
             Zentient.Abstractions.Metadata.IMetadata? initialMetadata = null)
-            where TContexTDefinition : IContexTDefinition;
+            where TContextDefinition : IContextDefinition;
 
         /// <summary>
         /// Begins a new execution scope with the specified name.
@@ -49,12 +49,12 @@ namespace Zentient.Abstractions.Execution.Factories
         /// (typically managed via an <see cref="System.Threading.AsyncLocal{T}"/> mechanism in the implementation).
         /// The name is primarily for identification purposes in logs or traces and does not affect the scope's functionality.
         /// </remarks>
-        public IExecutionScope BeginScopeWithName<TContexTDefinition>(
+        public IExecutionScope BeginScopeWithName<TContextDefinition>(
             string name,
-            IContext<TContexTDefinition>? initialContext = null,
+            IContext<TContextDefinition>? initialContext = null,
             IExecutionScope? parentScope = null,
             string? correlationId = null,
             Zentient.Abstractions.Metadata.IMetadata? initialMetadata = null)
-            where TContexTDefinition : IContexTDefinition;
+            where TContextDefinition : IContextDefinition;
     }
 }

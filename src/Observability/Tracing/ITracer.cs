@@ -9,11 +9,11 @@ using Zentient.Abstractions.Metadata;
 namespace Zentient.Abstractions.Observability.Tracing
 {
     /// <summary>Creates and manages tracing activities tied to a given context type.</summary>
-    /// <typeparam name="TContexTDefinition">
+    /// <typeparam name="TContextDefinition">
     /// The ambient context (e.g., service or component) associated with this tracer.
     /// </typeparam>
-    public interface ITracer<out TContexTDefinition>
-        where TContexTDefinition : IContexTDefinition
+    public interface ITracer<out TContextDefinition>
+        where TContextDefinition : IContextDefinition
     {
         /// <summary>Starts a new tracing activity/span.</summary>
         /// <param name="name">The operation or span name.</param>
