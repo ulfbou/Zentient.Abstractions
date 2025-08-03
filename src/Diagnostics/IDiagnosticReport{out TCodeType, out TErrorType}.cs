@@ -3,8 +3,10 @@
 // </copyright>
 
 using Zentient.Abstractions.Codes;
+using Zentient.Abstractions.Codes.Definitions;
 using Zentient.Abstractions.Common;
 using Zentient.Abstractions.Errors;
+using Zentient.Abstractions.Errors.Definitions;
 
 namespace Zentient.Abstractions.Diagnostics
 {
@@ -15,8 +17,8 @@ namespace Zentient.Abstractions.Diagnostics
     /// <typeparam name="TErrorType">The error type shared by all checks in this report.</typeparam>
     public interface IDiagnosticReport<out TCodeType, out TErrorType>
         : IHasCorrelationId, IHasTimestamp
-        where TCodeType : ICodeType
-        where TErrorType : IErrorType
+        where TCodeType : ICodeDefinition
+        where TErrorType : IErrorDefinition
     {
         /// <summary>Gets all individual diagnostic results included in this report.</summary>
         /// <value>The Results collection.</value>

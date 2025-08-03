@@ -3,7 +3,10 @@
 // </copyright>
 
 using Zentient.Abstractions.Codes;
+using Zentient.Abstractions.Codes.Definitions;
+using Zentient.Abstractions.Diagnostics.Definitions;
 using Zentient.Abstractions.Errors;
+using Zentient.Abstractions.Errors.Definitions;
 
 namespace Zentient.Abstractions.Diagnostics
 {
@@ -11,16 +14,16 @@ namespace Zentient.Abstractions.Diagnostics
     /// Executes a diagnostic check against a given subject, producing a structured result.
     /// </summary>
     /// <typeparam name="TSubject">The type of object or service to diagnose.</typeparam>
-    /// <typeparam name="TCodeType">The code type used for result classification.</typeparam>
-    /// <typeparam name="TErrorType">The error type used for detailed issue reporting.</typeparam>
-    public interface IDiagnosticCheck<in TSubject, TCodeType, TErrorType>
-        where TCodeType : ICodeType
-        where TErrorType : IErrorType
+    /// <typeparam name="TCodeDefinition">The code type used for result classification.</typeparam>
+    /// <typeparam name="TErrorDefinition">The error type used for detailed issue reporting.</typeparam>
+    public interface IDiagnosticCheck<in TSubject, TCodeDefinition, TErrorDefinition>
+        where TCodeDefinition : ICodeDefinition
+        where TErrorDefinition : IErrorDefinition
     {
         /// <summary>
         /// Gets the metadata definition for this diagnostic check.
         /// </summary>
-        IDiagnosticCheckType Type { get; }
+        IDiagnosticCheckDefinition Definition { get; }
 
         /// <summary>
         /// Executes the diagnostic check on the specified subject.
@@ -36,7 +39,7 @@ namespace Zentient.Abstractions.Diagnostics
         /// <exception cref="ArgumentNullException">
         /// Thrown if <paramref name="subject"/> is null.
         /// </exception>
-        Task<IDiagnosticResult<TCodeType, TErrorType>> ExecuteAsync(
+        Task<IDiagnosticResult<TCodeDefinition, TErrorDefinition>> ExecuteAsync(
             TSubject subject,
             IDiagnosticContext? context = default,
             CancellationToken cancellationToken = default);

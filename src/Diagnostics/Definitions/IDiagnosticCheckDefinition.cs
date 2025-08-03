@@ -1,15 +1,16 @@
-﻿// <copyright file="IDiagnosticCheckType.cs" company="Zentient Framework Team">
+﻿// <copyright file="IDiagnosticCheckDefinition.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
 using Zentient.Abstractions.Common;
+using Zentient.Abstractions.Common.Definitions;
 
-namespace Zentient.Abstractions.Diagnostics
+namespace Zentient.Abstractions.Diagnostics.Definitions
 {
     /// <summary>
     /// Defines the metadata for a diagnostic check, enabling discovery, categorization, and documentation.
     /// </summary>
-    public interface IDiagnosticCheckType : ITypeDefinition
+    public interface IDiagnosticCheckDefinition : ITypeDefinition
     {
         /// <summary>
         /// Gets a human-friendly name for this diagnostic check.

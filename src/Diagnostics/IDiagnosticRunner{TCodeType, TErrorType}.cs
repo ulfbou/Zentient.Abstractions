@@ -3,7 +3,10 @@
 // </copyright>
 
 using Zentient.Abstractions.Codes;
+using Zentient.Abstractions.Codes.Definitions;
+using Zentient.Abstractions.Diagnostics.Definitions;
 using Zentient.Abstractions.Errors;
+using Zentient.Abstractions.Errors.Definitions;
 
 namespace Zentient.Abstractions.Diagnostics
 {
@@ -13,8 +16,8 @@ namespace Zentient.Abstractions.Diagnostics
     /// <typeparam name="TCodeType">The code type used for result classification.</typeparam>
     /// <typeparam name="TErrorType">The error type used for detailed issue reporting.</typeparam>
     public interface IDiagnosticRunner<TCodeType, TErrorType>
-        where TCodeType : ICodeType
-        where TErrorType : IErrorType
+        where TCodeType : ICodeDefinition
+        where TErrorType : IErrorDefinition
     {
         /// <summary>
         /// Runs the specified diagnostic checks against an optional subject instance.
@@ -30,7 +33,7 @@ namespace Zentient.Abstractions.Diagnostics
         /// Thrown if <paramref name="checkTypes"/> is null.
         /// </exception>
         Task<IDiagnosticReport<TCodeType, TErrorType>> RunChecksAsync(
-            IEnumerable<IDiagnosticCheckType> checkTypes,
+            IEnumerable<IDiagnosticCheckDefinition> checkTypes,
             object? subject = null,
             IDiagnosticContext? context = default,
             CancellationToken cancellationToken = default);

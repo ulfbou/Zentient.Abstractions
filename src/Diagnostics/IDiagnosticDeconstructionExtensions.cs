@@ -6,6 +6,8 @@ using Zentient.Abstractions.Codes;
 using Zentient.Abstractions.Errors;
 using System;
 using System.Collections.Generic;
+using Zentient.Abstractions.Codes.Definitions;
+using Zentient.Abstractions.Errors.Definitions;
 
 namespace Zentient.Abstractions.Diagnostics
 {
@@ -32,8 +34,8 @@ namespace Zentient.Abstractions.Diagnostics
             out DiagnosticStatus status,
             out TimeSpan checkDuration,
             out DateTimeOffset timestamp)
-            where TCodeType : ICodeType
-            where TErrorType : IErrorType
+            where TCodeType : ICodeDefinition
+            where TErrorType : IErrorDefinition
         {
             ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
             code = diagnosticResult.Code;
@@ -53,8 +55,8 @@ namespace Zentient.Abstractions.Diagnostics
         public static void Deconstruct<TCodeType, TErrorType>(
             this IDiagnosticResult<TCodeType, TErrorType> diagnosticResult,
             out DiagnosticStatus status)
-            where TCodeType : ICodeType
-            where TErrorType : IErrorType
+            where TCodeType : ICodeDefinition
+            where TErrorType : IErrorDefinition
         {
             ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
             status = diagnosticResult.Status;
@@ -72,8 +74,8 @@ namespace Zentient.Abstractions.Diagnostics
             this IDiagnosticResult<TCodeType, TErrorType> diagnosticResult,
             out DiagnosticStatus status,
             out IReadOnlyCollection<IErrorInfo<TErrorType>> errors)
-            where TCodeType : ICodeType
-            where TErrorType : IErrorType
+            where TCodeType : ICodeDefinition
+            where TErrorType : IErrorDefinition
         {
             ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
             status = diagnosticResult.Status;
@@ -92,8 +94,8 @@ namespace Zentient.Abstractions.Diagnostics
             this IDiagnosticResult<TCodeType, TErrorType> diagnosticResult,
             out DiagnosticStatus status,
             out TimeSpan checkDuration)
-            where TCodeType : ICodeType
-            where TErrorType : IErrorType
+            where TCodeType : ICodeDefinition
+            where TErrorType : IErrorDefinition
         {
             ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
             status = diagnosticResult.Status;
@@ -112,8 +114,8 @@ namespace Zentient.Abstractions.Diagnostics
             this IDiagnosticResult<TCodeType, TErrorType> diagnosticResult,
             out ICode<TCodeType> code,
             out DiagnosticStatus status)
-            where TCodeType : ICodeType
-            where TErrorType : IErrorType
+            where TCodeType : ICodeDefinition
+            where TErrorType : IErrorDefinition
         {
             ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
             code = diagnosticResult.Code;
@@ -134,8 +136,8 @@ namespace Zentient.Abstractions.Diagnostics
             out ICode<TCodeType> code,
             out IReadOnlyCollection<IErrorInfo<TErrorType>> errors,
             out DiagnosticStatus status)
-            where TCodeType : ICodeType
-            where TErrorType : IErrorType
+            where TCodeType : ICodeDefinition
+            where TErrorType : IErrorDefinition
         {
             ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
             code = diagnosticResult.Code;
@@ -159,8 +161,8 @@ namespace Zentient.Abstractions.Diagnostics
             out IReadOnlyCollection<IErrorInfo<TErrorType>> errors,
             out DiagnosticStatus status,
             out TimeSpan checkDuration)
-            where TCodeType : ICodeType
-            where TErrorType : IErrorType
+            where TCodeType : ICodeDefinition
+            where TErrorType : IErrorDefinition
         {
             ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
             code = diagnosticResult.Code;

@@ -3,9 +3,11 @@
 // </copyright>
 
 using Zentient.Abstractions.Codes;
+using Zentient.Abstractions.Codes.Definitions;
 using Zentient.Abstractions.Common;
 using Zentient.Abstractions.Envelopes;
 using Zentient.Abstractions.Errors;
+using Zentient.Abstractions.Errors.Definitions;
 
 namespace Zentient.Abstractions.Diagnostics
 {
@@ -16,8 +18,8 @@ namespace Zentient.Abstractions.Diagnostics
     /// <typeparam name="TErrorType">The error information type for any detected issues.</typeparam>
     public interface IDiagnosticResult<out TCodeType, out TErrorType>
         : IEnvelope<TCodeType, TErrorType, DiagnosticStatus>, IHasTimestamp
-        where TCodeType : ICodeType
-        where TErrorType : IErrorType
+        where TCodeType : ICodeDefinition
+        where TErrorType : IErrorDefinition
     {
         /// <summary>Gets the status of the diagnostic check.</summary>
         DiagnosticStatus Status { get; }
