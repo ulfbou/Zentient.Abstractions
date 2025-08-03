@@ -3,6 +3,7 @@
 // </copyright>
 
 using Zentient.Abstractions.Contexts;
+using Zentient.Abstractions.Contexts.Definitions;
 using Zentient.Abstractions.Execution.Accessors;
 
 namespace Zentient.Abstractions.Execution.Factories
@@ -25,12 +26,12 @@ namespace Zentient.Abstractions.Execution.Factories
         /// The new scope becomes the <see cref="IExecutionScopeAccessor.Current"/> for the duration of its lifecycle
         /// (typically managed via an <see cref="System.Threading.AsyncLocal{T}"/> mechanism in the implementation).
         /// </remarks>
-        IExecutionScope BeginScope<TContextType>(
-            IContext<TContextType>? initialContext = null,
+        IExecutionScope BeginScope<TContexTDefinition>(
+            IContext<TContexTDefinition>? initialContext = null,
             IExecutionScope? parentScope = null,
             string? correlationId = null,
             Zentient.Abstractions.Metadata.IMetadata? initialMetadata = null)
-            where TContextType : IContextType;
+            where TContexTDefinition : IContexTDefinition;
 
         /// <summary>
         /// Begins a new execution scope with the specified name.
@@ -48,12 +49,12 @@ namespace Zentient.Abstractions.Execution.Factories
         /// (typically managed via an <see cref="System.Threading.AsyncLocal{T}"/> mechanism in the implementation).
         /// The name is primarily for identification purposes in logs or traces and does not affect the scope's functionality.
         /// </remarks>
-        public IExecutionScope BeginScopeWithName<TContextType>(
+        public IExecutionScope BeginScopeWithName<TContexTDefinition>(
             string name,
-            IContext<TContextType>? initialContext = null,
+            IContext<TContexTDefinition>? initialContext = null,
             IExecutionScope? parentScope = null,
             string? correlationId = null,
             Zentient.Abstractions.Metadata.IMetadata? initialMetadata = null)
-            where TContextType : IContextType;
+            where TContexTDefinition : IContexTDefinition;
     }
 }
