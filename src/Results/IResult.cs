@@ -4,6 +4,7 @@
 
 using Zentient.Abstractions.Contexts;
 using Zentient.Abstractions.Errors;
+using Zentient.Abstractions.Errors.Definitions;
 
 namespace Zentient.Abstractions.Results
 {
@@ -29,10 +30,10 @@ namespace Zentient.Abstractions.Results
 
         /// <summary>Gets a collection of error messages if the result is not successful.</summary>
         /// <value>
-        /// A collection of <see cref="IErrorInfo{IErrorType}"/> instances describing
+        /// A collection of <see cref="IErrorInfo{IErrorDefinition}"/> instances describing
         /// the errors for this result.
         /// </value>
-        IEnumerable<IErrorInfo<IErrorType>> Errors { get; }
+        IEnumerable<IErrorInfo<IErrorDefinition>> Errors { get; }
 
         /// <summary>
         /// Gets the message of the first error if the operation failed;
