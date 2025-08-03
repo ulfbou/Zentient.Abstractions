@@ -1,10 +1,10 @@
-﻿// <copyright file="IContextType.cs" company="Zentient Framework Team">
+﻿// <copyright file="IContextDefinition.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
-using Zentient.Abstractions.Common;
+using Zentient.Abstractions.Common.Definitions;
 
-namespace Zentient.Abstractions.Contexts
+namespace Zentient.Abstractions.Contexts.Definitions
 {
     /// <summary>
     /// Defines a category or type for a specific context.
@@ -13,5 +13,5 @@ namespace Zentient.Abstractions.Contexts
     /// Inherits from <see cref="ITypeDefinition"/> to provide metadata for the context category itself,
     /// such as unique identification and description.
     /// </remarks>
-    public interface IContextType : ITypeDefinition { }
+    public interface IContextDefinition : ITypeDefinition { }
 }

@@ -2,6 +2,7 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.Contexts.Definitions;
 using Zentient.Abstractions.Metadata;
 
 namespace Zentient.Abstractions.Contexts.Builders
@@ -9,9 +10,9 @@ namespace Zentient.Abstractions.Contexts.Builders
     /// <summary>
     /// Provides a fluent API for building immutable <see cref="IContext{TContextType}"/> instances.
     /// </summary>
-    /// <typeparam name="TContextType">The specific <see cref="IContextType"/> this builder is for.</typeparam>
+    /// <typeparam name="TContextType">The specific <see cref="IContextDefinition"/> this builder is for.</typeparam>
     public interface IContextBuilder<TContextType>
-        where TContextType : IContextType
+        where TContextType : IContextDefinition
     {
         /// <summary>
         /// Sets the specific <typeparamref name="TContextType"/> definition for the context.
@@ -32,7 +33,7 @@ namespace Zentient.Abstractions.Contexts.Builders
         /// </summary>
         /// <param name="parentContext">The parent context.</param>
         /// <returns>The current builder instance.</returns>
-        IContextBuilder<TContextType> WithParent(IContext<IContextType> parentContext);
+        IContextBuilder<TContextType> WithParent(IContext<IContextDefinition> parentContext);
 
         /// <summary>
         /// Adds or updates a metadata entry for the context.

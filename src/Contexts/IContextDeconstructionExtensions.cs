@@ -2,6 +2,7 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.Contexts.Definitions;
 using Zentient.Abstractions.Metadata;
 
 namespace Zentient.Abstractions.Contexts
@@ -24,9 +25,9 @@ namespace Zentient.Abstractions.Contexts
             this IContext<TContextType> context,
             out TContextType definition,
             out IMetadata metadata,
-            out IContext<IContextType>? parent,
+            out IContext<IContextDefinition>? parent,
             out string correlationId)
-            where TContextType : IContextType
+            where TContextType : IContextDefinition
         {
             ArgumentNullException.ThrowIfNull(context, nameof(context));
             definition = context.Definition;
@@ -46,7 +47,7 @@ namespace Zentient.Abstractions.Contexts
             this IContext<TContextType> context,
             out TContextType definition,
             out IMetadata metadata)
-            where TContextType : IContextType
+            where TContextType : IContextDefinition
         {
             ArgumentNullException.ThrowIfNull(context, nameof(context));
             definition = context.Definition;
@@ -66,7 +67,7 @@ namespace Zentient.Abstractions.Contexts
             out TContextType definition,
             out IMetadata metadata,
             out string correlationId)
-            where TContextType : IContextType
+            where TContextType : IContextDefinition
         {
             ArgumentNullException.ThrowIfNull(context, nameof(context));
             definition = context.Definition;
@@ -86,8 +87,8 @@ namespace Zentient.Abstractions.Contexts
             this IContext<TContextType> context,
             out TContextType definition,
             out IMetadata metadata,
-            out IContext<IContextType>? parent)
-            where TContextType : IContextType
+            out IContext<IContextDefinition>? parent)
+            where TContextType : IContextDefinition
         {
             ArgumentNullException.ThrowIfNull(context, nameof(context));
             definition = context.Definition;
@@ -104,7 +105,7 @@ namespace Zentient.Abstractions.Contexts
         public static void Deconstruct<TContextType>(
             this IContext<TContextType> context,
             out TContextType definition)
-            where TContextType : IContextType
+            where TContextType : IContextDefinition
         {
             ArgumentNullException.ThrowIfNull(context, nameof(context));
             definition = context.Definition;

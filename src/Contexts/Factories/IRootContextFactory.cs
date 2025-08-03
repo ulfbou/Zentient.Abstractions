@@ -5,6 +5,7 @@
 using Zentient.Abstractions.Common;
 using Zentient.Abstractions.Contexts;
 using Zentient.Abstractions.Contexts.Builders;
+using Zentient.Abstractions.Contexts.Definitions;
 using Zentient.Abstractions.Metadata;
 
 namespace Zentient.Abstractions.Contexts.Factories
@@ -21,20 +22,20 @@ namespace Zentient.Abstractions.Contexts.Factories
         /// <summary>
         /// Creates a new root context instance with the specified type.
         /// </summary>
-        /// <typeparam name="TContextType">The specific <see cref="IContextType"/> of the root context.</typeparam>
+        /// <typeparam name="TContextType">The specific <see cref="IContextDefinition"/> of the root context.</typeparam>
         /// <param name="correlationId">An optional correlation ID for the root context.</param>
         /// <param name="metadata">Optional initial metadata for the root context.</param>
         /// <returns>A new <see cref="IContext{TContextType}"/> instance representing the root context.</returns>
         IContext<TContextType> CreateRoot<TContextType>(string? correlationId = null, IMetadata? metadata = null)
-            where TContextType : IContextType;
+            where TContextType : IContextDefinition;
 
         /// <summary>
         /// Creates a new root context instance using a builder for more detailed configuration.
         /// </summary>
-        /// <typeparam name="TContextType">The specific <see cref="IContextType"/> of the root context.</typeparam>
+        /// <typeparam name="TContextType">The specific <see cref="IContextDefinition"/> of the root context.</typeparam>
         /// <param name="builderAction">An action to configure the <see cref="IContextBuilder{TContextType}"/>.</param>
         /// <returns>A new <see cref="IContext{TContextType}"/> instance representing the root context.</returns>
         IContext<TContextType> CreateRoot<TContextType>(Action<IContextBuilder<TContextType>> builderAction)
-            where TContextType : IContextType;
+            where TContextType : IContextDefinition;
     }
 }
