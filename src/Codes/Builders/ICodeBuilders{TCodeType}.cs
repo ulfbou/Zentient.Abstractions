@@ -2,6 +2,7 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.Codes.Definitions;
 using Zentient.Abstractions.Metadata;
 
 namespace Zentient.Abstractions.Codes.Builders
@@ -9,9 +10,9 @@ namespace Zentient.Abstractions.Codes.Builders
     /// <summary>
     /// Provides a fluent API for building immutable <see cref="ICode{TCodeType}"/> instances.
     /// </summary>
-    /// <typeparam name="TCodeType">The specific <see cref="ICodeType"/> this builder is for.</typeparam>
+    /// <typeparam name="TCodeType">The specific <see cref="ICodeDefinition"/> this builder is for.</typeparam>
     public interface ICodeBuilder<TCodeType>
-        where TCodeType : ICodeType
+        where TCodeType : ICodeDefinition
     {
         /// <summary>
         /// Sets the specific <typeparamref name="TCodeType"/> definition for the code.

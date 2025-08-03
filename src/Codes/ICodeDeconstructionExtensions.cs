@@ -5,6 +5,7 @@
 using Zentient.Abstractions.Codes;
 using Zentient.Abstractions.Metadata;
 using System;
+using Zentient.Abstractions.Codes.Definitions;
 
 namespace Zentient.Abstractions.Codes
 {
@@ -24,7 +25,7 @@ namespace Zentient.Abstractions.Codes
             this ICode<TCodeType> code,
             out TCodeType definition,
             out IMetadata metadata)
-            where TCodeType : ICodeType
+            where TCodeType : ICodeDefinition
         {
             ArgumentNullException.ThrowIfNull(code, nameof(code));
             definition = code.Definition;
@@ -40,7 +41,7 @@ namespace Zentient.Abstractions.Codes
         public static void Deconstruct<TCodeType>(
             this ICode<TCodeType> code,
             out TCodeType definition)
-            where TCodeType : ICodeType
+            where TCodeType : ICodeDefinition
         {
             ArgumentNullException.ThrowIfNull(code, nameof(code));
             definition = code.Definition;
@@ -55,7 +56,7 @@ namespace Zentient.Abstractions.Codes
         public static void Deconstruct<TCodeType>(
             this ICode<TCodeType> code,
             out IMetadata metadata)
-            where TCodeType : ICodeType
+            where TCodeType : ICodeDefinition
         {
             ArgumentNullException.ThrowIfNull(code, nameof(code));
             metadata = code.Metadata;
