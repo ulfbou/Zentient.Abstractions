@@ -2,6 +2,7 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.Caching.Definitions;
 using Zentient.Abstractions.Results;
 
 namespace Zentient.Abstractions.Caching
@@ -18,7 +19,7 @@ namespace Zentient.Abstractions.Caching
         /// The result contains the cache item if found, otherwise null.
         /// </returns>
         Task<IResult<ICacheItem<TValue>?>> Get(
-            ICacheKey<ICacheKeyType> key,
+            ICacheKey<ICacheKeyDefinition> key,
             CancellationToken cancellationToken);
 
         /// <summary>Asynchronously sets a cache item.</summary>
@@ -28,7 +29,7 @@ namespace Zentient.Abstractions.Caching
         /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
         /// <returns>A task that represents the asynchronous set operation.</returns>
         Task<IResult> Set(
-            ICacheKey<ICacheKeyType> key,
+            ICacheKey<ICacheKeyDefinition> key,
             TValue value,
             DateTimeOffset? expiration = default,
             CancellationToken cancellationToken = default);
@@ -38,7 +39,7 @@ namespace Zentient.Abstractions.Caching
         /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
         /// <returns>A task that represents the asynchronous removal operation.</returns>
         Task<IResult> Remove(
-            ICacheKey<ICacheKeyType> key,
+            ICacheKey<ICacheKeyDefinition> key,
             CancellationToken cancellationToken);
     }
 }
