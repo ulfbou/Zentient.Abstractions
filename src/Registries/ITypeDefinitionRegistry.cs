@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="ITypeDefinitionRegistry.cs" company="Zentient Framework Team">
+// Copyright © 2025 Zentient Framework Team. All rights reserved.
+// </copyright>
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -6,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Zentient.Abstractions.Common;
+using Zentient.Abstractions.Common.Definitions;
 
 namespace Zentient.Abstractions.Registries
 {
