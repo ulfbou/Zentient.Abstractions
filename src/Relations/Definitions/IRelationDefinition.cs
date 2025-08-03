@@ -1,11 +1,12 @@
-﻿// <copyright file="IRelationType.cs" company="Zentient Framework Team">
+﻿// <copyright file="IRelationDefinition.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
 using Zentient.Abstractions.Common;
+using Zentient.Abstractions.Common.Definitions;
 using Zentient.Abstractions.Relations.Builders;
 
-namespace Zentient.Abstractions.Relations
+namespace Zentient.Abstractions.Relations.Definitions
 {
     /// <summary>
     /// Represents a fundamental relationship type that can be shared between different
@@ -15,7 +16,7 @@ namespace Zentient.Abstractions.Relations
     /// This marker interface allows expressing that certain codes and contexts belong to a common
     /// logical domain or concern, facilitating sophisticated, relationship-aware abstractions.
     /// </remarks>
-    public interface IRelationType : ITypeDefinition, IHasParent<IRelationType>
+    public interface IRelationDefinition : ITypeDefinition, IHasParent<IRelationDefinition>
     {
         /// <summary>Gets the category of the relation associated with this entity.</summary>
         IRelationCategory? RelationCategory { get; }

@@ -2,10 +2,12 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.Relations.Definitions;
+
 namespace Zentient.Abstractions.Relations
 {
     /// <summary>
-    /// Represents a high-level classification or domain for <see cref="IRelationType"/> instances.
+    /// Represents a high-level classification or domain for <see cref="IRelationDefinition"/> instances.
     /// This helps categorize and organize relations themselves, preventing them from becoming an undifferentiated list.
     /// </summary>
     /// <remarks>
