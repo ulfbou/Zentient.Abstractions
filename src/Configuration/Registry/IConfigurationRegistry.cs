@@ -22,15 +22,15 @@ namespace Zentient.Abstractions.Configuration.Registry
         /// <summary>
         /// Gets a read-only collection of all registered options type definitions.
         /// </summary>
-        IReadOnlyCollection<IOptionsDefinition> AllOptionsTypes { get; }
+        IReadOnlyCollection<IOptionsDefinition> AllOptionsDefinitions { get; }
 
         /// <summary>
         /// Attempts to get an options type definition by its unique identifier.
         /// </summary>
         /// <param name="id">The unique identifier of the options type.</param>
-        /// <param name="definition">When found, contains the IOptionsType definition.</param>
+        /// <param name="definition">When found, contains the IOptionsDefinition definition.</param>
         /// <returns>True if the definition was found; otherwise, false.</returns>
-        bool TryGetOptionsType(string id, out IOptionsDefinition? definition);
+        bool TryGeTOptionsDefinition(string id, out IOptionsDefinition? definition);
 
         /// <summary>
         /// Gets the default value for a given options type definition.
@@ -43,8 +43,8 @@ namespace Zentient.Abstractions.Configuration.Registry
         /// <summary>
         /// Gets the validator definition associated with a given options type.
         /// </summary>
-        /// <param name="optionsType">The IOptionsType to get the validator for.</param>
+        /// <param name="OptionsDefinition">The IOptionsDefinition to get the validator for.</param>
         /// <returns>The IValidationDefinition definition, or null if none is registered.</returns>
-        IValidationDefinition? GetValidatorType(IOptionsDefinition optionsType);
+        IValidationDefinition? GetValidatorType(IOptionsDefinition OptionsDefinition);
     }
 }

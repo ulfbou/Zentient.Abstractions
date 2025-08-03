@@ -1,4 +1,4 @@
-﻿// <copyright file="IConfigurationSource{out TConfigurationSourceType}.cs" company="Zentient Framework Team">
+﻿// <copyright file="IConfigurationSource{out TConfigurationSourceDefinition}.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
@@ -16,14 +16,14 @@ namespace Zentient.Abstractions.Configuration.Sources
     /// providing configuration data from a specific origin, such as files, environment variables,
     /// or external services.
     /// </remarks>
-    /// <typeparam name="TConfigurationSourceType">
+    /// <typeparam name="TConfigurationSourceDefinition">
     /// The specific type definition for this configuration source.
     /// </typeparam>
-    public interface IConfigurationSource<out TConfigurationSourceType>
+    public interface IConfigurationSource<out TConfigurationSourceDefinition>
         : IConfigurationSource
-        where TConfigurationSourceType : IConfigurationSourceDefinition
+        where TConfigurationSourceDefinition : IConfigurationSourceDefinition
     {
         /// <summary>Gets the type definition for this configuration source.</summary>
-        TConfigurationSourceType SourceType { get; }
+        TConfigurationSourceDefinition SourceType { get; }
     }
 }

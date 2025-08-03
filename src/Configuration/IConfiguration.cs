@@ -26,23 +26,23 @@ namespace Zentient.Abstractions.Configuration
         /// Gets a specific configuration section and binds it to the specified type.
         /// </summary>
         /// <typeparam name="TValue">The type to bind the configuration section to.</typeparam>
-        /// <param name="type">The type definition of the configuration section to retrieve.</param>
+        /// <param name="definition">The type definition of the configuration section to retrieve.</param>
         /// <returns>
         /// An instance of the bound type, or null if the section cannot be found or bound.
         /// </returns>
-        TValue? GetSection<TValue>(IConfigurationSectionDefinition type);
+        TValue? GetSection<TValue>(IConfigurationSectionDefinition definition);
 
         /// <summary>
         /// Gets a specific configuration section and binds it to the specified type,
         /// using a context.
         /// </summary>
         /// <typeparam name="TValue">The type to bind to.</typeparam>
-        /// <typeparam name="TContextType">The type of the context definition.</typeparam>
-        /// <param name="type">The type definition of the configuration section to retrieve.</param>
+        /// <typeparam name="TContexTDefinition">The type of the context definition.</typeparam>
+        /// <param name="definition">The type definition of the configuration section to retrieve.</param>
         /// <param name="context">The context instance to guide binding behavior.</param>
         /// <returns>An instance of the bound type or null if binding fails.</returns>
-        TValue? GetSection<TValue, TContextType>(IConfigurationSectionDefinition type, IContext<TContextType> context)
-            where TContextType : IContextDefinition;
+        TValue? GetSection<TValue, TContexTDefinition>(IConfigurationSectionDefinition definition, IContext<TContexTDefinition> context)
+            where TContexTDefinition : IContexTDefinition;
 
         /// <summary>Gets the value associated with the specified configuration key.</summary>
         /// <param name="key">The configuration key string.</param>

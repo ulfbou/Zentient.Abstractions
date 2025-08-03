@@ -1,4 +1,4 @@
-﻿// <copyright file="IConfigurationBuilderContextDefinition.cs" company="Zentient Framework Team">
+﻿// <copyright file="IConfigurationBuilderContexTDefinition.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
@@ -11,7 +11,7 @@ namespace Zentient.Abstractions.Configuration.Definitions
     /// <remarks>
     /// Provides metadata about the context type, including the associated .NET <see cref="Type"/>.
     /// </remarks>
-    public interface IConfigurationBuilderContextDefinition : IContextDefinition
+    public interface IConfigurationBuilderContexTDefinition : IContexTDefinition
     {
         /// <summary>
         /// Gets the .NET <see cref="Type"/> that defines this configuration builder context type.

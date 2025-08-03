@@ -13,7 +13,7 @@ namespace Zentient.Abstractions.Configuration.Builders
     /// Provides access to ambient context information and a service resolver for dependency injection
     /// during configuration provider construction.
     /// </remarks>
-    public interface IConfigurationBuilderContext : IContext<IConfigurationBuilderContextDefinition>
+    public interface IConfigurationBuilderContext : IContext<IConfigurationBuilderContexTDefinition>
     {
         /// <summary>
         /// Gets the service resolver for dependency injection within configuration providers.
