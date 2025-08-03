@@ -1,18 +1,19 @@
-﻿// <copyright file="ILogger{TContextType}.cs" company="Zentient Framework Team">
+﻿// <copyright file="ILogger{TContexTDefinition}.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
 using Zentient.Abstractions.Contexts;
+using Zentient.Abstractions.Contexts.Definitions;
 using Zentient.Abstractions.Metadata;
 
 namespace Zentient.Abstractions.Observability
 {
     /// <summary>Provides structured logging methods tied to a specific context type.</summary>
-    /// <typeparam name="TContextType">
+    /// <typeparam name="TContexTDefinition">
     /// The ambient context (e.g., service or component) associated with this logger.
     /// </typeparam>
-    public interface ILogger<out TContextType>
-        where TContextType : IContextType
+    public interface ILogger<out TContexTDefinition>
+        where TContexTDefinition : IContexTDefinition
     {
         /// <summary>Checks if the specified log level is enabled.</summary>
         /// <param name="level">The log level to check.</param>

@@ -2,6 +2,7 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.Common;
 using Zentient.Abstractions.Contexts;
 using Zentient.Abstractions.Metadata;
 
@@ -10,12 +11,8 @@ namespace Zentient.Abstractions.Observability.Tracing
     /// <summary>
     /// Represents a unit of work or span in a trace. Disposing closes the activity.
     /// </summary>
-    public interface IActivity : IDisposable
+    public interface IActivity : IIdentifiable, IDisposable
     {
-        /// <summary>The unique identifier of this activity/span.</summary>
-        /// <value>The unique identifier for this activity.</value>
-        string Id { get; }
-
         /// <summary>Adds or updates a tag on this activity.</summary>
         /// <param name="key">The tag key.</param>
         /// <param name="value">The tag value.</param>
