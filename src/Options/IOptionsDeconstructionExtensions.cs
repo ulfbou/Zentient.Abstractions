@@ -2,26 +2,28 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.Options.Definitions;
+
 namespace Zentient.Abstractions.Options
 {
     /// <summary>
-    /// Provides extension methods for deconstructing <see cref="IOptions{TOptionsType, TValue}" /> and related types.
+    /// Provides extension methods for deconstructing <see cref="IOptions{TOptionsDefinition, TValue}" /> and related types.
     /// </summary>
     public static class IOptionsDeconstructionExtensions
     {
         /// <summary>
-        /// Deconstructs an <see cref="IOptions{TOptionsType, TValue}"/> into its definition and value.
+        /// Deconstructs an <see cref="IOptions{TOptionsDefinition, TValue}"/> into its definition and value.
         /// </summary>
-        /// <typeparam name="TOptionsType">The specific type of the options definition.</typeparam>
+        /// <typeparam name="TOptionsDefinition">The specific type of the options definition.</typeparam>
         /// <typeparam name="TValue">The type of the options value.</typeparam>
         /// <param name="options">The options instance to deconstruct.</param>
         /// <param name="definition">The options type definition.</param>
         /// <param name="value">The value of the options.</param>
-        public static void Deconstruct<TOptionsType, TValue>(
-            this IOptions<TOptionsType, TValue> options,
-            out TOptionsType definition,
+        public static void Deconstruct<TOptionsDefinition, TValue>(
+            this IOptions<TOptionsDefinition, TValue> options,
+            out TOptionsDefinition definition,
             out TValue value)
-            where TOptionsType : IOptionsType
+            where TOptionsDefinition : IOptionsDefinition
         {
             ArgumentNullException.ThrowIfNull(options, nameof(options));
             definition = options.Definition;
@@ -29,32 +31,32 @@ namespace Zentient.Abstractions.Options
         }
 
         /// <summary>
-        /// Deconstructs an <see cref="IOptions{TOptionsType, TValue}"/> into its definition only.
+        /// Deconstructs an <see cref="IOptions{TOptionsDefinition, TValue}"/> into its definition only.
         /// </summary>
-        /// <typeparam name="TOptionsType">The specific type of the options definition.</typeparam>
+        /// <typeparam name="TOptionsDefinition">The specific type of the options definition.</typeparam>
         /// <typeparam name="TValue">The type of the options value.</typeparam>
         /// <param name="options">The options instance to deconstruct.</param>
         /// <param name="definition">The options type definition.</param>
-        public static void Deconstruct<TOptionsType, TValue>(
-            this IOptions<TOptionsType, TValue> options,
-            out TOptionsType definition)
-            where TOptionsType : IOptionsType
+        public static void Deconstruct<TOptionsDefinition, TValue>(
+            this IOptions<TOptionsDefinition, TValue> options,
+            out TOptionsDefinition definition)
+            where TOptionsDefinition : IOptionsDefinition
         {
             ArgumentNullException.ThrowIfNull(options, nameof(options));
             definition = options.Definition;
         }
 
         /// <summary>
-        /// Deconstructs an <see cref="IOptions{TOptionsType, TValue}"/> into its value only.
+        /// Deconstructs an <see cref="IOptions{TOptionsDefinition, TValue}"/> into its value only.
         /// </summary>
-        /// <typeparam name="TOptionsType">The specific type of the options definition.</typeparam>
+        /// <typeparam name="TOptionsDefinition">The specific type of the options definition.</typeparam>
         /// <typeparam name="TValue">The type of the options value.</typeparam>
         /// <param name="options">The options instance to deconstruct.</param>
         /// <param name="value">The value of the options.</param>
-        public static void Deconstruct<TOptionsType, TValue>(
-            this IOptions<TOptionsType, TValue> options,
+        public static void Deconstruct<TOptionsDefinition, TValue>(
+            this IOptions<TOptionsDefinition, TValue> options,
             out TValue value)
-            where TOptionsType : IOptionsType
+            where TOptionsDefinition : IOptionsDefinition
         {
             ArgumentNullException.ThrowIfNull(options, nameof(options));
             value = options.Value;
