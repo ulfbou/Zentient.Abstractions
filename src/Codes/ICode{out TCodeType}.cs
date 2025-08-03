@@ -1,4 +1,4 @@
-// <copyright file="ICode{out TCodeType}.cs" company="Zentient Framework Team">
+// <copyright file="ICode{out TCodeDefinition}.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
@@ -11,18 +11,18 @@ namespace Zentient.Abstractions.Codes
     /// <summary>
     /// Represents a strongly-typed operational code instance.
     /// </summary>
-    /// <typeparam name="TCodeType">The specific <see cref="ICodeDefinition"/> that defines this code.</typeparam>
+    /// <typeparam name="TCodeDefinition">The specific <see cref="ICodeDefinition"/> that defines this code.</typeparam>
     /// <remarks>
-    /// An <see cref="ICode{TCodeType}"/> instance represents a specific, categorized outcome or state
-    /// within a domain. Its definition (<typeparamref name="TCodeType"/>) provides semantic meaning
+    /// An <see cref="ICode{TCodeDefinition}"/> instance represents a specific, categorized outcome or state
+    /// within a domain. Its definition (<typeparamref name="TCodeDefinition"/>) provides semantic meaning
     /// and core metadata about the code.
     /// </remarks>
-    public interface ICode<out TCodeType> : IHasMetadata
-        where TCodeType : ICodeDefinition
+    public interface ICode<out TCodeDefinition> : IHasMetadata
+        where TCodeDefinition : ICodeDefinition
     {
         /// <summary>
         /// Gets the specific <see cref="ICodeDefinition"/> definition associated with this code instance.
         /// </summary>
-        TCodeType Definition { get; }
+        TCodeDefinition Definition { get; }
     }
 }
