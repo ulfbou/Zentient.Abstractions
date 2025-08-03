@@ -2,6 +2,7 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.Messaging.Queries.Definitions;
 using Zentient.Abstractions.Results;
 
 namespace Zentient.Abstractions.Messaging.Queries
@@ -10,7 +11,7 @@ namespace Zentient.Abstractions.Messaging.Queries
     /// <typeparam name="TQuery">The type of the query to handle.</typeparam>
     /// <typeparam name="TResult">The type of the result produced by the query.</typeparam>
     public interface IQueryHandler<in TQuery, TResult>
-        where TQuery : IQuery<IQueryType, TResult>
+        where TQuery : IQuery<IQueryDefinition, TResult>
         where TResult : IResult
     {
         /// <summary>Asynchronously handles the given query and returns a result.</summary>

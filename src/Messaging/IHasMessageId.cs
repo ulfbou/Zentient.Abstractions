@@ -1,4 +1,4 @@
-﻿// <copyright file="IMessageCodeType.cs" company="Zentient Framework Team">
+﻿// <copyright file="IHasMessageId.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 

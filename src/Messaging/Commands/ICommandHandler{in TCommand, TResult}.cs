@@ -4,7 +4,7 @@
 
 using Zentient.Abstractions.Results;
 
-namespace Zentient.Abstractions.Messaging.Commands
+namespace Zentient.Abstractions.Messaging.Commands.Definitions
 {
     /// <summary>Represents a handler for a specific command.</summary>
     /// <typeparam name="TCommand">The type of the command to handle.</typeparam>
@@ -13,7 +13,7 @@ namespace Zentient.Abstractions.Messaging.Commands
     /// Command handlers are the core business logic for executing commands and returning a result.
     /// </remarks>
     public interface ICommandHandler<in TCommand, TResult>
-        where TCommand : ICommand<ICommandType>
+        where TCommand : ICommand<ICommandDefinition>
         where TResult : IResult
     {
         /// <summary>Asynchronously handles the specified command and returns a result.</summary>
