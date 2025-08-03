@@ -4,6 +4,8 @@
 
 using Zentient.Abstractions.Relations;
 using System.Collections.Generic;
+using Zentient.Abstractions.Common.Definitions;
+using Zentient.Abstractions.Relations.Definitions;
 
 namespace Zentient.Abstractions.Common
 {
@@ -31,7 +33,7 @@ namespace Zentient.Abstractions.Common
             out string description,
             out string categoryName,
             out IRelationCategory? category,
-            out IReadOnlyCollection<IRelationType> relations)
+            out IReadOnlyCollection<IRelationDefinition> relations)
         {
             ArgumentNullException.ThrowIfNull(typeDefinition, nameof(typeDefinition));
             id = typeDefinition.Id;
@@ -133,7 +135,7 @@ namespace Zentient.Abstractions.Common
             out string name,
             out string version,
             out string description,
-            out IReadOnlyCollection<IRelationType> relations)
+            out IReadOnlyCollection<IRelationDefinition> relations)
         {
             ArgumentNullException.ThrowIfNull(typeDefinition, nameof(typeDefinition));
             id = typeDefinition.Id;

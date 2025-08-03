@@ -2,8 +2,10 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.Common.Definitions;
 using Zentient.Abstractions.Metadata;
 using Zentient.Abstractions.Relations;
+using Zentient.Abstractions.Relations.Definitions;
 
 namespace Zentient.Abstractions.Common.Builders
 {
@@ -73,27 +75,27 @@ namespace Zentient.Abstractions.Common.Builders
         ITypeDefinitionBuilder<TTypeDefinition> WithMetadata(IMetadata metadata);
 
         /// <summary>
-        /// Adds a single <see cref="IRelationType"/> to the collection of relations this type definition belongs to.
+        /// Adds a single <see cref="IRelationDefinition"/> to the collection of relations this type definition belongs to.
         /// </summary>
-        /// <param name="relation">The <see cref="IRelationType"/> to associate. Must not be null.</param>
+        /// <param name="relation">The <see cref="IRelationDefinition"/> to associate. Must not be null.</param>
         /// <param name="allowDuplicates">
         /// If <see langword="true"/>, allows adding the same relation multiple times.
         /// If <see langword="false"/> (default), ensures the relation is added only once based on its Id.
         /// </param>
         /// <returns>The current builder instance for fluent chaining.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="relation"/> is null.</exception>
-        ITypeDefinitionBuilder<TTypeDefinition> WithRelation(IRelationType relation, bool allowDuplicates = false);
+        ITypeDefinitionBuilder<TTypeDefinition> WithRelation(IRelationDefinition relation, bool allowDuplicates = false);
 
         /// <summary>
-        /// Sets the collection of <see cref="IRelationType"/>s this type definition belongs to.
+        /// Sets the collection of <see cref="IRelationDefinition"/>s this type definition belongs to.
         /// </summary>
-        /// <param name="relations">The collection of <see cref="IRelationType"/>s. Can be null or empty.</param>
+        /// <param name="relations">The collection of <see cref="IRelationDefinition"/>s. Can be null or empty.</param>
         /// <param name="clearExisting">
         /// If <see langword="true"/> (default), replaces any existing relations with the new collection.
         /// If <see langword="false"/>, adds the new relations to the existing ones (handling duplicates based on builder's internal logic).
         /// </param>
         /// <returns>The current builder instance for fluent chaining.</returns>
-        ITypeDefinitionBuilder<TTypeDefinition> WithRelations(IEnumerable<IRelationType>? relations, bool clearExisting = true);
+        ITypeDefinitionBuilder<TTypeDefinition> WithRelations(IEnumerable<IRelationDefinition>? relations, bool clearExisting = true);
 
 
         /// <summary>Finalizes construction and returns a fully-initialized type definition.</summary>
