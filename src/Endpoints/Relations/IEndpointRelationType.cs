@@ -16,7 +16,7 @@ namespace Zentient.Abstractions.Endpoints.Relations
     /// This type is used to explicitly link endpoint-specific codes and contexts, enabling
     /// compile-time guarantees about their shared domain and exposing properties like severity.
     /// </remarks>
-    public interface IEndpointRelationType : IRelationDefinition
+    public interface IEndpoinTRelationDefinition : IRelationDefinition
     {
         /// <summary>
         /// Gets the severity level associated with this endpoint relation.

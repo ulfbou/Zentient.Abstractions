@@ -8,7 +8,7 @@ namespace Zentient.Abstractions.Endpoints
     /// to an API consumer, independent of transport-specific numeric codes (e.g., HTTP status codes).
     /// </summary>
     /// <remarks>
-    /// This is a specialized <see cref="ICode{IEndpointCodeType}"/>. This ensures strong typing
+    /// This is a specialized <see cref="ICode{IEndpoinTCodeDefinition}"/>. This ensures strong typing
     /// and consistency within the Zentient code system.
     /// </remarks>
     public interface IEndpointCode : ICode<IEndpointCodeDefinition>
