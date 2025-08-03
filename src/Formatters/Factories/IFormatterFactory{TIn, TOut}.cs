@@ -1,6 +1,8 @@
-// <copyright file="IFormatterFactory.cs" company="Zentient Framework Team">
+// <copyright file="IFormatterFactory{TIn, TOut}.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
+
+using Zentient.Abstractions.Formatters.Definitions;
 
 namespace Zentient.Abstractions.Formatters.Factories
 {
@@ -12,13 +14,13 @@ namespace Zentient.Abstractions.Formatters.Factories
         /// </summary>
         /// <typeparam name="TIn">The input type the formatter accepts.</typeparam>
         /// <typeparam name="TOut">The output type the formatter produces.</typeparam>
-        /// <param name="type">The formatter type metadata.</param>
+        /// <param name="definition">The formatter type metadata.</param>
         /// <param name="cancellationToken">An optional cancellation token.</param>
         /// <returns>
         /// A task that represents the asynchronous operation, containing the created formatter.
         /// </returns>
         Task<IFormatter<TIn, TOut>> CreateFormatter<TIn, TOut>(
-            IFormatterType type,
+            IFormatterDefinition definition,
             CancellationToken cancellationToken = default);
     }
 }
