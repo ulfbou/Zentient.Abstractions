@@ -1,4 +1,4 @@
-﻿// <copyright file="IContextDefinition.cs" company="Zentient Framework Team">
+﻿// <copyright file="IContexTDefinition.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
@@ -13,5 +13,5 @@ namespace Zentient.Abstractions.Contexts.Definitions
     /// Inherits from <see cref="ITypeDefinition"/> to provide metadata for the context category itself,
     /// such as unique identification and description.
     /// </remarks>
-    public interface IContextDefinition : ITypeDefinition { }
+    public interface IContexTDefinition : ITypeDefinition { }
 }

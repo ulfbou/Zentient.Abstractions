@@ -22,14 +22,14 @@ namespace Zentient.Abstractions.Contexts.Accessors
         /// <summary>
         /// Gets the current ambient operational context.
         /// </summary>
-        /// <value>The current <see cref="IContext{IContextDefinition}"/>, or <see langword="null"/> if no context is active.</value>
-        IContext<IContextDefinition>? CurrentContext { get; }
+        /// <value>The current <see cref="IContext{IContexTDefinition}"/>, or <see langword="null"/> if no context is active.</value>
+        IContext<IContexTDefinition>? CurrentContext { get; }
 
         /// <summary>
         /// Sets a new context as the current ambient context for the duration of the returned scope.
         /// </summary>
         /// <param name="context">The context to set as current. Can be null to clear the current context.</param>
         /// <returns>An <see cref="IDisposable"/> scope. Disposing it restores the previous context.</returns>
-        IDisposable UseContext(IContext<IContextDefinition>? context);
+        IDisposable UseContext(IContext<IContexTDefinition>? context);
     }
 }
