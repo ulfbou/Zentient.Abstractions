@@ -8,9 +8,6 @@ using Zentient.Abstractions.Errors;
 using Zentient.Abstractions.Metadata;
 using Zentient.Abstractions.Relations.Definitions;
 
-// Assuming ITypeDefinitionBuilder and common IHasX interfaces are in Zentient.Abstractions.Common.Builders
-// and IRelationDefinition, IRelationCategory are in Zentient.Abstractions.Relations
-
 namespace Zentient.Abstractions.Relations.Builders
 {
     /// <summary>
@@ -21,6 +18,8 @@ namespace Zentient.Abstractions.Relations.Builders
     {
         /// <summary>
         /// Sets the parent <see cref="IRelationDefinition"/> for the relation being built.
+        /// This establishes a hierarchical relationship, allowing for complex graph modeling
+        /// where relations can be derived from or be a part of other relations.
         /// </summary>
         /// <param name="parent">The parent relation type. Must not be null.</param>
         /// <returns>The current builder instance for fluent chaining.</returns>
@@ -29,15 +28,18 @@ namespace Zentient.Abstractions.Relations.Builders
 
         /// <summary>
         /// Sets the category for the <see cref="IRelationDefinition"/> being built, using an <see cref="IRelationCategory"/> object.
-        /// This represents the high-level classification of the relation itself.
+        /// This represents the high-level classification of the relation itself, grouping it logically
+        /// within the Zentient ecosystem (e.g., "Security Relations", "Data Flow Relations").
         /// </summary>
         /// <param name="category">The <see cref="IRelationCategory"/> to assign. Must not be null.</param>
         /// <returns>The current builder instance for fluent chaining.</returns>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="category"/> is null.</exception>
-        IRelationDefinitionBuilder WithCategory(IRelationCategory category); // Renamed for clarity from previous WithCategory(string category)
+        IRelationDefinitionBuilder WithCategory(IRelationCategory category);
 
-        // Inherited methods from ITypeDefinitionBuilder<IRelationDefinition>
-        // Use 'new' keyword to correctly specialize the return type for fluent chaining
+        // Note: WithCategory(string category) is inherited and can be new'd if desired for specific builder return type,
+        // otherwise the ITypeDefinitionBuilder<IRelationDefinition> version will be used.
+        // Given the preference for IRelationCategory, this overload is more important.
+
         /// <inheritdoc />
         new IRelationDefinitionBuilder WithId(string id);
         /// <inheritdoc />
@@ -56,6 +58,8 @@ namespace Zentient.Abstractions.Relations.Builders
         new IRelationDefinitionBuilder WithRelation(IRelationDefinition relation, bool allowDuplicates = false);
         /// <inheritdoc />
         new IRelationDefinitionBuilder WithRelations(IEnumerable<IRelationDefinition>? relations, bool clearExisting = true);
+        /// <inheritdoc />
+        new IRelationDefinitionBuilder WithTimestamp(DateTimeOffset timestamp);
 
         /// <inheritdoc />
         new IRelationDefinition Build();

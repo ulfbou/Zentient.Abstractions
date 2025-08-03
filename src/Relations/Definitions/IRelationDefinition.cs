@@ -13,12 +13,10 @@ namespace Zentient.Abstractions.Relations.Definitions
     /// categories of abstractions (e.g., CodeTypes, ContextTypes).
     /// </summary>
     /// <remarks>
-    /// This marker interface allows expressing that certain codes and contexts belong to a common
+    /// This interface allows expressing that certain codes and contexts belong to a common
     /// logical domain or concern, facilitating sophisticated, relationship-aware abstractions.
+    /// It also supports hierarchical modeling of relations via a parent link.
     /// </remarks>
     public interface IRelationDefinition : ITypeDefinition, IHasParent<IRelationDefinition>
-    {
-        /// <summary>Gets the category of the relation associated with this entity.</summary>
-        IRelationCategory? RelationCategory { get; }
-    }
+    { }
 }
