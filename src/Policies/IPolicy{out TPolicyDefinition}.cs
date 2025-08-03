@@ -1,16 +1,16 @@
-// <copyright file="IPolicy{out TPolicyType}.cs" company="Zentient Framework Team">
+// <copyright file="IPolicy{out TPolicyDefinition}.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
-namespace Zentient.Abstractions.Policies
+namespace Zentient.Abstractions.Policies.Definitions
 {
     /// <summary>
-    /// Represents a policy that can be applied to an operation producing a result of type <typeparamref name="TPolicyType"/>.
+    /// Represents a policy that can be applied to an operation producing a result of type <typeparamref name="TPolicyDefinition"/>.
     /// Supports combinators for building policy pipelines.
     /// </summary>
-    /// <typeparam name="TPolicyType">The type of the result produced by the operation the policy is applied to.</typeparam>
-    public interface IPolicy<out TPolicyType>
-        where TPolicyType : IPolicyType
+    /// <typeparam name="TPolicyDefinition">The type of the result produced by the operation the policy is applied to.</typeparam>
+    public interface IPolicy<out TPolicyDefinition>
+        where TPolicyDefinition : IPolicyDefinition
     {
         /// <summary>
         /// Executes the policy, wrapping the provided action within the given context.

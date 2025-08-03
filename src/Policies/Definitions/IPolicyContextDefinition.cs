@@ -1,18 +1,19 @@
-// <copyright file="IPolicyContextType.cs" company="Zentient Framework Team">
+// <copyright file="IPolicyContexTDefinition.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
 using Zentient.Abstractions.Contexts;
+using Zentient.Abstractions.Contexts.Definitions;
 using Zentient.Abstractions.Options;
 
-namespace Zentient.Abstractions.Policies
+namespace Zentient.Abstractions.Policies.Definitions
 {
     /// <summary>Represents a context type specifically for policy execution.</summary>
     /// <remarks>
-    /// Inherits from <see cref="IContextType"/> and provides a strongly-typed reference
+    /// Inherits from <see cref="IContexTDefinition"/> and provides a strongly-typed reference
     /// to the policy context type for advanced scenarios.
     /// </remarks>
-    public interface IPolicyContextType : IContextType
+    public interface IPolicyContexTDefinition : IContexTDefinition
     {
         /// <summary>Gets the <see cref="Type"/> representing the policy context.</summary>
         /// <value>The <see cref="Type"/> of the policy context.</value>
