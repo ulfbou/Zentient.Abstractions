@@ -7,7 +7,7 @@ using Zentient.Abstractions.Relations;
 namespace Zentient.Abstractions.Common.Definitions
 {
     /// <summary>
-    /// Represents a base interface for all definition types within Zentient,
+    /// Represents a base interface for all Definition definitions within Zentient,
     /// combining identity, naming, versioning, and description.
     /// </summary>
     /// <remarks>
