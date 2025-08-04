@@ -2,10 +2,11 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.Common.Definitions;
 using Zentient.Abstractions.DependencyInjection.Definitions;
 using Zentient.Abstractions.Metadata;
 
-namespace Zentient.Abstractions.DependencyInjection
+namespace Zentient.Abstractions.DependencyInjection.Registration
 {
     /// <summary>Describes a registered service in the dependency injection container.</summary>
     public interface IServiceDescriptor
@@ -16,8 +17,8 @@ namespace Zentient.Abstractions.DependencyInjection
         /// <summary>Gets the CLR type of the contract being registered.</summary>
         Type ServiceContract { get; }
 
-        /// <summary>Gets the lifetime of the registered service.</summary>
-        ServiceLifetime Lifetime { get; }
+        /// <summary>Gets the CLR type of the implementation being registered.</summary>
+        Type ImplementationType { get; }
 
         /// <summary>
         /// Gets the asynchronous factory delegate used to create the service instance.
@@ -26,5 +27,8 @@ namespace Zentient.Abstractions.DependencyInjection
 
         /// <summary>Gets metadata associated with this service registration.</summary>
         IMetadata Metadata { get; }
+
+        /// <summary>Gets the lifetime of the registered service.</summary>
+        ServiceLifetime Lifetime { get; }
     }
 }

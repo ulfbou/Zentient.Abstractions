@@ -2,31 +2,29 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.DependencyInjection.Definitions;
+
 namespace Zentient.Abstractions.DependencyInjection.Builders
 {
-    /// <summary>
-    /// Represents a builder that constructs a DI container from a set of service descriptors.
-    /// </summary>
+    /// <summary>Container-agnostic builder for orchestrating service registrations.</summary>
     public interface IContainerBuilder
     {
         /// <summary>
-        /// Adds a registry of service descriptors to the builder.
+        /// Registers a service implementation by discovering its metadata via attributes.
         /// </summary>
-        /// <param name="registry">The <see cref="IServiceRegistry"/> to add.</param>
-        /// <returns>The current builder instance for fluent chaining.</returns>
-        IContainerBuilder AddRegistry(IServiceRegistry registry);
+        /// <typeparam name="TImplementation">The service implementation type.</typeparam>
+        IContainerBuilder Register<TImplementation>() where TImplementation : class;
 
         /// <summary>
-        /// Adds a container-specific resolver adapter to the builder.
+        /// Registers a service and its configuration using a definition.
+        /// This is used for manual overrides or third-party registrations.
         /// </summary>
-        /// <param name="resolverAdapter">
-        /// The <see cref="IServiceResolver"/> adapter to use for the underlying container.
-        /// </param>
-        /// <returns>The current builder instance for fluent chaining.</returns>
-        IContainerBuilder AddResolver(IServiceResolver resolverAdapter);
-
-        /// <summary>Builds and returns the finalized service resolver.</summary>
-        /// <returns>The constructed <see cref="IServiceResolver"/>.</returns>
-        IServiceResolver Build();
+        /// <typeparam name="TDefinition">The definition type.</typeparam>
+        /// <param name="definition">The definition instance.</param>
+        /// <param name="configure">Delegate to configure the registration.</param>
+        void Register<TDefinition>(
+            TDefinition definition,
+            Action<IServiceRegistrationBuilder<TDefinition>> configure)
+            where TDefinition : IServiceDefinition;
     }
 }

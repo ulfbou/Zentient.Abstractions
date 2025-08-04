@@ -7,12 +7,8 @@ using Zentient.Abstractions.Common.Definitions;
 namespace Zentient.Abstractions.DependencyInjection.Definitions
 {
     /// <summary>
-    /// Represents a service definition in Zentient—carries Id, Name, Version, Description.
-    /// This is a marker type for dependency injection.
+    /// Represents a service definition in Zentient-to be registered in a dependency injection container.
     /// </summary>
-    /// <remarks>
-    /// The 'Definition' suffix is used to avoid ambiguity with the CLR type 'ServiceType'.
-    /// </remarks>
     public interface IServiceDefinition : ITypeDefinition 
     { }
 }

@@ -2,6 +2,8 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.DependencyInjection.Registration;
+
 namespace Zentient.Abstractions.DependencyInjection.Predicates
 {
     /// <summary>Represents a structured predicate for filtering service descriptors.</summary>

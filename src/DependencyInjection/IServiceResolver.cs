@@ -6,6 +6,7 @@ using Zentient.Abstractions.Common;
 using Zentient.Abstractions.Common.Definitions;
 using Zentient.Abstractions.DependencyInjection.Definitions;
 using Zentient.Abstractions.DependencyInjection.Predicates;
+using Zentient.Abstractions.DependencyInjection.Registration;
 using Zentient.Abstractions.DependencyInjection.Scopes;
 using Zentient.Abstractions.Metadata;
 using Zentient.Abstractions.Results;
