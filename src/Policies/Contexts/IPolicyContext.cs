@@ -5,8 +5,9 @@
 using Zentient.Abstractions.Common;
 using Zentient.Abstractions.Contexts;
 using Zentient.Abstractions.Diagnostics;
+using Zentient.Abstractions.Policies.Definitions;
 
-namespace Zentient.Abstractions.Policies.Definitions
+namespace Zentient.Abstractions.Policies.Contexts
 {
     /// <summary>Represents a context for policy evaluation and execution.</summary>
     public interface IPolicyContext : IContext<IPolicyContexTDefinition>, IHasName, IHasCorrelationId, IHasDescription
