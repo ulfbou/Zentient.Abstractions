@@ -2,6 +2,8 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using Zentient.Abstractions.Metadata.Readers;
+
 namespace Zentient.Abstractions.Metadata
 {
     /// <summary>Represents an immutable collection of key-value metadata.</summary>
