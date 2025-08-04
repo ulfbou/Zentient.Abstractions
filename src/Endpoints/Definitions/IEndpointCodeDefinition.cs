@@ -4,6 +4,8 @@
 
 using Zentient.Abstractions.Codes;
 using Zentient.Abstractions.Codes.Definitions;
+using Zentient.Abstractions.Errors;
+using Zentient.Abstractions.Relations.Definitions;
 
 namespace Zentient.Abstractions.Endpoints.Definitions
 {

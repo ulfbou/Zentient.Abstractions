@@ -17,5 +17,13 @@ namespace Zentient.Abstractions.Endpoints
     /// </summary>
     /// <typeparam name="TValue">The type of the value produced by the operation.</typeparam>
     public interface IEndpointOutcome<out TValue> : IEndpointOutcome
-    { }
+    {
+        /// <summary>
+        /// Gets the value produced by the endpoint operation.
+        /// </summary>
+        /// <remarks>
+        /// This property is only valid if the operation was successful.
+        /// </remarks>
+        TValue Value { get; }
+    }
 }
