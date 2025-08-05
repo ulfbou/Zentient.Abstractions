@@ -3,18 +3,30 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0
 
 LABEL maintainer="ulfbou"
 
-# Install core dependencies
-RUN apt-get update && \
-    apt-get install -y git curl unzip && \
-    rm -rf /var/lib/apt/lists/*
+ARG USERNAME=dotnet
+RUN useradd -m $USERNAME
 
-# Set up dotnet tools
+WORKDIR /workspaces/zentient
+
+# Install global tools
 RUN dotnet tool install --global dotnet-ef
 ENV PATH="$PATH:/root/.dotnet/tools"
 
-# Optional: VS Code dev extensions support
-RUN mkdir -p /workspace
-WORKDIR /workspace
+# Copy solution and main project
+COPY Zentient.Abstractions.sln .
+COPY src/ ./src/
 
-# Set up entry for Codespaces
-CMD [ "bash" ]
+# Conditionally include tests if folder and project file exist
+RUN if [ -d "tests" ] && grep -q "<Project" tests/Zentient.Abstractions.Tests.csproj 2>/dev/null; then \
+      echo "📦 Including tests..."; \
+      mkdir -p ./tests; \
+      cp -r tests/* ./tests/; \
+    else \
+      echo "🚫 Tests not found — skipping."; \
+    fi
+
+# Restore projects
+RUN dotnet restore Zentient.Abstractions.sln
+
+# Optional: prebuild for faster Codespaces IDE responsiveness
+RUN dotnet build Zentient.Abstractions.sln -c Debug --no-restore
