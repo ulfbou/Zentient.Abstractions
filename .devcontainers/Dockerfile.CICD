@@ -1,0 +1,26 @@
+# syntax=docker/dockerfile:1.4
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+
+LABEL maintainer="ulfbou"
+
+# Avoid permission issues when mounting volumes
+ARG USERNAME=dotnet
+RUN useradd -m $USERNAME
+
+WORKDIR /src
+
+# Install global tools if needed
+RUN dotnet tool install --global dotnet-ef
+
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+# Optional: copy solution for restore/build/test
+COPY Zentient.sln .
+COPY src/ ./src/
+COPY test/ ./test/
+
+RUN dotnet restore
+RUN dotnet build -c Release --no-restore
+RUN dotnet test --no-build --verbosity normal
+
+# Ready-to-push image for CI workflows
