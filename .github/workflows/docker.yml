@@ -6,8 +6,9 @@ on:
       - '.github/workflows/docker.yml'
       - '.devcontainer/Dockerfile.codespaces'
       - '.devcontainer/Dockerfile.ci'
+  workflow_dispatch:
 
-permissions:
+  permissions:
   contents: read
   packages: write
 
