@@ -4,8 +4,8 @@ on:
   push:
     paths:
       - '.github/workflows/docker.yml'
-      - '.devcontainer/Dockerfile.codespaces'
-      - '.devcontainer/Dockerfile.ci'
+      - '.devcontainers/Dockerfile.codespaces'
+      - '.devcontainers/Dockerfile.ci'
 
   workflow_dispatch:
     inputs:
@@ -35,7 +35,7 @@ jobs:
         id: validate-paths
         run: |
           echo "Checking Dockerfile.codespaces..."
-          if [ -f ".devcontainer/Dockerfile.codespaces" ]; then
+          if [ -f ".devcontainers/Dockerfile.codespaces" ]; then
             echo "Checking Dockerfile.codespaces... Exists!"
             echo "codespaces=dockerfile" >> $GITHUB_OUTPUT
           else
@@ -44,7 +44,7 @@ jobs:
           fi
 
           echo "Checking Dockerfile.ci..."
-          if [ -f ".devcontainer/Dockerfile.ci" ]; then
+          if [ -f ".devcontainers/Dockerfile.ci" ]; then
             echo "Checking Dockerfile.ci... Exists!"
             echo "ci=dockerfile" >> $GITHUB_OUTPUT
           else
@@ -85,7 +85,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: .devcontainer/Dockerfile.codespaces
+          file: .devcontainers/Dockerfile.codespaces
           push: true
           tags: |
             ghcr.io/ulfbou/zentient-dev:latest
@@ -100,7 +100,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: .devcontainer/Dockerfile.ci
+          file: .devcontainers/Dockerfile.ci
           push: true
           tags: |
             ghcr.io/ulfbou/zentient-ci:latest
