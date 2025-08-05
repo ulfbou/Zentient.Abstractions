@@ -1,0 +1,20 @@
+# syntax=docker/dockerfile:1.4
+FROM mcr.microsoft.com/dotnet/sdk:8.0
+
+LABEL maintainer="ulfbou"
+
+# Install core dependencies
+RUN apt-get update && \
+    apt-get install -y git curl unzip && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set up dotnet tools
+RUN dotnet tool install --global dotnet-ef
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+# Optional: VS Code dev extensions support
+RUN mkdir -p /workspace
+WORKDIR /workspace
+
+# Set up entry for Codespaces
+CMD [ "bash" ]
