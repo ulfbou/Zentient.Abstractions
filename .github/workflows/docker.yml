@@ -21,6 +21,23 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Validate Dockerfile paths
+        id: validate-paths
+        run: |
+          echo "Checking Dockerfile.codespaces..."
+          if [ -f ".devcontainer/Dockerfile.codespaces" ]; then
+            echo "codespaces=dockerfile" >> $GITHUB_OUTPUT
+          else
+            echo "codespaces=skip" >> $GITHUB_OUTPUT
+          fi
+
+          echo "Checking Dockerfile.ci..."
+          if [ -f ".devcontainer/Dockerfile.ci" ]; then
+            echo "ci=dockerfile" >> $GITHUB_OUTPUT
+          else
+            echo "ci=skip" >> $GITHUB_OUTPUT
+          fi
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -32,6 +49,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build & Push Dev Image
+        if: steps.validate-paths.outputs.codespaces == 'dockerfile'
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -41,7 +59,12 @@ jobs:
             ghcr.io/ulfbou/zentient-dev:latest
             ghcr.io/ulfbou/zentient-dev:${{ github.sha }}
 
+      - name: Skip Dev Image
+        if: steps.validate-paths.outputs.codespaces == 'skip'
+        run: echo "Skipping Dev Image build — Dockerfile.codespaces not found."
+
       - name: Build & Push CI Image
+        if: steps.validate-paths.outputs.ci == 'dockerfile'
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -50,3 +73,7 @@ jobs:
           tags: |
             ghcr.io/ulfbou/zentient-ci:latest
             ghcr.io/ulfbou/zentient-ci:${{ github.sha }}
+
+      - name: Skip CI Image
+        if: steps.validate-paths.outputs.ci == 'skip'
+        run: echo "Skipping CI Image build — Dockerfile.ci not found."
