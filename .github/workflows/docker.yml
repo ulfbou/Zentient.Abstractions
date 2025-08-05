@@ -8,7 +8,7 @@ on:
       - '.devcontainer/Dockerfile.ci'
   workflow_dispatch:
 
-  permissions:
+permissions:
   contents: read
   packages: write
 
