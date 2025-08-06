@@ -125,7 +125,7 @@ namespace Zentient.Abstractions.Registries
         /// Retrieves all known <see cref="ITypeDefinition"/> instances registered in the system.
         /// </summary>
         /// <param name="predicate">
-        /// An optional predicate to filter type definitions. If <see cref="null"/>, all type
+        /// An optional predicate to filter type definitions. If <see langword="null"/>, all type
         /// definitions are returned.
         /// </param>
         /// <param name="cancellationToken">
@@ -175,8 +175,8 @@ namespace Zentient.Abstractions.Registries
         /// <see langword="null"/> if not found or not castable.
         /// </returns>
         Task<TDefinition?> GetById<TDefinition>(
-        string id,
-        CancellationToken cancellationToken = default)
-        where TDefinition : ITypeDefinition;
+            string id,
+            CancellationToken cancellationToken = default)
+            where TDefinition : ITypeDefinition;
     }
 }
