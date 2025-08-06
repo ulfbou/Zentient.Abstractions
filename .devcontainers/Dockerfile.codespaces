@@ -1,0 +1,38 @@
+# syntax=docker/dockerfile:1.4
+FROM mcr.microsoft.com/dotnet/sdk:9.0
+
+LABEL maintainer="ulfbou"
+# NOTE: STS release — next .NET 10 STS due Nov 2025
+
+# Avoid volume-related permission issues
+ARG USERNAME=dotnet
+RUN useradd -m $USERNAME
+
+WORKDIR /workspaces/zentient
+
+# Install global tools (pin version for consistency)
+RUN dotnet tool install --global dotnet-ef --version 9.0.0
+ENV PATH="$PATH:/root/.dotnet/tools"
+ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+
+# Copy solution and source
+COPY Zentient.Abstractions.sln .
+COPY src/ ./src/
+
+# Conditionally include tests if folder and project file exist
+RUN if [ -d "tests" ] && grep -q "<Project" tests/Zentient.Abstractions.Tests.csproj 2>/dev/null; then \
+      echo "📦 Including tests..."; \
+      mkdir -p ./tests; \
+      cp -r tests/* ./tests/; \
+    else \
+      echo "🚫 Tests not found — skipping."; \
+    fi
+
+# Restore solution (minimal verbosity)
+RUN dotnet restore Zentient.Abstractions.sln --verbosity minimal
+
+# Optional: Pre-build for better IDE performance in Codespaces
+RUN dotnet build Zentient.Abstractions.sln -c Debug --no-restore
+
+# Optional: Drop privileges after setup
+USER $USERNAME

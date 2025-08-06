@@ -1,0 +1,44 @@
+# syntax=docker/dockerfile:1.4
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+
+LABEL maintainer="ulfbou"
+# NOTE: STS release — consider upgrading to .NET 10 in Nov 2025
+
+# Avoid permission issues when mounting volumes
+ARG USERNAME=dotnet
+RUN useradd -m $USERNAME
+
+WORKDIR /src
+
+# Install global tools with explicit versioning
+RUN dotnet tool install --global dotnet-ef --version 9.0.0
+ENV PATH="$PATH:/root/.dotnet/tools"
+ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+
+# Copy solution and main project
+COPY Zentient.Abstractions.sln .
+COPY src/ ./src/
+
+# Copy tests if folder and project file exist
+RUN if [ -d "tests" ] && grep -q "<Project" tests/Zentient.Abstractions.Tests.csproj 2>/dev/null; then \
+      echo "📦 Including tests..."; \
+      mkdir -p ./tests; \
+      cp -r tests/* ./tests/; \
+    else \
+      echo "🚫 Tests not found — skipping."; \
+    fi
+
+# Restore and build with minimal verbosity and optimized layers
+RUN dotnet restore Zentient.Abstractions.sln --verbosity minimal && \
+    dotnet build Zentient.Abstractions.sln -c Release --no-restore
+
+# Run tests with logging for CI artifact collection
+RUN if [ -f "./tests/Zentient.Abstractions.Tests.csproj" ]; then \
+      echo "🧪 Running tests..."; \
+      dotnet test "./tests/Zentient.Abstractions.Tests.csproj" -c Release --no-build --verbosity normal --logger:\"trx\"; \
+    else \
+      echo "🧪 No test project found — skipping test step."; \
+    fi
+
+# (Optional) Drop privileges for post-build steps
+USER $USERNAME
