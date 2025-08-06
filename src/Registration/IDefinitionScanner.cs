@@ -6,6 +6,7 @@ using System.Reflection;
 
 using Zentient.Abstractions.Common.Definitions;
 using Zentient.Abstractions.DependencyInjection.Registration;
+using Zentient.Abstractions.Registries;
 
 namespace Zentient.Abstractions.Registration
 {
