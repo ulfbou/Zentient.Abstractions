@@ -1,49 +1,190 @@
 # Zentient.Abstractions
 
-**Zentient.Abstractions** provides the foundational interfaces and core types for building robust, extensible, and protocol-agnostic applications **across the entire Zentient Framework ecosystem**. It defines the essential contracts for representing operation outcomes, contextual information, metadata, and common patterns like policies and formatters, promoting a clean, modular, and testable architecture. **This library serves as a critical dependency for other Zentient components, including Zentient.Results, ensuring a consistent and unified approach to core concepts.**
+[![NuGet Version](https://img.shields.io/nuget/v/Zentient.Abstractions.svg)](https://www.nuget.org/packages/Zentient.Abstractions)
+[![.NET](https://img.shields.io/badge/.NET-6.0%20%7C%207.0%20%7C%208.0-blue.svg)](https://dotnet.microsoft.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+**Zentient.Abstractions 3.0** is the foundational library for the Zentient Framework, providing comprehensive abstractions that enable the **four-pillar architecture** for building robust, extensible, and protocol-agnostic applications. This major release introduces a unified framework core with enhanced developer experience and enterprise-grade capabilities.
+
+## 🏗️ Four-Pillar Architecture
+
+Zentient Framework 3.0 is built upon four interconnected pillars that ensure consistency, discoverability, and robust error handling:
+
+### 1. 🧩 **Definition-Centric Core (The "What")**
+Everything in the framework is self-describing through the `ITypeDefinition` interface and composed `IHas...` contracts. This metadata layer enables runtime discovery, categorization, and component wiring.
+
+### 2. ✉️ **Universal Envelope (The "How")**
+All operations return standardized `IEnvelope<TCode, TError>` results, providing consistent success/failure communication with rich error information, codes, and metadata.
+
+### 3. 🏗️ **Fluent DI & Application Builder (The "Wiring")**
+The powerful `IContainerBuilder` serves as the composition root, offering fluent APIs for dependency injection, module management, assembly scanning, and application validation.
+
+### 4. 🩺 **Built-in Observability (The "Health")**
+First-class diagnostic and validation systems through `IDiagnosticCheck` and `IValidator` interfaces, with results flowing through the universal envelope pattern.
 
 ## 🚀 Getting Started
 
-Install Zentient.Abstractions into your .NET project using NuGet Package Manager:
+Install Zentient.Abstractions 3.0 into your .NET project:
 
 ```bash
 dotnet add package Zentient.Abstractions
-````
+```
 
-Zentient.Abstractions supports .NET 6.0, .NET 7.0, .NET 8.0, and .NET 9.0.
+**Supported Frameworks:** .NET 6.0, .NET 7.0, .NET 8.0, and .NET 9.0
 
-## ✨ Key Concepts & Features
+### Quick Start Example
 
-This library introduces several fundamental abstractions:
+```csharp
+using Zentient.Abstractions;
+using Zentient.Abstractions.Builders;
 
-  * **`IContext`**: Represents a runtime execution context, allowing for the propagation of contextual information (e.g., request type, metadata) throughout an operation.
+// Build the complete Zentient application core
+var zentient = await new ContainerBuilder()
+    .RegisterFromAssemblies(Assembly.GetExecutingAssembly())
+    .AddModule<MyApplicationModule>()
+    .ConfigureValidationOnRegistration(true)
+    .BuildZentientAsync();
 
-    ```csharp
-    public interface IContext
-    {
-        string Type { get; }
-        IMetadata? Metadata { get; }
-    }
-    ```
+// Access all framework systems through unified interface
+var orderService = zentient.Services.Resolve<IOrderService>();
+var validator = zentient.Validators.GetValidator<CreateOrderRequest, 
+    OrderValidationCodeDefinition, 
+    OrderValidationErrorDefinition>();
+var diagnostics = zentient.GetDiagnosticRunner<
+    SystemHealthCodeDefinition, 
+    SystemHealthErrorDefinition>();
+```
 
-  * **`IEnvelope` & `IEnvelope<TValue>`**: Defines a minimal, protocol-agnostic structure for the outcome of any operation. It indicates success or failure, provides a canonical code, optional messages, and metadata. `IEnvelope<TValue>` extends this for operations that yield a specific value.
+## ✨ Key Features & Interfaces
 
-    ```csharp
-    public interface IEnvelope
-    {
-        bool IsSuccess { get; }
-        IEndpointCode? Code { get; }
-        IReadOnlyCollection<string>? Messages { get; }
-        IMetadata? Metadata { get; }
-    }
+### **Core Framework Interface**
+- **`IZentient`**: Unified entry point providing access to all framework systems
+- **`IContainerBuilder`**: Comprehensive DI container with advanced features
+- **Enhanced DX**: Global using directives and convenience namespaces
 
-    public interface IEnvelope<out TValue> : IEnvelope
-    {
-        TValue? Value { get; }
-    }
-    ```
+### **Definition-Centric Types**
+- **`ITypeDefinition`**: Rich metadata for all framework components
+- **`IIdentifiable`**: Unique identification system
+- **`IHas...` Interfaces**: Composable capability contracts (Name, Version, Description, etc.)
 
-  * **`IEndpointCode`**: Provides a structured, symbolic way to interpret endpoint outcome semantics. It includes a `Name` (e.g., "NotFound", "Success"), an optional `Numeric` representation (e.g., HTTP 404), and a `Protocol` hint.
+### **Universal Envelopes**
+- **`IEnvelope<TCodeDefinition, TErrorDefinition>`**: Standardized operation results
+- **`IHeaderedEnvelope`**: Protocol-agnostic header support
+- **`IStreamableEnvelope`**: Support for streaming scenarios
+
+### **Observability & Validation**
+- **`IValidator<TIn, TCodeDefinition, TErrorDefinition>`**: Type-safe validation
+- **`IDiagnosticCheck<TSubject, TCodeDefinition, TErrorDefinition>`**: Health monitoring
+- **`IDiagnosticRunner`**: Coordinated diagnostic execution
+
+### **Configuration & Options**
+- **`IConfiguration`**: Flexible configuration management
+- **`ITypedConfiguration<TOptionsDefinition, TValue>`**: Strongly-typed options
+- **`IConfigurationBinder`**: Dynamic configuration binding
+
+### **Supporting Types**
+- **`ICode<TCodeDefinition>`**: Structured, protocol-agnostic codes
+- **`IErrorInfo<TErrorDefinition>`**: Rich error information
+- **`IContext<TContextDefinition>`**: Hierarchical execution context
+- **`IMetadata`**: Extensible key-value metadata system
+
+## 🎯 Developer Experience Enhancements
+
+### **Simplified Namespace Usage**
+```csharp
+// Single import for most scenarios
+using Zentient.Abstractions;
+
+// Specialized imports only when needed
+using Zentient.Abstractions.Builders;    // For advanced building
+using Zentient.Abstractions.Health;      // For health & validation
+```
+
+### **Enhanced Debugging**
+- **Source Link Integration**: Step-through debugging into framework source
+- **Rich Documentation**: Comprehensive IntelliSense support
+- **Symbol Packages**: Enhanced debugging experience
+
+### **Enterprise Features**
+- **Assembly Scanning**: Automatic service discovery
+- **Module System**: Organized service registration
+- **Conditional Registration**: Environment-aware configuration
+- **Advanced Patterns**: Decorators, interceptors, and policies
+
+## 🏛️ Architectural Benefits
+
+### **Protocol Agnostic**
+Design core logic independently of transport protocols (HTTP, gRPC, Messaging)
+
+### **Type Safety**
+Strongly-typed definitions and generic constraints ensure compile-time correctness
+
+### **Testability**
+Decoupled interfaces and unified result patterns promote comprehensive testing
+
+### **Consistency**
+Universal envelope pattern and definition-centric design ensure predictable behavior
+
+### **Extensibility**
+Composable interfaces and metadata system support diverse application requirements
+
+## 📊 What's New in 3.0.0
+
+### **Major Architectural Improvements**
+- ✨ **IZentient Interface**: Unified framework entry point
+- 🏗️ **Enhanced Container Builder**: Advanced DI capabilities with validation
+- 🎯 **Four-Pillar Architecture**: Complete framework foundation
+- 📦 **Improved Package Metadata**: Enhanced discoverability and debugging
+
+### **Developer Experience Enhancements**
+- 🚀 **Global Using Directives**: Reduced namespace imports
+- 📝 **Rich Documentation**: Comprehensive XML documentation
+- 🔗 **Source Link Support**: Enhanced debugging experience
+- 🎨 **Convenience Namespaces**: Streamlined access patterns
+
+### **Breaking Changes**
+- Moved from 2.x envelope patterns to comprehensive 3.0 architecture
+- Enhanced type definitions with richer metadata support
+- Unified service resolution through IZentient interface
+
+See [CHANGELOG.md](CHANGELOG.md) for complete details.
+
+## 💡 Example Use Cases
+
+### **Building Applications**
+```csharp
+var app = await new ContainerBuilder()
+    .RegisterFromCallingAssembly()
+    .AddModule<CoreModule>()
+    .AddModule<DataModule>()
+    .ConfigureValidationOnRegistration(true)
+    .BuildZentientAsync();
+```
+
+### **Validation**
+```csharp
+var validator = zentient.Validators.GetValidator<CustomerDto, 
+    CustomerValidationCodeDefinition, 
+    CustomerValidationErrorDefinition>();
+
+var result = await validator.Validate(customerData);
+if (!result.IsSuccess)
+{
+    foreach (var error in result.Errors)
+        Console.WriteLine($"Validation error: {error.Message}");
+}
+```
+
+### **Health Monitoring**
+```csharp
+var diagnostics = zentient.GetDiagnosticRunner<
+    ServiceHealthCodeDefinition,
+    ServiceHealthErrorDefinition>();
+
+var healthReport = await zentient.PerformHealthCheckAsync<
+    SystemHealthCodeDefinition,
+    SystemHealthErrorDefinition>();
+```
 
     ```csharp
     public interface IEndpointCode
@@ -104,8 +245,12 @@ This library introduces several fundamental abstractions:
 
 ## 🤝 Contributing
 
-We welcome contributions\! If you're interested in contributing to Zentient.Abstractions, please visit our [GitHub Repository](https://github.com/ulfbou/Zentient.Endpoints) and refer to the [`CONTRIBUTING.md`](https://www.google.com/search?q=https://github.com/ulfbou/Zentient.Endpoints/blob/main/CONTRIBUTING.md) guide.
+We welcome contributions! Please visit our [GitHub Repository](https://github.com/ulfbou/Zentient.Abstractions) for the latest source code, issues, and contribution guidelines.
 
 ## 📄 License
 
-Zentient.Abstractions is licensed under the MIT License. See the [`LICENSE`](https://www.google.com/search?q=https://github.com/ulfbou/Zentient.Endpoints/blob/main/LICENSE) file for more details.
+Zentient.Abstractions is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+**Zentient Framework 3.0** - Building the future of .NET applications with consistency, discoverability, and exceptional developer experience.

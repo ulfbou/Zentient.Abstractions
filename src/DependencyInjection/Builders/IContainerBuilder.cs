@@ -464,6 +464,31 @@ namespace Zentient.Abstractions.DependencyInjection.Builders
         IServiceResolver Build();
 
         /// <summary>
+        /// Builds the entire Zentient application core, returning the unified
+        /// <see cref="IZentient"/> interface that provides access to all framework systems.
+        /// </summary>
+        /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+        /// <returns>
+        /// A task that resolves to the fully constructed and validated <see cref="IZentient"/> instance.
+        /// This represents the culmination of all four pillars working together as a cohesive system.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">Thrown when the builder has already been built.</exception>
+        /// <remarks>
+        /// This method performs a comprehensive build that:
+        /// 1. Validates all registrations and dependencies
+        /// 2. Builds the service resolver with all registered services
+        /// 3. Initializes validation and diagnostic systems
+        /// 4. Returns the unified IZentient interface providing access to all systems
+        /// 
+        /// The returned IZentient instance demonstrates the four-pillar architecture in action:
+        /// - Definition-Centric Core: Through discoverable service registrations
+        /// - Universal Envelope: Through standardized result handling
+        /// - Fluent DI and Application Builder: Through the built service resolver
+        /// - Built-in Observability: Through integrated validation and diagnostics
+        /// </remarks>
+        Task<IZentient> BuildZentientAsync(CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Attempts to build the dependency injection container, returning success or failure without throwing exceptions.
         /// </summary>
         /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
@@ -475,6 +500,18 @@ namespace Zentient.Abstractions.DependencyInjection.Builders
         /// </summary>
         /// <returns>A result that represents the build attempt.</returns>
         IResult<IServiceResolver> TryBuild();
+
+        /// <summary>
+        /// Attempts to build the entire Zentient application core, returning success or failure without throwing exceptions.
+        /// </summary>
+        /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+        /// <returns>A task that represents the asynchronous Zentient build attempt.</returns>
+        /// <remarks>
+        /// This method provides the same functionality as BuildZentientAsync but returns an IResult
+        /// instead of throwing exceptions, making it suitable for scenarios where error handling
+        /// should be explicit rather than exception-based.
+        /// </remarks>
+        Task<IResult<IZentient>> TryBuildZentientAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Creates a snapshot of the current builder state for debugging or analysis.

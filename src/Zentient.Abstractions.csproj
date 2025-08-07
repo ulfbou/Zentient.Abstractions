@@ -2,19 +2,54 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
+		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
 
 		<RootNamespace>Zentient.Abstractions</RootNamespace>
 		<IsPackable>true</IsPackable>
-		<Description>Core abstractions for Zentient, including interfaces and base classes for endpoints, results, and outcomes.</Description>
+		<Description>Comprehensive abstractions for Zentient Framework 3.0 - Definition-centric core types (ITypeDefinition, ICode, IEnvelope), Universal result handling, Fluent DI builders (IContainerBuilder), Built-in Observability (IValidator, IDiagnosticCheck), Configuration management, and cross-cutting concerns with optimized developer experience.</Description>
 		<AssemblyOriginatorKeyFile>..\Zentient.snk</AssemblyOriginatorKeyFile>
 		<PackageId>Zentient.Abstractions</PackageId>
-		<PackageTags>Zentient; Abstractions; Interfaces; Base Classes; Endpoints; Results; Outcomes; Envelopes</PackageTags>
+		<PackageTags>Zentient;Framework;Abstractions;DI;DependencyInjection;Configuration;Validation;Observability;Results;Envelopes;TypeDefinitions;Diagnostics;DeveloperExperience;Architecture</PackageTags>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		
+		<!-- Enhanced NuGet Package Metadata for Better DX -->
+		<PackageProjectUrl>https://github.com/ulfbou/Zentient.Abstractions</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/ulfbou/Zentient.Abstractions</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Authors>Zentient Framework Team</Authors>
+		<Company>Zentient Framework</Company>
+		<Product>Zentient Framework</Product>
+		<Copyright>Copyright © 2025 Zentient Framework Team. All rights reserved.</Copyright>
+		
+		<!-- Developer Experience Features -->
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		
+		<!-- Framework Positioning -->
+		<Title>Zentient.Abstractions - Framework Foundation</Title>
+		<Summary>Production-ready abstractions enabling the four pillars of Zentient Framework: Definition-centric discovery, Universal envelopes, Fluent DI composition, and Built-in observability.</Summary>
+		
+		<!-- Version and Release Management -->
+		<Version>3.0.0</Version>
+		<AssemblyVersion>3.0.0.0</AssemblyVersion>
+		<FileVersion>3.0.0.0</FileVersion>
+		<PackageVersion>3.0.0</PackageVersion>
+		<PackageReleaseNotes>Zentient Framework 3.0.0 - Major release introducing the four-pillar architecture with comprehensive abstractions for enterprise applications. Enhanced developer experience through optimized namespace organization and convenience types.</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<ItemGroup>
 	  <Compile Remove="Pipelines\Steps\IPipelineStepIPipelineStep{in TIn, out TOut}.cs" />
+	</ItemGroup>
+
+	<!-- Source Link Support for Better Debugging DX -->
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0" PrivateAssets="All" />
 	</ItemGroup>
 
 	<ItemGroup>
