@@ -1,4 +1,4 @@
-// <copyright file="IPolicyContexTDefinition.cs" company="Zentient Framework Team">
+// <copyright file="IPolicyContextDefinition.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
@@ -13,7 +13,7 @@ namespace Zentient.Abstractions.Policies.Definitions
     /// Inherits from <see cref="IContextDefinition"/> and provides a strongly-typed reference
     /// to the policy context type for advanced scenarios.
     /// </remarks>
-    public interface IPolicyContexTDefinition : IContextDefinition
+    public interface IPolicyContextDefinition : IContextDefinition
     {
         /// <summary>Gets the <see cref="Type"/> representing the policy context.</summary>
         /// <value>The <see cref="Type"/> of the policy context.</value>

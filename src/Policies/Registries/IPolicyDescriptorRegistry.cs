@@ -1,4 +1,4 @@
-// <copyright file="IEnvelope.cs" company="Zentient Framework Team">
+// <copyright file="IPolicyDescriptorRegistry.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
