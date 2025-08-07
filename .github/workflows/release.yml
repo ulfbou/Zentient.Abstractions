@@ -68,13 +68,26 @@ jobs:
 
       - name: Build Solution
         run: |
-          dotnet build "$SOLUTION_FILE_NAME" \
+          # Try building with .NET 9.0 first, fallback to excluding it
+          if dotnet build "$SOLUTION_FILE_NAME" \
             --configuration Release \
             --no-restore \
             /p:ZENTIENT_VERSION_FINAL=${{ steps.gitversion.outputs.SemVer }} \
             /p:ZENTIENT_VERSION_MAJOR=${{ steps.gitversion.outputs.Major }} \
             /p:ZENTIENT_VERSION_MINOR=${{ steps.gitversion.outputs.Minor }} \
-            /p:ZENTIENT_VERSION_PATCH=${{ steps.gitversion.outputs.Patch }}
+            /p:ZENTIENT_VERSION_PATCH=${{ steps.gitversion.outputs.Patch }}; then
+            echo "Build succeeded with .NET 9.0 support"
+          else
+            echo "Falling back to build without .NET 9.0 support"
+            dotnet build "$SOLUTION_FILE_NAME" \
+              --configuration Release \
+              --no-restore \
+              /p:EXCLUDE_NET9=true \
+              /p:ZENTIENT_VERSION_FINAL=${{ steps.gitversion.outputs.SemVer }} \
+              /p:ZENTIENT_VERSION_MAJOR=${{ steps.gitversion.outputs.Major }} \
+              /p:ZENTIENT_VERSION_MINOR=${{ steps.gitversion.outputs.Minor }} \
+              /p:ZENTIENT_VERSION_PATCH=${{ steps.gitversion.outputs.Patch }}
+          fi
 
       - name: Pack NuGet Package
         run: |
@@ -150,7 +163,11 @@ jobs:
       - name: Setup .NET SDK (for dotnet nuget push)
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: |
+            6.0.x
+            7.0.x
+            8.0.x
+            9.0.x
 
       - name: Download NuGet Packages Artifact
         uses: actions/download-artifact@v4
