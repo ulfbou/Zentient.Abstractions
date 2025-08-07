@@ -11,14 +11,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{02EA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{FB9E6AC7-6813-408E-AEE4-70B4BA8DFE47}"
 	ProjectSection(SolutionItems) = preProject
-		docs.yml = docs.yml
+		.github\workflows\docker.yml = .github\workflows\docker.yml
+		.github\workflows\docs.yml = .github\workflows\docs.yml
+		.github\workflows\release.yml = .github\workflows\release.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "analyzers", "analyzers", "{C6124D39-43F4-4120-9E13-C6B95CD88A3D}"
+	ProjectSection(SolutionItems) = preProject
+		analyzers\Zentient.ruleset = analyzers\Zentient.ruleset
+		analyzers\Zentient.Tests.ruleset = analyzers\Zentient.Tests.ruleset
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B622F0D4-75EB-4455-81D5-7BF796B121B7}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{3E11B713-44A2-4F7E-82F0-EB66892DB2E6}"
+	ProjectSection(SolutionItems) = preProject
+		docs\DX_ANALYSIS.md = docs\DX_ANALYSIS.md
+		docs\IZENTIENT_DESIGN.md = docs\IZENTIENT_DESIGN.md
+		docs\README.md = docs\README.md
 	EndProjectSection
 EndProject
 Global
