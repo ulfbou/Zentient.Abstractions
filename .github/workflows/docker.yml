@@ -4,8 +4,8 @@ on:
   push:
     paths:
       - '.github/workflows/docker.yml'
-      - '.devcontainers/Dockerfile.codespaces'
-      - '.devcontainers/Dockerfile.ci'
+      - '.devcontainer/Dockerfile.codespaces'
+      - '.devcontainer/Dockerfile.ci'
   workflow_dispatch:
     inputs:
       enable_debug:
@@ -36,12 +36,12 @@ jobs:
       - name: Validate Dockerfile paths
         id: validate-paths
         run: |
-          if [ -f ".devcontainers/Dockerfile.codespaces" ]; then
+          if [ -f ".devcontainer/Dockerfile.codespaces" ]; then
             echo "codespaces=dockerfile" >> $GITHUB_OUTPUT
           else
             echo "codespaces=skip" >> $GITHUB_OUTPUT
           fi
-          if [ -f ".devcontainers/Dockerfile.ci" ]; then
+          if [ -f ".devcontainer/Dockerfile.ci" ]; then
             echo "ci=dockerfile" >> $GITHUB_OUTPUT
           else
             echo "ci=skip" >> $GITHUB_OUTPUT
@@ -62,7 +62,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: .devcontainers/Dockerfile.codespaces
+          file: .devcontainer/Dockerfile.codespaces
           push: true
           no-cache: true
           tags: |
@@ -78,7 +78,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: .devcontainers/Dockerfile.ci
+          file: .devcontainer/Dockerfile.ci
           push: true
           no-cache: true
           tags: |
