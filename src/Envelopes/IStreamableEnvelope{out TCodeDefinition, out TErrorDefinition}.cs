@@ -2,6 +2,7 @@
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
+using System.IO;
 using Zentient.Abstractions.Codes;
 using Zentient.Abstractions.Codes.Definitions;
 using Zentient.Abstractions.Errors;
