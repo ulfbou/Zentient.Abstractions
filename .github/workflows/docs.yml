@@ -33,21 +33,30 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: |
+            6.0.x
+            7.0.x
+            8.0.x
+            9.0.x
 
       - name: Restore NuGet Packages
         run: dotnet restore src/Zentient.Abstractions.csproj
 
       - name: Build Project for XML Documentation
-        run: dotnet build src/Zentient.Abstractions.csproj --configuration Release
+        run: |
+          # Try building with .NET 9.0 first, fallback to excluding it
+          if dotnet build src/Zentient.Abstractions.csproj --configuration Release; then
+            echo "Build succeeded with .NET 9.0 support"
+          else
+            echo "Falling back to build without .NET 9.0 support"
+            dotnet build src/Zentient.Abstractions.csproj --configuration Release -p:EXCLUDE_NET9=true
+          fi
 
       - name: Install DocFX Global Tool
         run: dotnet tool install -g docfx
 
-      # Workaround Step: Explicitly generate API metadata
-      # This addresses the observed behavior where 'docfx build' sometimes skips metadata generation
-      # even with correct docfx.json configuration.
-      - name: Generate API Metadata (Workaround)
+      # Enhanced metadata generation with fallback strategy
+      - name: Generate API Metadata with Fallback
         run: |
           if [[ -d api ]]; then
             echo "(DEBUG) Removing existing 'api' directory to ensure clean pack."
@@ -57,7 +66,19 @@ jobs:
             echo "(DEBUG) Removing existing '_site' directory to ensure clean pack."
             rm -rf _site
           fi
-          docfx metadata
+          
+          # Try .NET 9.0 first, then fallback to 8.0
+          if [[ -f "src/bin/Release/net9.0/Zentient.Abstractions.dll" ]]; then
+            echo "Using .NET 9.0 assemblies for documentation"
+            docfx metadata
+          elif [[ -f "src/bin/Release/net8.0/Zentient.Abstractions.dll" ]]; then
+            echo "Falling back to .NET 8.0 assemblies for documentation"
+            sed -i 's/net9\.0/net8.0/g' docfx.json
+            docfx metadata
+          else
+            echo "ERROR: No suitable .NET assemblies found for documentation generation"
+            exit 1
+          fi
 
       - name: Build DocFX Site
         run: docfx build

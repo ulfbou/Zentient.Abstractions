@@ -2,7 +2,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+		<!-- 
+		Target Frameworks: Supports .NET 6.0, 7.0, 8.0, and 9.0
+		Uses conditional compilation to handle environments where .NET 9.0 SDK is not available.
+		Set EXCLUDE_NET9=true to build without .NET 9.0 support for older SDKs.
+		GitHub Actions will automatically fallback if .NET 9.0 is not available.
+		-->
+		<TargetFrameworks Condition="'$(EXCLUDE_NET9)' == 'true'">net6.0;net7.0;net8.0</TargetFrameworks>
+		<TargetFrameworks Condition="'$(EXCLUDE_NET9)' != 'true'">net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
 
 		<RootNamespace>Zentient.Abstractions</RootNamespace>
 		<IsPackable>true</IsPackable>
