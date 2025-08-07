@@ -49,7 +49,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Pipelines\Steps\IPipelineStepIPipelineStep{in TIn, out TOut}.cs" />
+	  <Compile Remove="Pipelines\Steps\**" />
+	  <EmbeddedResource Remove="Pipelines\Steps\**" />
+	  <None Remove="Pipelines\Steps\**" />
 	</ItemGroup>
 
 	<!-- Source Link Support for Better Debugging DX -->
@@ -64,7 +66,6 @@
 		<None Include="$(SolutionDir)LICENSE" Pack="true" PackagePath="\" />
 		<None Include="$(SolutionDir)Zentient.snk" Pack="true" PackagePath="\" />
 		<None Include="$(SolutionDir)CHANGELOG.md" Pack="true" PackagePath="\" />
-		<None Include="Pipelines\Steps\IPipelineStepIPipelineStep{in TIn, out TOut}.cs" />
 	</ItemGroup>
 
 </Project>

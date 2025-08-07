@@ -1,4 +1,4 @@
-﻿// <copyright file="IEndpoinTRelationDefinitionBuilder.cs" company="Zentient Framework Team">
+﻿// <copyright file="IEndpointRelationDefinitionBuilder{out TRelationDefinition}.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
