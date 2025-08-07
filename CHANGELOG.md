@@ -11,6 +11,28 @@
 
 > This major release introduces the refined four-pillar architecture that establishes Zentient as a comprehensive foundation for modern .NET applications. Building upon the solid abstractions of v2.x, this version focuses on exceptional developer experience, architectural clarity, and production-ready capabilities.
 
+> ⚠️ **CRITICAL - MASSIVE BREAKING CHANGES**: This is a **complete rewrite** of the library requiring full migration from 2.x. See `MIGRATION_GUIDE_2.x_to_3.0.md` for essential migration instructions.
+
+---
+
+### 💥 Breaking Changes — Complete Architectural Rewrite
+
+⚠️ **THIS IS NOT A COMPATIBLE UPGRADE** - Every 2.x implementation will require updates:
+
+| Breaking Change | 2.x | 3.0.0 | Impact |
+|---|---|---|---|
+| **Namespace Structure** | `Zentient.Abstractions` (flat) | `Zentient.Abstractions.*` (hierarchical) | All using statements must change |
+| **File Organization** | 21 files in `src/` root | 200+ files in organized directories | File references must be updated |
+| **Interface Design** | Simple interfaces | Generic definition-based architecture | Interface implementations need type parameters |
+| **Type System** | Basic types | Rich type-safe abstractions | Type constraints and definitions required |
+
+### 📚 Migration Resources
+
+* **`MIGRATION_GUIDE_2.x_to_3.0.md`** - **ESSENTIAL**: Complete migration guide with examples
+* **Global Usings**: `GlobalUsings.cs` helps reduce namespace update effort  
+* **Type Aliases**: `ZentientAbstractions.cs` provides convenient shortcuts
+* **Compatibility**: Some simple interfaces preserved for easier migration
+
 ---
 
 ### 🏗️ Architecture Evolution — Four-Pillar Design

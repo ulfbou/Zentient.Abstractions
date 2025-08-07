@@ -4,6 +4,11 @@
 [![.NET](https://img.shields.io/badge/.NET-6.0%20%7C%207.0%20%7C%208.0-blue.svg)](https://dotnet.microsoft.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+> ⚠️ **CRITICAL - 3.0.0 BREAKING CHANGES**  
+> **This is a complete rewrite** with massive breaking changes from 2.x versions.  
+> **📚 REQUIRED READING**: [Migration Guide](MIGRATION_GUIDE_2.x_to_3.0.md) before upgrading.  
+> **New Projects**: Continue reading below for the modern 3.0 architecture.
+
 **Zentient.Abstractions 3.0** is the foundational library for the Zentient Framework, providing comprehensive abstractions that enable the **four-pillar architecture** for building robust, extensible, and protocol-agnostic applications. This major release introduces a unified framework core with enhanced developer experience and enterprise-grade capabilities.
 
 ## 🏗️ Four-Pillar Architecture
