@@ -10,7 +10,7 @@ using Zentient.Abstractions.Policies.Definitions;
 namespace Zentient.Abstractions.Policies.Contexts
 {
     /// <summary>Represents a context for policy evaluation and execution.</summary>
-    public interface IPolicyContext : IContext<IPolicyContexTDefinition>, IHasName, IHasCorrelationId, IHasDescription
+    public interface IPolicyContext : IContext<IPolicyContextDefinition>, IHasName, IHasCorrelationId, IHasDescription
     {
         /// <summary>
         /// Gets the cancellation token for the current policy execution flow,
