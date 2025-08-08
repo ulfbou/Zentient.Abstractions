@@ -1,8 +1,6 @@
-﻿// <copyright file="IRelationDefinitionBuilder.cs" company="Zentient Framework Team">
+﻿﻿// <copyright file="IRelationDefinitionBuilder.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
-// </copyright>
-
-using Zentient.Abstractions.Common.Builders;
+// </copyright>using Zentient.Abstractions.Common.Builders;
 using Zentient.Abstractions.Endpoints.Relations;
 using Zentient.Abstractions.Errors;
 using Zentient.Abstractions.Metadata;

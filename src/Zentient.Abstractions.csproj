@@ -50,6 +50,7 @@
 
 	<ItemGroup>
 	  <Compile Remove="Pipelines\Steps\**" />
+	  <Compile Remove="Relations\Builders\IRelationDefinitionBuilder.cs" />
 	  <EmbeddedResource Remove="Pipelines\Steps\**" />
 	  <None Remove="Pipelines\Steps\**" />
 	</ItemGroup>

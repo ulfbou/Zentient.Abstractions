@@ -1,4 +1,6 @@
-﻿// <copyright file="IValidationDefinition.cs" company="Zentient Framework Team">
+﻿﻿// <copyright file="IValidationDefinition.cs" company="Zentient Framework Team">
+// Copyright © 2025 Zentient Framework Team. All rights reserved.
+// </copyright><copyright file="IValidationDefinition.cs" company="Zentient Framework Team">
 // Copyright © 2025 Zentient Framework Team. All rights reserved.
 // </copyright>
 
