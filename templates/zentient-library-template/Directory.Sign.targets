@@ -1,0 +1,69 @@
+<Project>
+
+  <Target Name="SignAssemblies" AfterTargets="Build" Condition="'$(EnableCodeSigning)' == 'true'">
+    <PropertyGroup>
+      <AssemblyToSign>$(TargetPath)</AssemblyToSign>
+    </PropertyGroup>
+    
+    <Message Text="Signing assembly: $(AssemblyToSign)" Importance="high" />
+    
+    <!-- Sign with certificate from thumbprint (preferred for CI/CD) -->
+    <Exec Command="&quot;$(SignToolPath)&quot; sign /sha1 $(CertificateThumbprint) /t $(TimestampUrl) /v &quot;$(AssemblyToSign)&quot;"
+          Condition="'$(CertificateThumbprint)' != ''" 
+          ContinueOnError="false" />
+    
+    <!-- Sign with certificate file (for local development) -->
+    <Exec Command="&quot;$(SignToolPath)&quot; sign /f &quot;$(CertificatePath)&quot; /p $(CertificatePassword) /t $(TimestampUrl) /v &quot;$(AssemblyToSign)&quot;"
+          Condition="'$(CertificatePath)' != '' AND '$(CertificateThumbprint)' == ''" 
+          ContinueOnError="false" />
+  </Target>
+
+  <Target Name="GenerateStrongNameKey" BeforeTargets="Build" Condition="!Exists('$(AssemblyOriginatorKeyFile)') AND '$(AssemblyOriginatorKeyFile)' != ''">
+    <Message Text="Generating strong name key: $(AssemblyOriginatorKeyFile)" Importance="high" />
+    <Exec Command="sn -k &quot;$(AssemblyOriginatorKeyFile)&quot;" ContinueOnError="false" />
+  </Target>
+
+  <Target Name="ValidateStrongNameSigning" BeforeTargets="Build" Condition="'$(SignAssembly)' == 'true'">
+    <Error Text="Strong name key file not found: $(AssemblyOriginatorKeyFile)" 
+           Condition="!Exists('$(AssemblyOriginatorKeyFile)')" />
+  </Target>
+
+  <Target Name="SignPackages" AfterTargets="Pack" Condition="'$(EnableCodeSigning)' == 'true' AND '$(IsPackable)' == 'true'">
+    <ItemGroup>
+      <PackagesToSign Include="$(PackageOutputPath)*.nupkg" />
+      <PackagesToSign Include="$(PackageOutputPath)*.snupkg" />
+    </ItemGroup>
+    
+    <Message Text="Signing packages: @(PackagesToSign)" Importance="high" />
+    
+    <!-- Sign packages with NuGet -->
+    <Exec Command="nuget sign &quot;%(PackagesToSign.Identity)&quot; -CertificateFingerprint $(CertificateThumbprint) -Timestamper $(TimestampUrl)"
+          Condition="'$(CertificateThumbprint)' != ''" 
+          ContinueOnError="false" />
+    
+    <Exec Command="nuget sign &quot;%(PackagesToSign.Identity)&quot; -CertificatePath &quot;$(CertificatePath)&quot; -CertificatePassword $(CertificatePassword) -Timestamper $(TimestampUrl)"
+          Condition="'$(CertificatePath)' != '' AND '$(CertificateThumbprint)' == ''" 
+          ContinueOnError="false" />
+  </Target>
+
+  <Target Name="VerifySignedAssemblies" AfterTargets="Build" Condition="'$(SignAssembly)' == 'true'">
+    <Message Text="Verifying strong name signature: $(TargetPath)" Importance="high" />
+    <Exec Command="sn -vf &quot;$(TargetPath)&quot;" ContinueOnError="false" />
+  </Target>
+
+  <Target Name="ConfigureInternalsVisibleTo" BeforeTargets="Build" Condition="'$(EnableInternalsVisibleTo)' == 'true' AND '$(SignAssembly)' == 'true'">
+    <PropertyGroup>
+      <PublicKeyValue Condition="'$(PublicKeyValue)' == '' AND '$(AssemblyOriginatorKeyFile)' != ''">$([System.IO.File]::ReadAllText('$(AssemblyOriginatorKeyFile).pub'))</PublicKeyValue>
+    </PropertyGroup>
+    
+    <ItemGroup>
+      <InternalsVisibleTo Include="$(AssemblyName).Tests" Condition="'$(IsTestProject)' != 'true'">
+        <PublicKey>$(PublicKeyValue)</PublicKey>
+      </InternalsVisibleTo>
+      <InternalsVisibleTo Include="$(AssemblyName).IntegrationTests" Condition="'$(IsTestProject)' != 'true'">
+        <PublicKey>$(PublicKeyValue)</PublicKey>
+      </InternalsVisibleTo>
+    </ItemGroup>
+  </Target>
+
+</Project>

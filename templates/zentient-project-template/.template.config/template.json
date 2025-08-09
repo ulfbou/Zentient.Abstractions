@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Zentient Framework Team",
+  "classifications": ["Web", "API", "Library", "Framework"],
+  "name": "Zentient Project Template",
+  "identity": "Zentient.ProjectTemplate",
+  "groupIdentity": "Zentient.ProjectTemplate",
+  "shortName": "zentient",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "ZentientTemplate",
+  "preferNameDirectory": true,
+  "description": "Complete infrastructure template for Zentient.Abstractions projects with zero-setup development experience",
+  "symbols": {
+    "ProjectName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "MyZentientProject",
+      "replaces": "ZentientTemplate",
+      "description": "The name of the project"
+    },
+    "Namespace": {
+      "type": "parameter", 
+      "datatype": "string",
+      "defaultValue": "MyZentientProject",
+      "replaces": "ZentientTemplate",
+      "description": "The root namespace for the project"
+    },
+    "UseDocker": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "Include Docker support"
+    },
+    "UseRedisCache": {
+      "type": "parameter",
+      "datatype": "bool", 
+      "defaultValue": "false",
+      "description": "Include Redis caching infrastructure"
+    },
+    "UseEntityFramework": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true", 
+      "description": "Include Entity Framework integration"
+    },
+    "IncludeAdvancedPatterns": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "Include CQRS and advanced pattern infrastructure"
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(!UseDocker)",
+          "exclude": [
+            "Dockerfile",
+            "docker-compose.yml",
+            "docker-compose.override.yml",
+            ".dockerignore"
+          ]
+        },
+        {
+          "condition": "(!UseRedisCache)",
+          "exclude": [
+            "src/**/Redis/**",
+            "src/**/Cache/Redis/**"
+          ]
+        },
+        {
+          "condition": "(!UseEntityFramework)",
+          "exclude": [
+            "src/**/Data/**",
+            "src/**/Persistence/**"
+          ]
+        },
+        {
+          "condition": "(!IncludeAdvancedPatterns)",
+          "exclude": [
+            "src/**/CQRS/**",
+            "src/**/Handlers/**",
+            "src/**/Commands/**",
+            "src/**/Queries/**"
+          ]
+        }
+      ]
+    }
+  ],
+  "postActions": [
+    {
+      "condition": "(OS != \"Windows_NT\")",
+      "description": "Make scripts executable",
+      "manualInstructions": [
+        {
+          "text": "Run 'chmod +x scripts/*.sh'"
+        }
+      ],
+      "actionId": "cb9a6cf3-4f5c-4860-b9d2-03a574959774",
+      "args": {
+        "+x": "scripts/*.sh"
+      },
+      "continueOnError": true
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+<Project>
+
+  <Target Name="RunUnitTests" Condition="'$(IsTestProject)' == 'true'">
+    <PropertyGroup>
+      <TestCommand>dotnet test</TestCommand>
+      <TestCommand>$(TestCommand) "$(MSBuildProjectFile)"</TestCommand>
+      <TestCommand>$(TestCommand) --configuration $(Configuration)</TestCommand>
+      <TestCommand>$(TestCommand) --no-build</TestCommand>
+      <TestCommand>$(TestCommand) --verbosity normal</TestCommand>
+      <TestCommand>$(TestCommand) --logger "$(VSTestLogger)"</TestCommand>
+      <TestCommand Condition="'$(DefaultTestFilter)' != ''">$(TestCommand) --filter "$(DefaultTestFilter)"</TestCommand>
+      <TestCommand Condition="'$(RunTestsInParallel)' == 'true'">$(TestCommand) --parallel</TestCommand>
+      <TestCommand Condition="'$(TestTimeout)' != ''">$(TestCommand) --blame-hang-timeout $(TestTimeout)</TestCommand>
+    </PropertyGroup>
+    
+    <Message Text="Running tests: $(TestCommand)" Importance="high" />
+    <Exec Command="$(TestCommand)" ContinueOnError="false" />
+  </Target>
+
+  <Target Name="RunTestsWithCoverage" Condition="'$(IsTestProject)' == 'true' AND '$(CollectCoverage)' == 'true'">
+    <PropertyGroup>
+      <CoverageCommand>dotnet test</CoverageCommand>
+      <CoverageCommand>$(CoverageCommand) "$(MSBuildProjectFile)"</CoverageCommand>
+      <CoverageCommand>$(CoverageCommand) --configuration $(Configuration)</CoverageCommand>
+      <CoverageCommand>$(CoverageCommand) --no-build</CoverageCommand>
+      <CoverageCommand>$(CoverageCommand) --collect:"XPlat Code Coverage"</CoverageCommand>
+      <CoverageCommand>$(CoverageCommand) --results-directory "$(TestResultsDirectory)"</CoverageCommand>
+      <CoverageCommand>$(CoverageCommand) --logger "$(VSTestLogger)"</CoverageCommand>
+      <CoverageCommand Condition="'$(DefaultTestFilter)' != ''">$(CoverageCommand) --filter "$(DefaultTestFilter)"</CoverageCommand>
+      <CoverageCommand>$(CoverageCommand) -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=$(CoverletOutputFormat)</CoverageCommand>
+      <CoverageCommand>$(CoverageCommand) DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Exclude="$(CoverletExclude)"</CoverageCommand>
+      <CoverageCommand>$(CoverageCommand) DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.ExcludeByFile="$(CoverletExcludeByFile)"</CoverageCommand>
+      <CoverageCommand>$(CoverageCommand) DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Threshold=$(Threshold)</CoverageCommand>
+      <CoverageCommand>$(CoverageCommand) DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.ThresholdType=$(ThresholdType)</CoverageCommand>
+    </PropertyGroup>
+    
+    <Message Text="Running tests with coverage: $(CoverageCommand)" Importance="high" />
+    <Exec Command="$(CoverageCommand)" ContinueOnError="false" />
+  </Target>
+
+  <Target Name="RunBenchmarkTests" Condition="'$(IsTestProject)' == 'true' AND '$(RunBenchmarks)' == 'true'">
+    <PropertyGroup>
+      <BenchmarkCommand>dotnet run</BenchmarkCommand>
+      <BenchmarkCommand>$(BenchmarkCommand) --configuration Release</BenchmarkCommand>
+      <BenchmarkCommand>$(BenchmarkCommand) --project "$(MSBuildProjectFile)"</BenchmarkCommand>
+      <BenchmarkCommand Condition="Exists('$(BenchmarkDotNetConfig)')">$(BenchmarkCommand) --config "$(BenchmarkDotNetConfig)"</BenchmarkCommand>
+      <BenchmarkCommand>$(BenchmarkCommand) --artifacts "$(OutputPath)BenchmarkDotNet.Artifacts"</BenchmarkCommand>
+    </PropertyGroup>
+    
+    <Message Text="Running benchmark tests: $(BenchmarkCommand)" Importance="high" />
+    <Exec Command="$(BenchmarkCommand)" ContinueOnError="false" />
+  </Target>
+
+  <Target Name="GenerateCoverageReport" AfterTargets="RunTestsWithCoverage" Condition="'$(IsTestProject)' == 'true' AND '$(CollectCoverage)' == 'true'">
+    <ItemGroup>
+      <CoverageFiles Include="$(TestResultsDirectory)**\coverage.cobertura.xml" />
+    </ItemGroup>
+    
+    <PropertyGroup>
+      <ReportGeneratorCommand>reportgenerator</ReportGeneratorCommand>
+      <ReportGeneratorCommand>$(ReportGeneratorCommand) -reports:@(CoverageFiles, ';')</ReportGeneratorCommand>
+      <ReportGeneratorCommand>$(ReportGeneratorCommand) -targetdir:"$(OutputPath)coverage-report"</ReportGeneratorCommand>
+      <ReportGeneratorCommand>$(ReportGeneratorCommand) -reporttypes:Html;Badges;TextSummary</ReportGeneratorCommand>
+      <ReportGeneratorCommand>$(ReportGeneratorCommand) -historydir:"$(OutputPath)coverage-history"</ReportGeneratorCommand>
+    </PropertyGroup>
+    
+    <Message Text="Generating coverage report: $(ReportGeneratorCommand)" Importance="high" />
+    <Exec Command="$(ReportGeneratorCommand)" ContinueOnError="true" />
+  </Target>
+
+  <Target Name="ValidateCoverageThreshold" AfterTargets="RunTestsWithCoverage" Condition="'$(IsTestProject)' == 'true' AND '$(CollectCoverage)' == 'true'">
+    <ItemGroup>
+      <CoverageFiles Include="$(TestResultsDirectory)**\coverage.cobertura.xml" />
+    </ItemGroup>
+    
+    <!-- This will be handled by coverlet automatically based on threshold settings -->
+    <Message Text="Coverage validation will be performed by coverlet based on threshold: $(Threshold)%" Importance="high" />
+  </Target>
+
+  <Target Name="CleanTestResults" BeforeTargets="Build" Condition="'$(IsTestProject)' == 'true'">
+    <RemoveDir Directories="$(TestResultsDirectory)" Condition="Exists('$(TestResultsDirectory)')" />
+    <RemoveDir Directories="$(OutputPath)coverage" Condition="Exists('$(OutputPath)coverage')" />
+    <RemoveDir Directories="$(OutputPath)coverage-report" Condition="Exists('$(OutputPath)coverage-report')" />
+    <RemoveDir Directories="$(OutputPath)BenchmarkDotNet.Artifacts" Condition="Exists('$(OutputPath)BenchmarkDotNet.Artifacts')" />
+  </Target>
+
+  <Target Name="EnsureTestDirectories" BeforeTargets="Build" Condition="'$(IsTestProject)' == 'true'">
+    <MakeDir Directories="$(TestResultsDirectory)" Condition="!Exists('$(TestResultsDirectory)')" />
+    <MakeDir Directories="$(OutputPath)coverage" Condition="!Exists('$(OutputPath)coverage')" />
+  </Target>
+
+</Project>

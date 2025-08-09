@@ -1,0 +1,237 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/ZentientTemplate.sln"
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile",
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      }
+    },
+    {
+      "label": "build-api",
+      "command": "dotnet",
+      "type": "process", 
+      "args": [
+        "build",
+        "${workspaceFolder}/src/ZentientTemplate.Api/ZentientTemplate.Api.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build-tests",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/tests"
+      ],
+      "group": "build", 
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build-benchmarks",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/tests/ZentientTemplate.Benchmarks/ZentientTemplate.Benchmarks.csproj",
+        "-c",
+        "Release"
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "publish",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "publish",
+        "${workspaceFolder}/src/ZentientTemplate.Api/ZentientTemplate.Api.csproj",
+        "-c",
+        "Release",
+        "-o",
+        "${workspaceFolder}/publish"
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "watch",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "watch",
+        "run",
+        "--project",
+        "${workspaceFolder}/src/ZentientTemplate.Api/ZentientTemplate.Api.csproj"
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile",
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "new"
+      }
+    },
+    {
+      "label": "clean",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "clean",
+        "${workspaceFolder}/ZentientTemplate.sln"
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "restore",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "restore",
+        "${workspaceFolder}/ZentientTemplate.sln"
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "test",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "test",
+        "${workspaceFolder}/ZentientTemplate.sln",
+        "--no-build",
+        "--verbosity",
+        "normal"
+      ],
+      "group": "test",
+      "problemMatcher": "$msCompile",
+      "dependsOn": "build"
+    },
+    {
+      "label": "test-unit",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "test",
+        "${workspaceFolder}/tests/ZentientTemplate.Core.Tests/ZentientTemplate.Core.Tests.csproj",
+        "--no-build",
+        "--verbosity",
+        "normal"
+      ],
+      "group": "test",
+      "problemMatcher": "$msCompile",
+      "dependsOn": "build-tests"
+    },
+    {
+      "label": "test-integration",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "test",
+        "${workspaceFolder}/tests/ZentientTemplate.Api.Tests/ZentientTemplate.Api.Tests.csproj",
+        "--no-build",
+        "--verbosity",
+        "normal"
+      ],
+      "group": "test",
+      "problemMatcher": "$msCompile",
+      "dependsOn": "build-tests"
+    },
+    {
+      "label": "test-coverage",
+      "command": "dotnet", 
+      "type": "process",
+      "args": [
+        "test",
+        "${workspaceFolder}/ZentientTemplate.sln",
+        "--collect",
+        "XPlat Code Coverage",
+        "--results-directory",
+        "${workspaceFolder}/coverage",
+        "--logger",
+        "trx",
+        "--logger",
+        "console;verbosity=detailed"
+      ],
+      "group": "test",
+      "problemMatcher": "$msCompile",
+      "dependsOn": "build"
+    },
+    {
+      "label": "benchmark",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "run",
+        "--project",
+        "${workspaceFolder}/tests/ZentientTemplate.Benchmarks/ZentientTemplate.Benchmarks.csproj",
+        "-c",
+        "Release"
+      ],
+      "group": "test",
+      "problemMatcher": "$msCompile",
+      "dependsOn": "build-benchmarks"
+    },
+    {
+      "label": "docker-build",
+      "command": "docker",
+      "type": "shell",
+      "args": [
+        "build",
+        "-t",
+        "zentiententtemplate:latest",
+        "."
+      ],
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "docker-run",
+      "command": "docker",
+      "type": "shell",
+      "args": [
+        "run",
+        "-p",
+        "8080:80",
+        "zentiententtemplate:latest"
+      ],
+      "group": "build",
+      "dependsOn": "docker-build"
+    },
+    {
+      "label": "format",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "format",
+        "${workspaceFolder}/ZentientTemplate.sln"
+      ],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

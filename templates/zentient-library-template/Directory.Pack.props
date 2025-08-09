@@ -1,0 +1,145 @@
+<Project>
+
+  <!-- NuGet Package Configuration -->
+  <PropertyGroup Condition="'$(IsPackable)' == 'true'">
+    <!-- Package metadata -->
+    <PackageId Condition="'$(PackageId)' == ''">$(AssemblyName)</PackageId>
+    <PackageVersion Condition="'$(PackageVersion)' == ''">$(Version)</PackageVersion>
+    <PackageDescription Condition="'$(PackageDescription)' == ''">$(Description)</PackageDescription>
+    <PackageAuthors Condition="'$(PackageAuthors)' == ''">$(Authors)</PackageAuthors>
+    <PackageCompany Condition="'$(PackageCompany)' == ''">$(Company)</PackageCompany>
+    <PackageCopyright Condition="'$(PackageCopyright)' == ''">$(Copyright)</PackageCopyright>
+    
+    <!-- Package URLs and links -->
+    <PackageProjectUrl Condition="'$(PackageProjectUrl)' == ''">$(RepositoryUrl)</PackageProjectUrl>
+    <PackageRepositoryUrl Condition="'$(PackageRepositoryUrl)' == ''">$(RepositoryUrl)</PackageRepositoryUrl>
+    <PackageRepositoryType Condition="'$(PackageRepositoryType)' == ''">$(RepositoryType)</PackageRepositoryType>
+    
+    <!-- Package licensing -->
+    <PackageLicenseExpression Condition="'$(PackageLicenseExpression)' == ''">MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance Condition="'$(PackageRequireLicenseAcceptance)' == ''">false</PackageRequireLicenseAcceptance>
+    
+    <!-- Package documentation -->
+    <PackageReadmeFile Condition="'$(PackageReadmeFile)' == ''">README.md</PackageReadmeFile>
+    <PackageReleaseNotes Condition="'$(PackageReleaseNotes)' == ''">See CHANGELOG.md for release notes.</PackageReleaseNotes>
+    
+    <!-- Package tags and categorization -->
+    <PackageTags Condition="'$(PackageTags)' == ''">zentient;framework;library;abstractions</PackageTags>
+    <DevelopmentDependency Condition="'$(DevelopmentDependency)' == ''">false</DevelopmentDependency>
+    
+    <!-- Package output configuration -->
+    <IncludeSymbols Condition="'$(IncludeSymbols)' == ''">true</IncludeSymbols>
+    <SymbolPackageFormat Condition="'$(SymbolPackageFormat)' == ''">snupkg</SymbolPackageFormat>
+    <IncludeSource Condition="'$(IncludeSource)' == ''">false</IncludeSource>
+    
+    <!-- Embedding and determinism -->
+    <EmbedUntrackedSources Condition="'$(EmbedUntrackedSources)' == ''">true</EmbedUntrackedSources>
+    <ContinuousIntegrationBuild Condition="'$(ContinuousIntegrationBuild)' == ''">false</ContinuousIntegrationBuild>
+    <Deterministic Condition="'$(Deterministic)' == ''">true</Deterministic>
+    
+    <!-- Package validation -->
+    <EnablePackageValidation Condition="'$(EnablePackageValidation)' == ''">true</EnablePackageValidation>
+    <PackageValidationBaselineVersion Condition="'$(PackageValidationBaselineVersion)' == ''"></PackageValidationBaselineVersion>
+    
+    <!-- Source link configuration -->
+    <PublishRepositoryUrl Condition="'$(PublishRepositoryUrl)' == ''">true</PublishRepositoryUrl>
+    <EmbedUntrackedSources Condition="'$(EmbedUntrackedSources)' == ''">true</EmbedUntrackedSources>
+    
+    <!-- Documentation generation for package -->
+    <GenerateDocumentationFile Condition="'$(GenerateDocumentationFile)' == ''">true</GenerateDocumentationFile>
+    <NoWarn Condition="'$(Configuration)' == 'Debug'">$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <!-- Source Link Support -->
+  <ItemGroup Condition="'$(IsPackable)' == 'true' AND '$(PublishRepositoryUrl)' == 'true'">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- Package Content Files -->
+  <ItemGroup Condition="'$(IsPackable)' == 'true'">
+    <!-- Include README in package -->
+    <None Include="README.md" Pack="true" PackagePath="\" Condition="Exists('README.md')" />
+    
+    <!-- Include changelog in package -->
+    <None Include="CHANGELOG.md" Pack="true" PackagePath="\" Condition="Exists('CHANGELOG.md')" />
+    
+    <!-- Include license in package -->
+    <None Include="LICENSE" Pack="true" PackagePath="\" Condition="Exists('LICENSE')" />
+    <None Include="LICENSE.txt" Pack="true" PackagePath="\" Condition="Exists('LICENSE.txt')" />
+    <None Include="LICENSE.md" Pack="true" PackagePath="\" Condition="Exists('LICENSE.md')" />
+    
+    <!-- Include documentation files -->
+    <None Include="docs\**\*.md" Pack="true" PackagePath="docs\" Condition="Exists('docs')" />
+    
+    <!-- Include code samples -->
+    <None Include="samples\**\*" Pack="true" PackagePath="samples\" Condition="Exists('samples')" />
+  </ItemGroup>
+
+  <!-- Package Icon Configuration -->
+  <PropertyGroup Condition="'$(IsPackable)' == 'true'">
+    <PackageIcon Condition="'$(PackageIcon)' == '' AND Exists('icon.png')">icon.png</PackageIcon>
+    <PackageIconUrl Condition="'$(PackageIconUrl)' == '' AND '$(PackageIcon)' == ''">https://raw.githubusercontent.com/Zentient/Zentient.Abstractions/main/assets/zentient-icon.png</PackageIconUrl>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(IsPackable)' == 'true' AND '$(PackageIcon)' != ''">
+    <None Include="$(PackageIcon)" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <!-- Package Output Configuration -->
+  <PropertyGroup Condition="'$(IsPackable)' == 'true'">
+    <!-- Output paths -->
+    <PackageOutputPath Condition="'$(PackageOutputPath)' == ''">$(OutputPath)</PackageOutputPath>
+    <NuGetPackageRoot Condition="'$(NuGetPackageRoot)' == ''">$(USERPROFILE)\.nuget\packages</NuGetPackageRoot>
+    
+    <!-- Package naming -->
+    <PackageFileName Condition="'$(PackageFileName)' == ''">$(PackageId).$(PackageVersion).nupkg</PackageFileName>
+    <SymbolPackageFileName Condition="'$(SymbolPackageFileName)' == ''">$(PackageId).$(PackageVersion).snupkg</SymbolPackageFileName>
+    
+    <!-- Package compression -->
+    <NuspecProperties Condition="'$(NuspecProperties)' == ''">Configuration=$(Configuration);Platform=$(Platform);TargetFramework=$(TargetFramework)</NuspecProperties>
+  </PropertyGroup>
+
+  <!-- Advanced Package Configuration -->
+  <PropertyGroup Condition="'$(IsPackable)' == 'true'">
+    <!-- Dependency management -->
+    <RestorePackagesWithLockFile Condition="'$(RestorePackagesWithLockFile)' == ''">false</RestorePackagesWithLockFile>
+    <DisableImplicitNuGetFallbackFolder Condition="'$(DisableImplicitNuGetFallbackFolder)' == ''">true</DisableImplicitNuGetFallbackFolder>
+    
+    <!-- Package security -->
+    <NuGetAudit Condition="'$(NuGetAudit)' == ''">true</NuGetAudit>
+    <NuGetAuditMode Condition="'$(NuGetAuditMode)' == ''">direct</NuGetAuditMode>
+    <NuGetAuditLevel Condition="'$(NuGetAuditLevel)' == ''">low</NuGetAuditLevel>
+    
+    <!-- Package signing -->
+    <SignPackage Condition="'$(SignPackage)' == ''">false</SignPackage>
+    <PackageCertificateThumbprint Condition="'$(PackageCertificateThumbprint)' == ''"></PackageCertificateThumbprint>
+    
+    <!-- Package validation and quality -->
+    <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
+    <WarningsAsErrors Condition="'$(Configuration)' == 'Release'">$(WarningsAsErrors);NU1605;NU1608</WarningsAsErrors>
+  </PropertyGroup>
+
+  <!-- Multi-targeting Support -->
+  <PropertyGroup Condition="'$(IsPackable)' == 'true' AND $(TargetFrameworks.Contains(';'))">
+    <!-- Multi-target package configuration -->
+    <IsCrossTargetingBuild>true</IsCrossTargetingBuild>
+    <GenerateNuspecDependsOn>$(GenerateNuspecDependsOn);_GetTargetFrameworksOutput</GenerateNuspecDependsOn>
+  </PropertyGroup>
+
+  <!-- Package Metadata Enhancement -->
+  <PropertyGroup Condition="'$(IsPackable)' == 'true'">
+    <!-- Enhanced metadata for discoverability -->
+    <PackageType Condition="'$(PackageType)' == ''">Dependency</PackageType>
+    <RepositoryBranch Condition="'$(RepositoryBranch)' == ''">main</RepositoryBranch>
+    <RepositoryCommit Condition="'$(RepositoryCommit)' == ''">$(GitCommitId)</RepositoryCommit>
+    
+    <!-- Build environment information -->
+    <BuildEnvironment Condition="'$(BuildEnvironment)' == ''">Local</BuildEnvironment>
+    <BuildNumber Condition="'$(BuildNumber)' == ''">0</BuildNumber>
+    <BuildId Condition="'$(BuildId)' == ''">local-build</BuildId>
+  </PropertyGroup>
+
+</Project>

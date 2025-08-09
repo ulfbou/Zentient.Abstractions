@@ -1,0 +1,13 @@
+- name: Home
+  href: README.md
+- name: Getting Started
+  href: docs/getting-started.md
+- name: Architecture
+  href: docs/architecture.md
+- name: Contributing
+  href: CONTRIBUTING.md
+- name: Changelog
+  href: CHANGELOG.md
+- name: API Reference
+  href: api/
+  homepage: api/index.md

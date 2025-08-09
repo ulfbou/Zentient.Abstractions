@@ -1,0 +1,66 @@
+<Project>
+  <!-- Custom Build Targets -->
+  
+  <!-- Code Coverage -->
+  <Target Name="GenerateCoverageReport" Condition="'$(CollectCoverage)' == 'true'">
+    <Message Text="Generating code coverage report..." Importance="high" />
+  </Target>
+
+  <!-- Documentation Generation -->
+  <Target Name="GenerateDocumentation" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release' AND '$(GenerateDocs)' == 'true'">
+    <Message Text="Generating API documentation..." Importance="high" />
+  </Target>
+
+  <!-- Performance Benchmarks -->
+  <Target Name="RunBenchmarks" Condition="'$(RunBenchmarks)' == 'true'">
+    <Message Text="Running performance benchmarks..." Importance="high" />
+    <Exec Command="dotnet run -c Release --project $(MSBuildProjectDirectory)/tests/ZentientTemplate.Benchmarks/ZentientTemplate.Benchmarks.csproj" 
+          ContinueOnError="false" />
+  </Target>
+
+  <!-- Quality Gates -->
+  <Target Name="QualityGate" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
+    <Message Text="Running quality gate checks..." Importance="high" />
+    <!-- Add quality gate logic here -->
+  </Target>
+
+  <!-- Docker Build -->
+  <Target Name="DockerBuild" Condition="'$(BuildDocker)' == 'true'">
+    <Message Text="Building Docker image..." Importance="high" />
+    <Exec Command="docker build -t $(MSBuildProjectName.ToLower()):latest ." 
+          WorkingDirectory="$(MSBuildProjectDirectory)" 
+          ContinueOnError="false" />
+  </Target>
+
+  <!-- Clean Extended -->
+  <Target Name="CleanAll" DependsOnTargets="Clean">
+    <Message Text="Performing extended clean..." Importance="high" />
+    <RemoveDir Directories="$(OutputPath)" />
+    <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
+    <ItemGroup>
+      <FilesToDelete Include="**/bin/**/*" />
+      <FilesToDelete Include="**/obj/**/*" />
+      <FilesToDelete Include="**/*.log" />
+      <FilesToDelete Include="**/coverage.*.xml" />
+    </ItemGroup>
+    <Delete Files="@(FilesToDelete)" />
+  </Target>
+
+  <!-- Post-Build Analysis -->
+  <Target Name="PostBuildAnalysis" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+    <Message Text="Running post-build analysis..." Importance="high" />
+    <!-- Add security scanning, dependency checks, etc. -->
+  </Target>
+
+  <!-- Integration Test Setup -->
+  <Target Name="SetupIntegrationTests" BeforeTargets="VSTest" Condition="'$(RunIntegrationTests)' == 'true'">
+    <Message Text="Setting up integration test environment..." Importance="high" />
+    <!-- Start test databases, containers, etc. -->
+  </Target>
+
+  <!-- Cleanup Integration Tests -->
+  <Target Name="CleanupIntegrationTests" AfterTargets="VSTest" Condition="'$(RunIntegrationTests)' == 'true'">
+    <Message Text="Cleaning up integration test environment..." Importance="high" />
+    <!-- Stop test databases, containers, etc. -->
+  </Target>
+</Project>

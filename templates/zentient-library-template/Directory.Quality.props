@@ -1,0 +1,107 @@
+<Project>
+
+  <PropertyGroup Label="Quality Assurance Configuration">
+    <!-- Enable all quality features -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <WarningsNotAsErrors />
+
+    <!-- Code analysis settings -->
+    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet Condition="'$(IsTestProject)' != 'true' AND Exists('$(MSBuildThisFileDirectory)analyzers\ZentientTemplate.ruleset')">$(MSBuildThisFileDirectory)analyzers\ZentientTemplate.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(IsTestProject)' == 'true' AND Exists('$(MSBuildThisFileDirectory)analyzers\ZentientTemplate.Tests.ruleset')">$(MSBuildThisFileDirectory)analyzers\ZentientTemplate.Tests.ruleset</CodeAnalysisRuleSet>
+
+    <!-- Documentation requirements -->
+    <GenerateDocumentationFile Condition="'$(IsTestProject)' != 'true'">true</GenerateDocumentationFile>
+    <DocumentationFile Condition="'$(IsTestProject)' != 'true'">$(OutputPath)$(AssemblyName).xml</DocumentationFile>
+    <NoWarn Condition="'$(IsTestProject)' == 'true'">$(NoWarn);CS1591</NoWarn>
+
+    <!-- Nullable reference types -->
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
+
+    <!-- Additional quality settings -->
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+
+    <!-- Performance settings -->
+    <Optimize Condition="'$(Configuration)' == 'Release'">true</Optimize>
+    <DefineConstants Condition="'$(Configuration)' == 'Debug'">$(DefineConstants);DEBUG;TRACE</DefineConstants>
+    <DefineConstants Condition="'$(Configuration)' == 'Release'">$(DefineConstants);TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Label="StyleCop Configuration">
+    <!-- StyleCop settings -->
+    <EnableStyleCopAnalyzers>true</EnableStyleCopAnalyzers>
+    <StyleCopConfigFile Condition="Exists('$(MSBuildThisFileDirectory)stylecop.json')">$(MSBuildThisFileDirectory)stylecop.json</StyleCopConfigFile>
+    <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
+
+    <!-- Code style preferences -->
+    <!-- Note: .editorconfig is automatically discovered by analyzers -->
+    <EnforceCodeStyle>true</EnforceCodeStyle>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Security Analysis">
+    <!-- Security analysis settings -->
+    <EnableSecurityAnalysis>true</EnableSecurityAnalysis>
+    <RunSecurityCodeAnalysis Condition="'$(Configuration)' == 'Release'">true</RunSecurityCodeAnalysis>
+
+    <!-- Dependency vulnerability scanning -->
+    <EnablePackageVulnerabilityAudit>true</EnablePackageVulnerabilityAudit>
+    <AuditLevel>low</AuditLevel>
+
+    <!-- Code access security -->
+    <AllowPartiallyTrustedCallers>false</AllowPartiallyTrustedCallers>
+    <SecurityTransparent>false</SecurityTransparent>
+  </PropertyGroup>
+
+  <ItemGroup Label="Code Analysis Packages">
+    <!-- Microsoft code analyzers -->
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <!-- StyleCop analyzers -->
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.507">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <!-- Security analyzers -->
+    <PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="3.3.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="3.3.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <!-- Additional quality analyzers -->
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.12.0.78982">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Roslynator.Analyzers" Version="4.6.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- EditorConfig is automatically discovered by .NET analyzers -->
+  <!-- <ItemGroup Label="EditorConfig Files">
+    <EditorConfigFiles Include="$(MSBuildThisFileDirectory).editorconfig" />
+    <None Include="@(EditorConfigFiles)" />
+  </ItemGroup> -->
+
+</Project>

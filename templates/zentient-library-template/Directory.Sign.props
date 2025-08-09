@@ -1,0 +1,57 @@
+<Project>
+
+  <PropertyGroup Label="Code Signing Configuration">
+    <!-- Disable strong naming by default for template (users can enable with their own key) -->
+    <SignAssembly>false</SignAssembly>
+    <DelaySign>false</DelaySign>
+
+    <!-- Strong name key file -->
+    <AssemblyOriginatorKeyFile Condition="'$(AssemblyOriginatorKeyFile)' == '' AND Exists('$(MSBuildThisFileDirectory)ZentientTemplate.snk')">$(MSBuildThisFileDirectory)ZentientTemplate.snk</AssemblyOriginatorKeyFile>
+
+    <!-- Package signing configuration -->
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+    <!-- Authenticode signing (for production builds) -->
+    <SignToolPath Condition="'$(SignToolPath)' == ''">$(ProgramFiles)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\signtool.exe</SignToolPath>
+    <TimestampUrl Condition="'$(TimestampUrl)' == ''">http://timestamp.digicert.com</TimestampUrl>
+
+    <!-- Certificate configuration -->
+    <CertificateThumbprint Condition="'$(CertificateThumbprint)' == ''">$(SIGNING_CERTIFICATE_THUMBPRINT)</CertificateThumbprint>
+    <CertificatePath Condition="'$(CertificatePath)' == ''">$(SIGNING_CERTIFICATE_PATH)</CertificatePath>
+    <CertificatePassword Condition="'$(CertificatePassword)' == ''">$(SIGNING_CERTIFICATE_PASSWORD)</CertificatePassword>
+
+    <!-- Enable signing in Release builds -->
+    <EnableCodeSigning Condition="'$(Configuration)' == 'Release' AND '$(CertificateThumbprint)' != ''">true</EnableCodeSigning>
+    <EnableCodeSigning Condition="'$(Configuration)' == 'Release' AND '$(CertificatePath)' != ''">true</EnableCodeSigning>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Assembly Attributes for Signing">
+    <!-- Assembly attributes for signed assemblies -->
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <IncludeSourceRevisionInInformationalVersion>true</IncludeSourceRevisionInInformationalVersion>
+
+    <!-- Assembly metadata -->
+    <AssemblyTitle>$(PackageId)</AssemblyTitle>
+    <AssemblyDescription>$(PackageDescription)</AssemblyDescription>
+    <AssemblyCompany>$(Authors)</AssemblyCompany>
+    <AssemblyProduct>$(Product)</AssemblyProduct>
+    <AssemblyCopyright>$(Copyright)</AssemblyCopyright>
+    <AssemblyVersion>$(AssemblyVersion)</AssemblyVersion>
+    <AssemblyFileVersion>$(FileVersion)</AssemblyFileVersion>
+    <AssemblyInformationalVersion>$(InformationalVersion)</AssemblyInformationalVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Security and Trust Settings">
+    <!-- Security settings -->
+    <AllowPartiallyTrustedCallers>false</AllowPartiallyTrustedCallers>
+    <SecurityTransparent>false</SecurityTransparent>
+
+    <!-- Friend assemblies (for testing) -->
+    <EnableInternalsVisibleTo Condition="'$(IsTestProject)' != 'true'">true</EnableInternalsVisibleTo>
+
+    <!-- Public key for InternalsVisibleTo -->
+    <PublicKey Condition="'$(AssemblyOriginatorKeyFile)' != ''">$(AssemblyOriginatorKeyFile)</PublicKey>
+  </PropertyGroup>
+
+</Project>

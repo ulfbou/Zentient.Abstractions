@@ -1,0 +1,107 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch API",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-api",
+      "program": "${workspaceFolder}/src/ZentientTemplate.Api/bin/Debug/net8.0/ZentientTemplate.Api.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/ZentientTemplate.Api",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+        "uriFormat": "%s/swagger"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://localhost:7001;http://localhost:5001"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      }
+    },
+    {
+      "name": "Launch API (No Browser)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-api",
+      "program": "${workspaceFolder}/src/ZentientTemplate.Api/bin/Debug/net8.0/ZentientTemplate.Api.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/ZentientTemplate.Api",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://localhost:7001;http://localhost:5001"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      }
+    },
+    {
+      "name": "Attach to Process",
+      "type": "coreclr",
+      "request": "attach"
+    },
+    {
+      "name": "Debug Unit Tests",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-tests",
+      "program": "dotnet",
+      "args": [
+        "test",
+        "${workspaceFolder}/tests/ZentientTemplate.Core.Tests/ZentientTemplate.Core.Tests.csproj",
+        "--no-build",
+        "--verbosity",
+        "normal",
+        "--logger",
+        "console;verbosity=detailed"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    },
+    {
+      "name": "Debug Integration Tests", 
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-tests",
+      "program": "dotnet",
+      "args": [
+        "test",
+        "${workspaceFolder}/tests/ZentientTemplate.Api.Tests/ZentientTemplate.Api.Tests.csproj",
+        "--no-build",
+        "--verbosity",
+        "normal",
+        "--logger",
+        "console;verbosity=detailed"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Testing"
+      }
+    },
+    {
+      "name": "Debug Performance Tests",
+      "type": "coreclr", 
+      "request": "launch",
+      "preLaunchTask": "build-benchmarks",
+      "program": "${workspaceFolder}/tests/ZentientTemplate.Benchmarks/bin/Debug/net8.0/ZentientTemplate.Benchmarks.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/tests/ZentientTemplate.Benchmarks",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Launch Full Stack",
+      "configurations": ["Launch API"]
+    }
+  ]
+}

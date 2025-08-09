@@ -1,0 +1,96 @@
+<Project>
+
+  <!-- Import Specialized Directory Targets -->
+  <Import Project="Directory.Pack.targets" Condition="Exists('Directory.Pack.targets')" />
+  <Import Project="Directory.Sign.targets" Condition="Exists('Directory.Sign.targets') AND '$(EnableSigning)' == 'true'" />
+  <Import Project="Directory.Test.targets" Condition="Exists('Directory.Test.targets') AND '$(EnableTesting)' == 'true'" />
+  <Import Project="Directory.Quality.targets" Condition="Exists('Directory.Quality.targets') AND '$(EnableQuality)' == 'true'" />
+  <Import Project="Directory.Security.targets" Condition="Exists('Directory.Security.targets') AND '$(EnableSecurity)' == 'true'" />
+  <Import Project="Directory.Documentation.targets" Condition="Exists('Directory.Documentation.targets') AND '$(EnableDocumentation)' == 'true'" />
+  <Import Project="Directory.Performance.targets" Condition="Exists('Directory.Performance.targets') AND '$(EnablePerformance)' == 'true'" />
+
+  <!-- Common Build Targets -->
+  <Target Name="PrintBuildInfo" BeforeTargets="Build">
+    <Message Text="Building $(MSBuildProjectName) v$(Version) [$(Configuration)]" Importance="high" />
+    <Message Text="Target Framework: $(TargetFramework)" Importance="normal" />
+    <Message Text="Output Path: $(OutputPath)" Importance="normal" />
+    
+    <!-- Feature status -->
+    <Message Text="Features Enabled:" Importance="normal" />
+    <Message Text="  - Signing: $(EnableSigning)" Importance="normal" />
+    <Message Text="  - Testing: $(EnableTesting)" Importance="normal" />
+    <Message Text="  - Quality: $(EnableQuality)" Importance="normal" />
+    <Message Text="  - Security: $(EnableSecurity)" Importance="normal" />
+    <Message Text="  - Documentation: $(EnableDocumentation)" Importance="normal" />
+    <Message Text="  - Performance: $(EnablePerformance)" Importance="normal" />
+  </Target>
+
+  <Target Name="ValidateConfiguration" BeforeTargets="Build">
+    <!-- Validate required properties -->
+    <Error Text="TargetFramework must be specified" Condition="'$(TargetFramework)' == ''" />
+    <Error Text="Configuration must be specified" Condition="'$(Configuration)' == ''" />
+    
+    <!-- Validate version information -->
+    <Error Text="VersionPrefix must be specified" Condition="'$(VersionPrefix)' == ''" />
+    
+    <!-- Validate metadata -->
+    <Warning Text="Description should be specified for packable projects" 
+             Condition="'$(Description)' == 'LIBRARY_DESCRIPTION' AND '$(IsPackable)' == 'true'" />
+    <Warning Text="Author should be specified for packable projects" 
+             Condition="'$(Authors)' == 'LIBRARY_AUTHOR' AND '$(IsPackable)' == 'true'" />
+  </Target>
+
+  <Target Name="CleanArtifacts" BeforeTargets="Clean">
+    <Message Text="Cleaning build artifacts..." Importance="high" />
+    
+    <!-- Clean common artifact directories -->
+    <ItemGroup>
+      <ArtifactDirectories Include="$(OutputPath)" />
+      <ArtifactDirectories Include="$(BaseIntermediateOutputPath)" />
+      <ArtifactDirectories Include="bin\**" />
+      <ArtifactDirectories Include="obj\**" />
+    </ItemGroup>
+    
+    <RemoveDir Directories="@(ArtifactDirectories)" ContinueOnError="true" />
+  </Target>
+
+  <Target Name="ValidatePostBuild" AfterTargets="Build">
+    <Message Text="Post-build validation..." Importance="normal" />
+    
+    <!-- Validate output -->
+    <Error Text="Expected output file not found: $(TargetPath)" 
+           Condition="'$(OutputType)' != '' AND !Exists('$(TargetPath)')" />
+    
+    <!-- Success message -->
+    <Message Text="✅ Build completed successfully: $(TargetFileName)" 
+             Importance="high" 
+             Condition="Exists('$(TargetPath)')" />
+  </Target>
+
+  <!-- Help Target -->
+  <Target Name="Help">
+    <Message Text="=== Zentient Library Template - Available Targets ===" Importance="high" />
+    <Message Text="" Importance="high" />
+    <Message Text="Build Targets:" Importance="high" />
+    <Message Text="  Build              - Build the project" Importance="high" />
+    <Message Text="  Clean              - Clean build artifacts" Importance="high" />
+    <Message Text="  Rebuild            - Clean and build" Importance="high" />
+    <Message Text="  Test               - Run unit tests" Importance="high" />
+    <Message Text="  Pack               - Create NuGet package" Importance="high" />
+    <Message Text="" Importance="high" />
+    <Message Text="Quality Targets:" Importance="high" />
+    <Message Text="  RunCodeAnalysis    - Run code analysis" Importance="high" />
+    <Message Text="  RunSecurityScan    - Run security analysis" Importance="high" />
+    <Message Text="  GenerateDocumentation - Generate API documentation" Importance="high" />
+    <Message Text="" Importance="high" />
+    <Message Text="Performance Targets:" Importance="high" />
+    <Message Text="  RunPerformanceBenchmarks - Run performance benchmarks" Importance="high" />
+    <Message Text="  RunMemoryAnalysis  - Analyze memory usage" Importance="high" />
+    <Message Text="" Importance="high" />
+    <Message Text="Example Usage:" Importance="high" />
+    <Message Text="  dotnet build -p:EnablePerformance=true" Importance="high" />
+    <Message Text="  dotnet test -p:CollectCoverage=true" Importance="high" />
+    <Message Text="  dotnet pack -p:IncludeSymbols=true" Importance="high" />
+  </Target>
+
+</Project>

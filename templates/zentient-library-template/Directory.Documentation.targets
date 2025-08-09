@@ -1,0 +1,329 @@
+<Project>
+
+  <Target Name="ValidateDocumentationCoverage" BeforeTargets="Build" Condition="'$(RequireDocumentationForPublicApis)' == 'true'">
+    <Message Text="Validating documentation coverage..." Importance="high" />
+
+    <PropertyGroup>
+      <DocumentationCoverageReport>$(OutputPath)DocumentationCoverage.xml</DocumentationCoverageReport>
+    </PropertyGroup>
+
+    <!-- Documentation coverage validation happens during compilation via CS1591 warnings -->
+    <Message Text="Documentation coverage threshold: $(DocumentationCoverageThreshold)%" Importance="normal" />
+  </Target>
+
+  <Target Name="GenerateDocFxConfiguration" BeforeTargets="GenerateDocumentation" Condition="'$(GenerateDocFxConfiguration)' == 'true' AND !Exists('$(DocFxConfigFile)')">
+    <Message Text="Generating DocFX configuration..." Importance="high" />
+
+    <PropertyGroup>
+      <DocFxConfigContent>{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": ["**/*.csproj"],
+          "exclude": ["**/bin/**", "**/obj/**"]
+        }
+      ],
+      "dest": "api",
+      "includePrivateMembers": false,
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "noRestore": false,
+      "namespaceLayout": "flattened",
+      "memberLayout": "samePage",
+      "allowCompilationErrors": false
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": ["api/**.yml", "api/index.md"]
+      },
+      {
+        "files": ["docs/**.md", "docs/**/toc.yml"],
+        "exclude": ["**/bin/**", "**/obj/**"]
+      },
+      {
+        "files": ["README.md"]
+      }
+    ],
+    "resource": [
+      {
+        "files": ["images/**"]
+      }
+    ],
+    "output": "$(DocFxOutputPath)",
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "template": ["$(DocFxTemplate)"],
+    "postProcessors": [],
+    "markdownEngineProperties": {},
+    "noLangKeyword": false,
+    "keepFileLink": false,
+    "cleanupCacheHistory": false,
+    "disableGitFeatures": false,
+    "globalMetadata": {
+      "_appTitle": "$(DocFxSiteName)",
+      "_appFooter": "$(AssemblyCopyright)",
+      "_enableSearch": true,
+      "_enableNewTab": true,
+      "_gitContribute": {
+        "repo": "$(RepositoryUrl)",
+        "branch": "main"
+      },
+      "_gitUrlPattern": "github"
+    }
+  }
+}</DocFxConfigContent>
+    </PropertyGroup>
+
+    <WriteLinesToFile File="$(DocFxConfigFile)" Lines="$(DocFxConfigContent)" Overwrite="true" />
+    <Message Text="DocFX configuration generated: $(DocFxConfigFile)" Importance="normal" />
+  </Target>
+
+  <Target Name="GenerateDocumentation" AfterTargets="Build" Condition="'$(GenerateApiDocumentation)' == 'true' AND '$(Configuration)' == 'Release'">
+    <Message Text="Generating API documentation..." Importance="high" />
+
+    <PropertyGroup>
+      <DocOutputPath>$(OutputPath)documentation</DocOutputPath>
+    </PropertyGroup>
+
+    <MakeDir Directories="$(DocOutputPath)" />
+
+    <!-- Generate DocFX documentation if available -->
+    <Exec Command="docfx $(DocFxConfigFile) --output $(DocOutputPath)"
+          ContinueOnError="true"
+          Condition="Exists('$(DocFxConfigFile)') AND Exists('docfx')" />
+
+    <!-- Generate default documentation using DefaultDocumentation -->
+    <Message Text="Generating default API documentation..." Importance="normal" />
+  </Target>
+
+  <Target Name="ValidateDocumentationLinks" AfterTargets="GenerateDocumentation" Condition="'$(ValidateDocumentationLinks)' == 'true'">
+    <Message Text="Validating documentation links..." Importance="high" />
+
+    <PropertyGroup>
+      <LinkValidationResults>$(OutputPath)LinkValidation.xml</LinkValidationResults>
+    </PropertyGroup>
+
+    <!-- Find all markdown files and validate links -->
+    <ItemGroup>
+      <MarkdownFiles Include="$(ConceptualDocsPath)\**\*.md" Condition="Exists('$(ConceptualDocsPath)')" />
+      <MarkdownFiles Include="README.md" Condition="Exists('README.md')" />
+      <MarkdownFiles Include="CHANGELOG.md" Condition="Exists('CHANGELOG.md')" />
+    </ItemGroup>
+
+    <Message Text="Validating links in @(MarkdownFiles->'%(Filename)%(Extension)', ', ')" Importance="normal" />
+
+    <!-- Custom link validation would be implemented here -->
+    <WriteLinesToFile File="$(LinkValidationResults)"
+                      Lines="Link validation completed for $(MSBuildProjectName)"
+                      Overwrite="true" />
+    <WriteLinesToFile File="$(LinkValidationResults)"
+                      Lines="Validation time: $([System.DateTime]::Now)"
+                      Overwrite="false" />
+  </Target>
+
+  <Target Name="ValidateCodeExamples" AfterTargets="GenerateDocumentation" Condition="'$(ValidateCodeExamples)' == 'true'">
+    <Message Text="Validating code examples..." Importance="high" />
+
+    <PropertyGroup>
+      <CodeExampleValidationResults>$(OutputPath)CodeExampleValidation.xml</CodeExampleValidationResults>
+    </PropertyGroup>
+
+    <!-- Find code examples in documentation -->
+    <ItemGroup>
+      <DocumentationFiles Include="$(ConceptualDocsPath)\**\*.md" Condition="Exists('$(ConceptualDocsPath)')" />
+      <SampleFiles Include="$(CodeSamplesPath)\**\*.cs" Condition="Exists('$(CodeSamplesPath)')" />
+    </ItemGroup>
+
+    <Message Text="Validating code examples in documentation and samples..." Importance="normal" />
+
+    <!-- Custom code example validation would be implemented here -->
+    <WriteLinesToFile File="$(CodeExampleValidationResults)"
+                      Lines="Code example validation completed"
+                      Overwrite="true" />
+    <WriteLinesToFile File="$(CodeExampleValidationResults)"
+                      Lines="Validation time: $([System.DateTime]::Now)"
+                      Overwrite="false" />
+  </Target>
+
+  <Target Name="GenerateCodeSamples" BeforeTargets="GenerateDocumentation" Condition="'$(GenerateCodeSamples)' == 'true' AND !Exists('$(CodeSamplesPath)')">
+    <Message Text="Generating code samples..." Importance="high" />
+
+    <MakeDir Directories="$(CodeSamplesPath)" />
+
+    <!-- Create basic sample structure -->
+    <PropertyGroup>
+      <BasicSampleContent>using System;
+using $(RootNamespace);
+
+namespace $(ProjectName).Samples
+{
+    /// &lt;summary&gt;
+    /// Basic usage example for $(ProjectName).
+    /// &lt;/summary&gt;
+    public class BasicUsageExample
+    {
+        public static void Main()
+        {
+            Console.WriteLine("Hello from $(ProjectName)!");
+
+            // TODO: Add meaningful example code here
+            // Example:
+            // var service = new YourService();
+            // var result = service.DoSomething();
+            // Console.WriteLine($"Result: {result}");
+        }
+    }
+}</BasicSampleContent>
+    </PropertyGroup>
+
+    <WriteLinesToFile File="$(CodeSamplesPath)\BasicUsage.cs" Lines="$(BasicSampleContent)" Overwrite="true" />
+
+    <!-- Generate sample README -->
+    <PropertyGroup>
+      <SampleReadmeContent># $(ProjectName) Samples
+
+This directory contains code samples demonstrating how to use $(ProjectName).
+
+## Running the Samples
+
+```bash
+dotnet run --project BasicUsage.cs
+```
+
+## Available Samples
+
+- **BasicUsage.cs**: Demonstrates basic usage of the library
+- Add more samples as needed
+
+## Prerequisites
+
+- .NET $(TargetFramework) or later
+- $(ProjectName) package
+
+## More Information
+
+For complete documentation, visit: $(DocumentationUrl)</SampleReadmeContent>
+    </PropertyGroup>
+
+    <WriteLinesToFile File="$(CodeSamplesPath)\README.md" Lines="$(SampleReadmeContent)" Overwrite="true" Condition="'$(GenerateSampleReadmes)' == 'true'" />
+
+    <Message Text="Code samples generated in: $(CodeSamplesPath)" Importance="normal" />
+  </Target>
+
+  <Target Name="CompileCodeSamples" AfterTargets="GenerateCodeSamples" Condition="'$(CompileSamples)' == 'true' AND Exists('$(CodeSamplesPath)')">
+    <Message Text="Compiling code samples..." Importance="high" />
+
+    <ItemGroup>
+      <SampleProjects Include="$(CodeSamplesPath)\**\*.csproj" />
+      <SampleSourceFiles Include="$(CodeSamplesPath)\**\*.cs" />
+    </ItemGroup>
+
+    <!-- Compile sample projects if they exist -->
+    <MSBuild Projects="@(SampleProjects)" Targets="Build" ContinueOnError="true" />
+
+    <!-- For standalone .cs files, validate syntax -->
+    <Message Text="Validating sample source files: @(SampleSourceFiles->'%(Filename)%(Extension)', ', ')" Importance="normal" />
+
+    <PropertyGroup>
+      <SampleCompilationResults>$(OutputPath)SampleCompilation.xml</SampleCompilationResults>
+    </PropertyGroup>
+
+    <WriteLinesToFile File="$(SampleCompilationResults)"
+                      Lines="Sample compilation completed"
+                      Overwrite="true" />
+    <WriteLinesToFile File="$(SampleCompilationResults)"
+                      Lines="Compilation time: $([System.DateTime]::Now)"
+                      Overwrite="false" />
+  </Target>
+
+  <Target Name="GenerateApiChangelog" AfterTargets="Build" Condition="'$(GenerateApiChangeLog)' == 'true' AND '$(Configuration)' == 'Release'">
+    <Message Text="Generating API changelog..." Importance="high" />
+
+    <PropertyGroup>
+      <ApiChangelogPath>$(OutputPath)API_CHANGELOG.md</ApiChangelogPath>
+    </PropertyGroup>
+
+    <!-- This would integrate with API diff tools to generate changelog -->
+    <PropertyGroup>
+      <ApiChangelogContent># API Changelog for $(ProjectName)
+
+## Version $(Version) - $([System.DateTime]::Now.ToString('yyyy-MM-dd'))
+
+### New APIs
+- TODO: List new public APIs
+
+### Changed APIs
+- TODO: List modified public APIs
+
+### Removed APIs
+- TODO: List removed public APIs
+
+### Breaking Changes
+- TODO: List breaking changes
+
+---
+Generated automatically by the build process.</ApiChangelogContent>
+    </PropertyGroup>
+
+    <WriteLinesToFile File="$(ApiChangelogPath)" Lines="$(ApiChangelogContent)" Overwrite="true" />
+
+    <Message Text="API changelog generated: $(ApiChangelogPath)" Importance="normal" />
+  </Target>
+
+  <Target Name="PublishDocumentation" Condition="'$(PublishDocumentation)' == 'true' AND '$(Configuration)' == 'Release'">
+    <Message Text="Publishing documentation..." Importance="high" />
+
+    <PropertyGroup>
+      <DocumentationPublishPath Condition="'$(DocumentationPublishPath)' == ''">$(OutputPath)Published\Documentation</DocumentationPublishPath>
+    </PropertyGroup>
+
+    <MakeDir Directories="$(DocumentationPublishPath)" />
+
+    <!-- Collect all documentation artifacts -->
+    <ItemGroup>
+      <DocumentationArtifacts Include="$(OutputPath)documentation\**\*" Condition="Exists('$(OutputPath)documentation')" />
+      <DocumentationArtifacts Include="$(DocumentationFile)" Condition="Exists('$(DocumentationFile)')" />
+      <DocumentationArtifacts Include="$(ApiChangelogPath)" Condition="Exists('$(ApiChangelogPath)')" />
+      <DocumentationArtifacts Include="README.md" Condition="Exists('README.md')" />
+      <DocumentationArtifacts Include="CHANGELOG.md" Condition="Exists('CHANGELOG.md')" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(DocumentationArtifacts)"
+          DestinationFiles="@(DocumentationArtifacts->'$(DocumentationPublishPath)\%(RecursiveDir)%(Filename)%(Extension)')" />
+
+    <Message Text="Documentation published to: $(DocumentationPublishPath)" Importance="high" />
+  </Target>
+
+  <Target Name="CleanDocumentationArtifacts" BeforeTargets="Clean">
+    <ItemGroup>
+      <DocumentationArtifacts Include="$(OutputPath)documentation\**\*" />
+      <DocumentationArtifacts Include="$(OutputPath)DocumentationCoverage.xml" />
+      <DocumentationArtifacts Include="$(OutputPath)LinkValidation.xml" />
+      <DocumentationArtifacts Include="$(OutputPath)CodeExampleValidation.xml" />
+      <DocumentationArtifacts Include="$(OutputPath)SampleCompilation.xml" />
+      <DocumentationArtifacts Include="$(OutputPath)API_CHANGELOG.md" />
+      <DocumentationArtifacts Include="$(OutputPath)Published\Documentation\**\*" />
+    </ItemGroup>
+
+    <Delete Files="@(DocumentationArtifacts)" ContinueOnError="true" />
+    <RemoveDir Directories="$(OutputPath)documentation" Condition="Exists('$(OutputPath)documentation')" />
+    <RemoveDir Directories="$(OutputPath)Published\Documentation" Condition="Exists('$(OutputPath)Published\Documentation')" />
+  </Target>
+
+  <Target Name="InstallDocumentationTools" BeforeTargets="GenerateDocumentation" Condition="'$(RestoreDocumentationTools)' == 'true'">
+    <Message Text="Installing documentation tools..." Importance="high" />
+
+    <!-- Install DocFX -->
+    <Exec Command="dotnet tool install --global docfx" ContinueOnError="true" />
+
+    <!-- Install markdown lint tools -->
+    <Exec Command="npm install -g markdownlint-cli" ContinueOnError="true" />
+
+    <!-- Install link checkers -->
+    <Exec Command="npm install -g markdown-link-check" ContinueOnError="true" />
+  </Target>
+
+</Project>

@@ -1,0 +1,297 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Zentient",
+  "classifications": [ "Library", "Zentient", "Framework" ],
+  "name": "Zentient Library Template",
+  "description": "Enterprise-grade library template for the Zentient ecosystem with comprehensive automation",
+  "identity": "Zentient.Library.Template",
+  "groupIdentity": "Zentient.Library",
+  "shortName": "zentient-lib",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "Zentient.LibraryTemplate",
+  "preferNameDirectory": true,
+  "baselines": {
+    "app": {
+      "description": "Target framework",
+      "defaultOverrides": {
+        "Framework": "net8.0"
+      }
+    }
+  },
+  "symbols": {
+    "ProjectName": {
+      "type": "parameter",
+      "dataType": "string",
+      "description": "The name of the library project",
+      "defaultValue": "Zentient.NewLibrary",
+      "replaces": "Zentient.LibraryTemplate"
+    },
+    "Framework": {
+      "type": "parameter",
+      "description": "The target framework for the project",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "net8.0",
+          "description": ".NET 8.0"
+        },
+        {
+          "choice": "net7.0", 
+          "description": ".NET 7.0"
+        },
+        {
+          "choice": "net6.0",
+          "description": ".NET 6.0"
+        },
+        {
+          "choice": "netstandard2.1",
+          "description": ".NET Standard 2.1"
+        },
+        {
+          "choice": "netstandard2.0",
+          "description": ".NET Standard 2.0"
+        }
+      ],
+      "defaultValue": "net8.0",
+      "replaces": "net8.0"
+    },
+    "Description": {
+      "type": "parameter",
+      "dataType": "string",
+      "description": "Description of the library",
+      "defaultValue": "A Zentient framework library",
+      "replaces": "LIBRARY_DESCRIPTION"
+    },
+    "Author": {
+      "type": "parameter",
+      "dataType": "string", 
+      "description": "The author of the library",
+      "defaultValue": "Zentient",
+      "replaces": "LIBRARY_AUTHOR"
+    },
+    "Company": {
+      "type": "parameter",
+      "dataType": "string",
+      "description": "The company name",
+      "defaultValue": "Zentient",
+      "replaces": "LIBRARY_COMPANY"
+    },
+    "Copyright": {
+      "type": "parameter",
+      "dataType": "string",
+      "description": "Copyright information",
+      "defaultValue": "© Zentient. All rights reserved.",
+      "replaces": "LIBRARY_COPYRIGHT"
+    },
+    "RepositoryUrl": {
+      "type": "parameter",
+      "dataType": "string",
+      "description": "Repository URL",
+      "defaultValue": "https://github.com/Zentient/REPO_NAME",
+      "replaces": "REPOSITORY_URL"
+    },
+    "EnableSigning": {
+      "type": "parameter",
+      "dataType": "bool",
+      "description": "Enable assembly signing",
+      "defaultValue": "true"
+    },
+    "EnableTesting": {
+      "type": "parameter", 
+      "dataType": "bool",
+      "description": "Include comprehensive testing setup",
+      "defaultValue": "true"
+    },
+    "EnableQuality": {
+      "type": "parameter",
+      "dataType": "bool", 
+      "description": "Enable quality analysis and code standards",
+      "defaultValue": "true"
+    },
+    "EnableSecurity": {
+      "type": "parameter",
+      "dataType": "bool",
+      "description": "Enable security analysis and validation",
+      "defaultValue": "true"
+    },
+    "EnableDocumentation": {
+      "type": "parameter",
+      "dataType": "bool",
+      "description": "Enable comprehensive documentation generation",
+      "defaultValue": "true"
+    },
+    "EnablePerformance": {
+      "type": "parameter",
+      "dataType": "bool",
+      "description": "Enable performance monitoring and benchmarking",
+      "defaultValue": "false"
+    },
+    "LibraryType": {
+      "type": "parameter",
+      "description": "The type of Zentient library to create",
+      "datatype": "choice",
+      "choices": [
+        {
+          "choice": "Core",
+          "description": "Core abstractions and fundamental types"
+        },
+        {
+          "choice": "DependencyInjection",
+          "description": "Dependency injection abstractions and implementations"
+        },
+        {
+          "choice": "Validation",
+          "description": "Validation framework and rules"
+        },
+        {
+          "choice": "Configuration",
+          "description": "Configuration management and providers"
+        },
+        {
+          "choice": "Caching",
+          "description": "Caching abstractions and implementations"
+        },
+        {
+          "choice": "Messaging",
+          "description": "Messaging and event handling"
+        },
+        {
+          "choice": "Diagnostics",
+          "description": "Diagnostics and health checks"
+        },
+        {
+          "choice": "Policies",
+          "description": "Policy-based execution and governance"
+        },
+        {
+          "choice": "Observability",
+          "description": "Monitoring, tracing, and observability"
+        },
+        {
+          "choice": "Custom",
+          "description": "Custom library type"
+        }
+      ],
+      "defaultValue": "Custom"
+    },
+    "skipRestore": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "If specified, skips the automatic restore of the project on create.",
+      "defaultValue": "false"
+    }
+  },
+  "primaryOutputs": [
+    {
+      "path": "src/Zentient.LibraryTemplate.csproj"
+    },
+    {
+      "condition": "(EnableTesting)",
+      "path": "tests/Zentient.LibraryTemplate.Tests.csproj"
+    },
+    {
+      "path": "Directory.Build.props"
+    }
+  ],
+  "postActions": [
+    {
+      "condition": "(!skipRestore)",
+      "description": "Restore NuGet packages required by this project.",
+      "manualInstructions": [
+        {
+          "text": "Run 'dotnet restore'"
+        }
+      ],
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "continueOnError": true
+    },
+    {
+      "condition": "(EnableSigning)",
+      "description": "Generate strong name key for assembly signing.",
+      "manualInstructions": [
+        {
+          "text": "Run 'sn -k Zentient.snk' to generate a strong name key"
+        }
+      ],
+      "actionId": "3A7C4B45-1F5D-4A4A-BBEE-F5FF6D22EEE7",
+      "continueOnError": true,
+      "args": {
+        "executable": "sn",
+        "args": "-k Zentient.snk"
+      }
+    }
+  ],
+  "specialCustomOperations": {
+    "**/*.json": {
+      "operations": [
+        {
+          "type": "conditional",
+          "configuration": {
+            "if": [ "#if" ],
+            "elseif": [ "#elseif" ],
+            "else": [ "#else" ],
+            "endif": [ "#endif" ],
+            "trim": "true",
+            "wholeLine": "true"
+          }
+        }
+      ]
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(!EnableSigning)",
+          "exclude": [
+            "Directory.Sign.props",
+            "Directory.Sign.targets",
+            "Zentient.snk"
+          ]
+        },
+        {
+          "condition": "(!EnableTesting)",
+          "exclude": [
+            "tests/**",
+            "Directory.Test.props", 
+            "Directory.Test.targets"
+          ]
+        },
+        {
+          "condition": "(!EnableQuality)",
+          "exclude": [
+            "Directory.Quality.props",
+            "Directory.Quality.targets",
+            "analyzers/**"
+          ]
+        },
+        {
+          "condition": "(!EnableSecurity)",
+          "exclude": [
+            "Directory.Security.props",
+            "Directory.Security.targets"
+          ]
+        },
+        {
+          "condition": "(!EnableDocumentation)",
+          "exclude": [
+            "Directory.Documentation.props",
+            "Directory.Documentation.targets",
+            "docs/**",
+            "docfx.json"
+          ]
+        },
+        {
+          "condition": "(!EnablePerformance)",
+          "exclude": [
+            "Directory.Performance.props",
+            "Directory.Performance.targets"
+          ]
+        }
+      ]
+    }
+  ]
+}

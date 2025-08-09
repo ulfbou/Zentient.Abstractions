@@ -1,0 +1,66 @@
+<Project>
+
+  <PropertyGroup Label="Test Configuration">
+    <!-- Test framework configuration -->
+    <IsTestProject Condition="$(MSBuildProjectName.EndsWith('.Tests'))">true</IsTestProject>
+    <IsTestProject Condition="$(MSBuildProjectName.EndsWith('.IntegrationTests'))">true</IsTestProject>
+    <IsTestProject Condition="$(MSBuildProjectName.EndsWith('.UnitTests'))">true</IsTestProject>
+
+    <!-- Test execution settings -->
+    <RunTestsInParallel Condition="'$(RunTestsInParallel)' == ''">true</RunTestsInParallel>
+    <TestTimeout Condition="'$(TestTimeout)' == ''">300000</TestTimeout>
+    <CollectCoverage Condition="'$(CollectCoverage)' == ''">true</CollectCoverage>
+
+    <!-- Code coverage settings -->
+    <CoverletOutputFormat Condition="'$(CoverletOutputFormat)' == ''">cobertura,opencover,json</CoverletOutputFormat>
+    <CoverletOutput Condition="'$(CoverletOutput)' == ''">$(OutputPath)coverage/</CoverletOutput>
+    <ThresholdType Condition="'$(ThresholdType)' == ''">line,branch,method</ThresholdType>
+    <Threshold Condition="'$(Threshold)' == ''">80</Threshold>
+
+    <!-- Test result settings -->
+    <TestResultsDirectory Condition="'$(TestResultsDirectory)' == ''">$(OutputPath)TestResults/</TestResultsDirectory>
+    <VSTestLogger Condition="'$(VSTestLogger)' == ''">trx;LogFileName=TestResults.trx</VSTestLogger>
+
+    <!-- Performance test settings -->
+    <BenchmarkDotNetConfig Condition="'$(BenchmarkDotNetConfig)' == ''">$(MSBuildProjectDirectory)\BenchmarkDotNet.config</BenchmarkDotNetConfig>
+    <RunBenchmarks Condition="'$(RunBenchmarks)' == ''">false</RunBenchmarks>
+
+    <!-- Test categorization -->
+    <UnitTestCategory Condition="'$(UnitTestCategory)' == ''">Category=Unit</UnitTestCategory>
+    <IntegrationTestCategory Condition="'$(IntegrationTestCategory)' == ''">Category=Integration</IntegrationTestCategory>
+    <PerformanceTestCategory Condition="'$(PerformanceTestCategory)' == ''">Category=Performance</PerformanceTestCategory>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Test Exclusions and Filters" Condition="'$(IsTestProject)' == 'true'">
+    <!-- Coverage exclusions -->
+    <CoverletExclude>[*]*.Generated.*,[*]*.Designer.*,[*]*AssemblyInfo.*,[*]*GlobalSuppressions.*</CoverletExclude>
+    <CoverletExcludeByFile>**/*.g.cs,**/*.g.i.cs,**/*.Designer.cs,**/obj/**/*</CoverletExcludeByFile>
+
+    <!-- Test filters -->
+    <DefaultTestFilter Condition="'$(TestCategory)' == 'Unit'">$(UnitTestCategory)</DefaultTestFilter>
+    <DefaultTestFilter Condition="'$(TestCategory)' == 'Integration'">$(IntegrationTestCategory)</DefaultTestFilter>
+    <DefaultTestFilter Condition="'$(TestCategory)' == 'Performance'">$(PerformanceTestCategory)</DefaultTestFilter>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Test Dependencies" Condition="'$(IsTestProject)' == 'true'">
+    <!-- Disable unnecessary features for test projects -->
+    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <SignAssembly Condition="'$(ForceTestSigning)' != 'true'">false</SignAssembly>
+
+    <!-- Test project specific settings -->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <GenerateProgramFile>false</GenerateProgramFile>
+  </PropertyGroup>
+
+  <ItemGroup Label="Additional Test Package References" Condition="'$(IsTestProject)' == 'true'">
+    <!-- Additional testing utilities -->
+    <PackageReference Include="AutoFixture" Version="4.18.0" />
+    <PackageReference Include="AutoFixture.Xunit2" Version="4.18.0" />
+
+    <!-- Performance testing (conditional) -->
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.10" Condition="'$(IncludeBenchmarks)' == 'true'" />
+    <PackageReference Include="BenchmarkDotNet.Annotations" Version="0.13.10" Condition="'$(IncludeBenchmarks)' == 'true'" />
+  </ItemGroup>
+
+</Project>

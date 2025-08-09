@@ -1,0 +1,108 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- Target Frameworks: Full support for .NET 6.0, 7.0, 8.0, and 9.0 -->
+		<TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
+		<TargetFrameworks Condition="'$(EXCLUDE_NET9)' == 'true'">net6.0;net7.0;net8.0</TargetFrameworks>
+		
+		<!-- Prefer .NET 9.0 for latest language features when available -->
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+
+		<RootNamespace>ZentientTemplate</RootNamespace>
+		<IsPackable>true</IsPackable>
+
+		<!-- Assembly and Package Information -->
+		<AssemblyTitle>ZentientTemplate</AssemblyTitle>
+		<Description>A Zentient.Abstractions-based library providing [LIBRARY_DESCRIPTION]</Description>
+		<Product>Zentient Framework</Product>
+		<Company>Zentient Framework Team</Company>
+		<Authors>Zentient Framework Team</Authors>
+		<Copyright>Copyright © 2025 Zentient Framework Team. All rights reserved.</Copyright>
+
+		<!-- Versioning -->
+		<Version>1.0.0</Version>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+
+		<!-- Package Information -->
+		<PackageId>ZentientTemplate</PackageId>
+		<PackageVersion>$(Version)</PackageVersion>
+		<PackageTags>zentient;abstractions;[PACKAGE_TAGS]</PackageTags>
+		<PackageProjectUrl>https://github.com/[GITHUB_USERNAME]/ZentientTemplate</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/[GITHUB_USERNAME]/ZentientTemplate</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+
+		<!-- Documentation -->
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+		<!-- Source Control -->
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSource>true</IncludeSource>
+
+		<!-- Assembly Signing -->
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>ZentientTemplate.snk</AssemblyOriginatorKeyFile>
+		<DelaySign>false</DelaySign>
+
+		<!-- Build Configuration -->
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<WarningsAsErrors />
+		<WarningsNotAsErrors>CS1591</WarningsNotAsErrors>
+		<NoWarn>$(NoWarn);CS1591</NoWarn>
+
+		<!-- Code Analysis -->
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<AnalysisLevel>latest</AnalysisLevel>
+		<AnalysisMode>All</AnalysisMode>
+		<CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)analyzers\ZentientTemplate.ruleset</CodeAnalysisRuleSet>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+		<DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
+		<DebugType>full</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+		<DebugType>pdbonly</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+		<Optimize>true</Optimize>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Zentient.Abstractions" Version="3.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0" PrivateAssets="All" />
+		<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Analyzer Include="$(MSBuildThisFileDirectory)analyzers\**\*.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+		<None Include="LICENSE" Pack="true" PackagePath="\" />
+		<None Include="ZentientTemplate.snk" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+			<_Parameter1>ZentientTemplate.Tests, PublicKey=0024000004800000940000000602000000240000525341310004000001000100b90e0e3b8b5a3e3d2e8e5b8a4b3a4a5a1a3c3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+
+</Project>

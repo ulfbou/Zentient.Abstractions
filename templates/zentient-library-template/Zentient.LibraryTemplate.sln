@@ -1,0 +1,69 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zentient.LibraryTemplate", "src\Zentient.LibraryTemplate.csproj", "{A1B2C3D4-E5F6-7890-1234-567890ABCDEF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zentient.LibraryTemplate.Tests", "tests\Zentient.LibraryTemplate.Tests.csproj", "{F1E2D3C4-B5A6-9870-5432-FEDCBA098765}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{12345678-1234-5678-9ABC-DEF012345678}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		CHANGELOG.md = CHANGELOG.md
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		docfx.json = docfx.json
+		global.json = global.json
+		LICENSE = LICENSE
+		README.md = README.md
+		Zentient.snk = Zentient.snk
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{87654321-4321-8765-CBA9-210FEDCBA987}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Documentation.props = Directory.Documentation.props
+		Directory.Documentation.targets = Directory.Documentation.targets
+		Directory.Pack.props = Directory.Pack.props
+		Directory.Pack.targets = Directory.Pack.targets
+		Directory.Performance.props = Directory.Performance.props
+		Directory.Performance.targets = Directory.Performance.targets
+		Directory.Quality.props = Directory.Quality.props
+		Directory.Quality.targets = Directory.Quality.targets
+		Directory.Security.props = Directory.Security.props
+		Directory.Security.targets = Directory.Security.targets
+		Directory.Sign.props = Directory.Sign.props
+		Directory.Sign.targets = Directory.Sign.targets
+		Directory.Test.props = Directory.Test.props
+		Directory.Test.targets = Directory.Test.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{ABCDEF12-3456-7890-ABCD-EF1234567890}"
+	ProjectSection(SolutionItems) = preProject
+		docs\README.md = docs\README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1B2C3D4-E5F6-7890-1234-567890ABCDEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B2C3D4-E5F6-7890-1234-567890ABCDEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B2C3D4-E5F6-7890-1234-567890ABCDEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B2C3D4-E5F6-7890-1234-567890ABCDEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1E2D3C4-B5A6-9870-5432-FEDCBA098765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1E2D3C4-B5A6-9870-5432-FEDCBA098765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1E2D3C4-B5A6-9870-5432-FEDCBA098765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1E2D3C4-B5A6-9870-5432-FEDCBA098765}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {11111111-2222-3333-4444-555555555555}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,179 @@
+<Project>
+
+  <!-- Documentation Generation Configuration -->
+  <PropertyGroup>
+    <!-- Enable documentation generation -->
+    <GenerateDocumentationFile Condition="'$(GenerateDocumentationFile)' == ''">true</GenerateDocumentationFile>
+    <DocumentationFile Condition="'$(DocumentationFile)' == ''">$(OutputPath)$(AssemblyName).xml</DocumentationFile>
+
+    <!-- Documentation quality -->
+    <RequireDocumentationForPublicApis Condition="'$(RequireDocumentationForPublicApis)' == ''">true</RequireDocumentationForPublicApis>
+    <DocumentationCoverageThreshold Condition="'$(DocumentationCoverageThreshold)' == ''">90</DocumentationCoverageThreshold>
+
+    <!-- XML documentation validation -->
+    <ValidateXmlDocumentation Condition="'$(ValidateXmlDocumentation)' == ''">true</ValidateXmlDocumentation>
+    <TreatMissingDocumentationAsError Condition="'$(TreatMissingDocumentationAsError)' == ''">true</TreatMissingDocumentationAsError>
+
+    <!-- DocFX integration (disabled for template compatibility) -->
+    <GenerateDocFxConfiguration Condition="'$(GenerateDocFxConfiguration)' == ''">false</GenerateDocFxConfiguration>
+    <DocFxConfigFile Condition="'$(DocFxConfigFile)' == ''">$(MSBuildProjectDirectory)\docfx.json</DocFxConfigFile>
+
+    <!-- API documentation -->
+    <GenerateApiDocumentation Condition="'$(GenerateApiDocumentation)' == ''">true</GenerateApiDocumentation>
+    <ApiDocumentationFormat Condition="'$(ApiDocumentationFormat)' == ''">markdown</ApiDocumentationFormat>
+
+    <!-- Conceptual documentation -->
+    <IncludeConceptualDocs Condition="'$(IncludeConceptualDocs)' == ''">true</IncludeConceptualDocs>
+    <ConceptualDocsPath Condition="'$(ConceptualDocsPath)' == ''">$(MSBuildProjectDirectory)\docs</ConceptualDocsPath>
+
+    <!-- Code samples -->
+    <GenerateCodeSamples Condition="'$(GenerateCodeSamples)' == ''">true</GenerateCodeSamples>
+    <CodeSamplesPath Condition="'$(CodeSamplesPath)' == ''">$(MSBuildProjectDirectory)\samples</CodeSamplesPath>
+  </PropertyGroup>
+
+  <!-- Documentation Tools (DocFX disabled for template compatibility) -->
+  <ItemGroup Condition="'$(GenerateDocumentationFile)' == 'true' AND '$(EnableDocFX)' == 'true'">
+    <!-- DocFX for comprehensive documentation (disabled by default) -->
+    <!--<PackageReference Include="docfx.console" Version="2.59.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles</IncludeAssets>
+    </PackageReference>-->
+
+    <!-- Documentation coverage analysis -->
+    <PackageReference Include="DefaultDocumentation" Version="0.8.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- Documentation Warning Configuration -->
+  <PropertyGroup Condition="'$(RequireDocumentationForPublicApis)' == 'true'">
+    <!-- Treat missing documentation as warnings -->
+    <NoWarn Condition="'$(TreatMissingDocumentationAsError)' == 'false'">$(NoWarn);CS1591</NoWarn>
+
+    <!-- Treat missing documentation as errors in Release builds -->
+    <WarningsAsErrors Condition="'$(TreatMissingDocumentationAsError)' == 'true' AND '$(Configuration)' == 'Release'">$(WarningsAsErrors);CS1591</WarningsAsErrors>
+
+    <!-- Allow missing documentation in Debug builds -->
+    <NoWarn Condition="'$(Configuration)' == 'Debug'">$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <!-- Public API Documentation -->
+  <ItemGroup Condition="'$(GenerateApiDocumentation)' == 'true'">
+    <!-- API surface tracking -->
+    <AdditionalFiles Include="PublicAPI.Shipped.txt" Condition="Exists('PublicAPI.Shipped.txt')" />
+    <AdditionalFiles Include="PublicAPI.Unshipped.txt" Condition="Exists('PublicAPI.Unshipped.txt')" />
+  </ItemGroup>
+
+  <!-- Documentation Metadata -->
+  <PropertyGroup>
+    <!-- Assembly documentation metadata -->
+    <AssemblyTitle Condition="'$(AssemblyTitle)' == ''">$(ProjectName)</AssemblyTitle>
+    <AssemblyDescription Condition="'$(AssemblyDescription)' == ''">$(Description)</AssemblyDescription>
+    <AssemblyProduct Condition="'$(AssemblyProduct)' == ''">Zentient Framework</AssemblyProduct>
+    <AssemblyCompany Condition="'$(AssemblyCompany)' == ''">Zentient</AssemblyCompany>
+    <AssemblyCopyright Condition="'$(AssemblyCopyright)' == ''">© $(Company). All rights reserved.</AssemblyCopyright>
+
+    <!-- Package documentation metadata -->
+    <PackageProjectUrl Condition="'$(PackageProjectUrl)' == ''">https://github.com/Zentient/Zentient.Abstractions</PackageProjectUrl>
+    <PackageReadmeFile Condition="'$(PackageReadmeFile)' == ''">README.md</PackageReadmeFile>
+    <PackageLicenseExpression Condition="'$(PackageLicenseExpression)' == ''">MIT</PackageLicenseExpression>
+    <RepositoryUrl Condition="'$(RepositoryUrl)' == ''">https://github.com/Zentient/Zentient.Abstractions.git</RepositoryUrl>
+    <RepositoryType Condition="'$(RepositoryType)' == ''">git</RepositoryType>
+
+    <!-- Documentation URLs -->
+    <DocumentationUrl Condition="'$(DocumentationUrl)' == ''">https://zentient.github.io/Zentient.Abstractions</DocumentationUrl>
+    <ApiDocumentationUrl Condition="'$(ApiDocumentationUrl)' == ''">$(DocumentationUrl)/api</ApiDocumentationUrl>
+  </PropertyGroup>
+
+  <!-- Documentation File References -->
+  <ItemGroup>
+    <!-- Include README and documentation files in package -->
+    <None Include="README.md" Pack="true" PackagePath="\" Condition="Exists('README.md')" />
+    <None Include="CHANGELOG.md" Pack="true" PackagePath="\" Condition="Exists('CHANGELOG.md')" />
+    <None Include="LICENSE" Pack="true" PackagePath="\" Condition="Exists('LICENSE')" />
+
+    <!-- Include documentation assets -->
+    <None Include="docs\**\*.md" Pack="true" PackagePath="docs\" Condition="Exists('docs') AND '$(IncludeConceptualDocs)' == 'true'" />
+    <None Include="samples\**\*" Pack="true" PackagePath="samples\" Condition="Exists('samples') AND '$(GenerateCodeSamples)' == 'true'" />
+  </ItemGroup>
+
+  <!-- DocFX Configuration -->
+  <PropertyGroup Condition="'$(GenerateDocFxConfiguration)' == 'true'">
+    <!-- DocFX project settings -->
+    <DocFxSiteName Condition="'$(DocFxSiteName)' == ''">$(ProjectName) Documentation</DocFxSiteName>
+    <DocFxSiteUrl Condition="'$(DocFxSiteUrl)' == ''">$(DocumentationUrl)</DocFxSiteUrl>
+    <DocFxOutputPath Condition="'$(DocFxOutputPath)' == ''">$(OutputPath)docs</DocFxOutputPath>
+
+    <!-- Documentation themes and styling -->
+    <DocFxTemplate Condition="'$(DocFxTemplate)' == ''">default</DocFxTemplate>
+    <DocFxCustomTheme Condition="'$(DocFxCustomTheme)' == ''">false</DocFxCustomTheme>
+
+    <!-- Content inclusion -->
+    <DocFxIncludeApi Condition="'$(DocFxIncludeApi)' == ''">true</DocFxIncludeApi>
+    <DocFxIncludeArticles Condition="'$(DocFxIncludeArticles)' == ''">true</DocFxIncludeArticles>
+    <DocFxIncludeSamples Condition="'$(DocFxIncludeSamples)' == ''">true</DocFxIncludeSamples>
+  </PropertyGroup>
+
+  <!-- Code Sample Configuration -->
+  <PropertyGroup Condition="'$(GenerateCodeSamples)' == 'true'">
+    <!-- Sample project settings -->
+    <SampleProjectTemplate Condition="'$(SampleProjectTemplate)' == ''">console</SampleProjectTemplate>
+    <GenerateExecutableSamples Condition="'$(GenerateExecutableSamples)' == ''">true</GenerateExecutableSamples>
+
+    <!-- Sample validation -->
+    <ValidateSampleCode Condition="'$(ValidateSampleCode)' == ''">true</ValidateSampleCode>
+    <CompileSamples Condition="'$(CompileSamples)' == ''">true</CompileSamples>
+
+    <!-- Sample documentation -->
+    <GenerateSampleReadmes Condition="'$(GenerateSampleReadmes)' == ''">true</GenerateSampleReadmes>
+    <SampleDocumentationFormat Condition="'$(SampleDocumentationFormat)' == ''">markdown</SampleDocumentationFormat>
+  </PropertyGroup>
+
+  <!-- Multi-language Support -->
+  <PropertyGroup Condition="'$(EnableMultiLanguageDocumentation)' == 'true'">
+    <!-- Localization settings -->
+    <DefaultDocumentationLanguage Condition="'$(DefaultDocumentationLanguage)' == ''">en-US</DefaultDocumentationLanguage>
+    <SupportedDocumentationLanguages Condition="'$(SupportedDocumentationLanguages)' == ''">en-US</SupportedDocumentationLanguages>
+
+    <!-- Localized content paths -->
+    <LocalizedDocsPath Condition="'$(LocalizedDocsPath)' == ''">$(MSBuildProjectDirectory)\docs\localized</LocalizedDocsPath>
+    <GenerateLocalizedSamples Condition="'$(GenerateLocalizedSamples)' == ''">false</GenerateLocalizedSamples>
+  </PropertyGroup>
+
+  <!-- Documentation Quality Metrics -->
+  <PropertyGroup>
+    <!-- Coverage thresholds -->
+    <MinimumPublicApiDocumentation Condition="'$(MinimumPublicApiDocumentation)' == ''">90</MinimumPublicApiDocumentation>
+    <MinimumInternalApiDocumentation Condition="'$(MinimumInternalApiDocumentation)' == ''">70</MinimumInternalApiDocumentation>
+
+    <!-- Quality validation -->
+    <ValidateDocumentationLinks Condition="'$(ValidateDocumentationLinks)' == ''">true</ValidateDocumentationLinks>
+    <ValidateCodeExamples Condition="'$(ValidateCodeExamples)' == ''">true</ValidateCodeExamples>
+    <CheckSpellingInDocumentation Condition="'$(CheckSpellingInDocumentation)' == ''">false</CheckSpellingInDocumentation>
+
+    <!-- Documentation versioning -->
+    <VersionDocumentation Condition="'$(VersionDocumentation)' == ''">true</VersionDocumentation>
+    <DocumentationVersion Condition="'$(DocumentationVersion)' == ''">$(Version)</DocumentationVersion>
+  </PropertyGroup>
+
+  <!-- Advanced Documentation Features -->
+  <PropertyGroup Condition="'$(EnableAdvancedDocumentationFeatures)' == 'true'">
+    <!-- Interactive examples -->
+    <GenerateInteractiveExamples Condition="'$(GenerateInteractiveExamples)' == ''">false</GenerateInteractiveExamples>
+    <InteractiveExamplesPlatform Condition="'$(InteractiveExamplesPlatform)' == ''">dotnet-try</InteractiveExamplesPlatform>
+
+    <!-- Diagram generation -->
+    <GenerateDiagrams Condition="'$(GenerateDiagrams)' == ''">false</GenerateDiagrams>
+    <DiagramFormat Condition="'$(DiagramFormat)' == ''">svg</DiagramFormat>
+
+    <!-- API diff tracking -->
+    <TrackApiChanges Condition="'$(TrackApiChanges)' == ''">true</TrackApiChanges>
+    <GenerateApiChangeLog Condition="'$(GenerateApiChangeLog)' == ''">true</GenerateApiChangeLog>
+
+    <!-- Performance documentation -->
+    <DocumentPerformanceCharacteristics Condition="'$(DocumentPerformanceCharacteristics)' == ''">false</DocumentPerformanceCharacteristics>
+    <IncludePerformanceBenchmarks Condition="'$(IncludePerformanceBenchmarks)' == ''">false</IncludePerformanceBenchmarks>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,84 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Project Identity -->
+    <AssemblyName>Zentient.LibraryTemplate</AssemblyName>
+    <RootNamespace>Zentient.LibraryTemplate</RootNamespace>
+    <ProjectName>Zentient.LibraryTemplate</ProjectName>
+
+    <!-- Framework and Language -->
+    <TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Assembly Properties -->
+    <AssemblyTitle>Zentient Library Template</AssemblyTitle>
+    <AssemblyDescription>LIBRARY_DESCRIPTION</AssemblyDescription>
+    <AssemblyProduct>Zentient Framework</AssemblyProduct>
+    <AssemblyCompany>LIBRARY_COMPANY</AssemblyCompany>
+    <AssemblyCopyright>LIBRARY_COPYRIGHT</AssemblyCopyright>
+
+    <!-- NuGet Package Properties -->
+    <IsPackable>true</IsPackable>
+    <PackageId>Zentient.LibraryTemplate</PackageId>
+    <PackageDescription>LIBRARY_DESCRIPTION</PackageDescription>
+    <PackageAuthors>LIBRARY_AUTHOR</PackageAuthors>
+    <PackageTags>zentient;framework;library;abstractions</PackageTags>
+    <PackageProjectUrl>REPOSITORY_URL</PackageProjectUrl>
+    <PackageRepositoryUrl>REPOSITORY_URL</PackageRepositoryUrl>
+    <PackageRepositoryType>git</PackageRepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <!-- Documentation -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
+
+    <!-- Build Configuration -->
+    <TreatWarningsAsErrors Condition="'$(Configuration)' == 'Release'">true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <WarningsNotAsErrors />
+
+    <!-- Code Analysis (relaxed for template) -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>Default</AnalysisMode>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+
+    <!-- Disable strict style rules for template simplicity -->
+    <NoWarn>$(NoWarn);SA1200;SA1101;SA1633;SA1636;SA1609;RS0016;RS0037;SA1600;SA1649;SA1028;S1118;S1135;S125;RCS1102</NoWarn>
+
+    <!--<CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)..\analyzers\ZentientTemplate.ruleset</CodeAnalysisRuleSet>-->
+
+    <!-- Suppress analyzer upgrade warning -->
+    <_SkipUpgradeNetAnalyzersNuGetWarning>true</_SkipUpgradeNetAnalyzersNuGetWarning>
+  </PropertyGroup>  <!-- Framework Dependencies -->
+  <ItemGroup>
+    <!-- Core Zentient Abstractions -->
+    <PackageReference Include="Zentient.Abstractions" Version="3.0.1" />
+  </ItemGroup>
+
+  <!-- Embedded Resources -->
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/*.json" />
+    <EmbeddedResource Include="Resources/*.xml" />
+  </ItemGroup>
+
+  <!-- Analyzer Configuration -->
+  <ItemGroup>
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)..\analyzers\ZentientTemplate.ruleset" />
+  </ItemGroup>
+
+  <!-- Assembly Attributes -->
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Zentient.LibraryTemplate.Tests</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.CLSCompliantAttribute">
+      <_Parameter1>true</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+</Project>

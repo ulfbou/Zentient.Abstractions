@@ -1,0 +1,87 @@
+{
+  "workbench.colorTheme": "Default Dark+",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "files.exclude": {
+    "**/bin": true,
+    "**/obj": true,
+    "**/.vs": true,
+    "**/node_modules": true,
+    "**/coverage": true,
+    "**/.nyc_output": true,
+    "**/TestResults": true
+  },
+  "files.watcherExclude": {
+    "**/bin/**": true,
+    "**/obj/**": true,
+    "**/.vs/**": true,
+    "**/node_modules/**": true,
+    "**/coverage/**": true,
+    "**/.nyc_output/**": true,
+    "**/TestResults/**": true
+  },
+  "search.exclude": {
+    "**/bin": true,
+    "**/obj": true,
+    "**/.vs": true,
+    "**/node_modules": true,
+    "**/coverage": true,
+    "**/.nyc_output": true,
+    "**/TestResults": true,
+    "**/packages": true
+  },
+  "dotnet.defaultSolution": "ZentientTemplate.sln",
+  "dotnet.completion.showCompletionItemsFromUnimportedNamespaces": true,
+  "dotnet.server.useOmnisharp": false,
+  "omnisharp.enableEditorConfigSupport": true,
+  "omnisharp.enableImportCompletion": true,
+  "omnisharp.enableRoslynAnalyzers": true,
+  "csharp.format.enable": true,
+  "csharp.semanticHighlighting.enabled": true,
+  "csharp.referencesCodeLens.enabled": true,
+  "csharp.testsCodeLens.enabled": true,
+  "editor.minimap.enabled": true,
+  "editor.rulers": [120],
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "rest-client.environmentVariables": {
+    "$shared": {
+      "baseUrl": "https://localhost:7001",
+      "apiVersion": "v1"
+    },
+    "development": {
+      "baseUrl": "https://localhost:7001"
+    },
+    "staging": {
+      "baseUrl": "https://staging-api.example.com"
+    },
+    "production": {
+      "baseUrl": "https://api.example.com"
+    }
+  },
+  "thunder-client.workspaceRelativePath": "api-tests",
+  "coverage-gutters.coverageFileNames": [
+    "lcov.info",
+    "cov.xml",
+    "coverage.xml",
+    "jacoco.xml",
+    "coverage.lcov"
+  ],
+  "coverage-gutters.coverageBaseDir": "./coverage",
+  "sonarlint.connectedMode.project": {
+    "connectionId": "zentient-template",
+    "projectKey": "zentient-template"
+  }
+}

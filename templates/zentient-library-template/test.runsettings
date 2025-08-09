@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <!-- General test run settings -->
+  <RunConfiguration>
+    <!-- Platform and framework settings -->
+    <TargetPlatform>x64</TargetPlatform>
+    <TargetFrameworkVersion>net8.0</TargetFrameworkVersion>
+
+    <!-- Maximum number of cores to use -->
+    <MaxCpuCount>0</MaxCpuCount>
+
+    <!-- Test timeout -->
+    <TestSessionTimeout>3600000</TestSessionTimeout> <!-- 1 hour -->
+
+    <!-- Treat test adapter errors as warnings -->
+    <TreatTestAdapterErrorsAsWarnings>false</TreatTestAdapterErrorsAsWarnings>
+
+    <!-- Results directory -->
+    <ResultsDirectory>./TestResults</ResultsDirectory>
+
+    <!-- Collect test data -->
+    <CollectSourceInformation>true</CollectSourceInformation>
+  </RunConfiguration>
+
+  <!-- Test discovery settings -->
+  <TestDiscovery>
+    <!-- Timeout for test discovery -->
+    <DiscoveryTimeoutInSeconds>120</DiscoveryTimeoutInSeconds>
+
+    <!-- Force test adapter to run in isolation -->
+    <ForceListOfTests>false</ForceListOfTests>
+  </TestDiscovery>
+
+  <!-- xUnit settings -->
+  <xUnit>
+    <!-- Run tests in parallel -->
+    <ParallelizeTestCollections>true</ParallelizeTestCollections>
+    <ParallelizeAssembly>true</ParallelizeAssembly>
+
+    <!-- Maximum parallel threads -->
+    <MaxParallelThreads>0</MaxParallelThreads> <!-- Use all available cores -->
+
+    <!-- Test timeout -->
+    <MethodDisplayOptions>ClassAndMethod</MethodDisplayOptions>
+    <PreEnumerateTheories>true</PreEnumerateTheories>
+
+    <!-- Diagnostic messages -->
+    <DiagnosticMessages>false</DiagnosticMessages>
+    <InternalDiagnosticMessages>false</InternalDiagnosticMessages>
+  </xUnit>
+
+  <!-- Data collection settings -->
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <!-- Code coverage collection -->
+      <DataCollector friendlyName="XPlat code coverage">
+        <Configuration>
+          <Format>json,cobertura,lcov,teamcity,opencover</Format>
+          <ExcludeByFile>**/bin/**,**/obj/**</ExcludeByFile>
+          <ExcludeByAttribute>Obsolete,GeneratedCodeAttribute,CompilerGeneratedAttribute</ExcludeByAttribute>
+          <IncludeDirectory>../src/**</IncludeDirectory>
+          <SingleHit>false</SingleHit>
+          <UseSourceLink>true</UseSourceLink>
+          <IncludeTestAssembly>false</IncludeTestAssembly>
+          <SkipAutoProps>true</SkipAutoProps>
+          <DeterministicReport>true</DeterministicReport>
+        </Configuration>
+      </DataCollector>
+
+      <!-- Blame data collector for crash dumps -->
+      <DataCollector friendlyName="blame" enabled="true">
+        <Configuration>
+          <CollectDump>true</CollectDump>
+          <CollectAlways>false</CollectAlways>
+          <DumpType>full</DumpType>
+          <CollectDumpOnTestSessionHang>true</CollectDumpOnTestSessionHang>
+          <TestTimeout>300000</TestTimeout> <!-- 5 minutes -->
+        </Configuration>
+      </DataCollector>
+
+      <!-- Event log data collector -->
+      <DataCollector friendlyName="Event Log" enabled="false">
+        <Configuration>
+          <Setting name="EventLogs" value="Application,System" />
+          <Setting name="EventSources" value="*" />
+          <Setting name="EntryTypes" value="Error,Warning" />
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+
+  <!-- Logger settings -->
+  <LoggerRunSettings>
+    <Loggers>
+      <!-- Console logger -->
+      <Logger friendlyName="Console">
+        <Configuration>
+          <Verbosity>normal</Verbosity>
+        </Configuration>
+      </Logger>
+
+      <!-- TRX logger for test results -->
+      <Logger friendlyName="trx">
+        <Configuration>
+          <LogFileName>TestResults.trx</LogFileName>
+        </Configuration>
+      </Logger>
+
+      <!-- HTML logger -->
+      <Logger friendlyName="html">
+        <Configuration>
+          <LogFileName>TestResults.html</LogFileName>
+        </Configuration>
+      </Logger>
+    </Loggers>
+  </LoggerRunSettings>
+
+  <!-- MSTest settings (if using MSTest) -->
+  <MSTest>
+    <Parallelize>
+      <Workers>0</Workers> <!-- Use all available cores -->
+      <Scope>MethodLevel</Scope>
+    </Parallelize>
+    <ForcedLegacyMode>false</ForcedLegacyMode>
+    <SettingsFile>test.testsettings</SettingsFile>
+    <CaptureTraceOutput>true</CaptureTraceOutput>
+    <DeleteDeploymentDirectoryAfterTestRunIsComplete>true</DeleteDeploymentDirectoryAfterTestRunIsComplete>
+    <DeploymentEnabled>false</DeploymentEnabled>
+    <AssemblyResolution>
+      <TestDirectory>../src/bin/Debug/net8.0</TestDirectory>
+    </AssemblyResolution>
+  </MSTest>
+
+  <!-- NUnit settings (if using NUnit) -->
+  <NUnit>
+    <NumberOfTestWorkers>0</NumberOfTestWorkers> <!-- Use all available cores -->
+    <ShadowCopyFiles>false</ShadowCopyFiles>
+    <Verbosity>1</Verbosity>
+    <UseVsKeepEngineRunning>false</UseVsKeepEngineRunning>
+    <UseParentFDForInProcDataCollectors>true</UseParentFDForInProcDataCollectors>
+    <ConsoleOut>1</ConsoleOut>
+    <StopOnError>false</StopOnError>
+    <InProcDataCollectorsTimeout>300</InProcDataCollectorsTimeout>
+  </NUnit>
+
+</RunSettings>

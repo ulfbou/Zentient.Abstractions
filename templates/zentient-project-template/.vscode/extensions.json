@@ -1,0 +1,30 @@
+{
+  "recommendations": [
+    "ms-dotnettools.csharp",
+    "ms-dotnettools.vscode-dotnet-runtime", 
+    "ms-vscode.vscode-json",
+    "redhat.vscode-yaml",
+    "ms-vscode.powershell",
+    "formulahendry.dotnet-test-explorer",
+    "adrianwilczynski.namespace",
+    "jchannon.csharpextensions",
+    "k--kato.docomment",
+    "patcx.vscode-nuget-gallery",
+    "humao.rest-client",
+    "ms-vscode.vscode-thunder-client",
+    "streetsidesoftware.code-spell-checker",
+    "editorconfig.editorconfig",
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.hexdump",
+    "ms-azuretools.vscode-docker",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "github.vscode-github-actions",
+    "github.copilot",
+    "sonarsource.sonarlint-vscode",
+    "ms-vscode.test-adapter-converter",
+    "formulahendry.auto-rename-tag",
+    "christian-kohler.path-intellisense",
+    "visualstudioexptteam.vscodeintellicode",
+    "ms-vscode.vscode-typescript-next"
+  ]
+}
