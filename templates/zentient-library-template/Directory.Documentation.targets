@@ -137,7 +137,7 @@
       <SampleFiles Include="$(CodeSamplesPath)\**\*.cs" Condition="Exists('$(CodeSamplesPath)')" />
     </ItemGroup>
 
-    <Message Text="Validating code examples in documentation and samples..." Importance="normal" />
+    <Message Text="Validating code examples in documentation..." Importance="normal" />
 
     <!-- Custom code example validation would be implemented here -->
     <WriteLinesToFile File="$(CodeExampleValidationResults)"
@@ -148,95 +148,14 @@
                       Overwrite="false" />
   </Target>
 
-  <Target Name="GenerateCodeSamples" BeforeTargets="GenerateDocumentation" Condition="'$(GenerateCodeSamples)' == 'true' AND !Exists('$(CodeSamplesPath)')">
-    <Message Text="Generating code samples..." Importance="high" />
-
-    <MakeDir Directories="$(CodeSamplesPath)" />
-
-    <!-- Create basic sample structure -->
-    <PropertyGroup>
-      <BasicSampleContent>using System;
-using $(RootNamespace);
-
-namespace $(ProjectName).Samples
-{
-    /// &lt;summary&gt;
-    /// Basic usage example for $(ProjectName).
-    /// &lt;/summary&gt;
-    public class BasicUsageExample
-    {
-        public static void Main()
-        {
-            Console.WriteLine("Hello from $(ProjectName)!");
-
-            // TODO: Add meaningful example code here
-            // Example:
-            // var service = new YourService();
-            // var result = service.DoSomething();
-            // Console.WriteLine($"Result: {result}");
-        }
-    }
-}</BasicSampleContent>
-    </PropertyGroup>
-
-    <WriteLinesToFile File="$(CodeSamplesPath)\BasicUsage.cs" Lines="$(BasicSampleContent)" Overwrite="true" />
-
-    <!-- Generate sample README -->
-    <PropertyGroup>
-      <SampleReadmeContent># $(ProjectName) Samples
-
-This directory contains code samples demonstrating how to use $(ProjectName).
-
-## Running the Samples
-
-```bash
-dotnet run --project BasicUsage.cs
-```
-
-## Available Samples
-
-- **BasicUsage.cs**: Demonstrates basic usage of the library
-- Add more samples as needed
-
-## Prerequisites
-
-- .NET $(TargetFramework) or later
-- $(ProjectName) package
-
-## More Information
-
-For complete documentation, visit: $(DocumentationUrl)</SampleReadmeContent>
-    </PropertyGroup>
-
-    <WriteLinesToFile File="$(CodeSamplesPath)\README.md" Lines="$(SampleReadmeContent)" Overwrite="true" Condition="'$(GenerateSampleReadmes)' == 'true'" />
-
-    <Message Text="Code samples generated in: $(CodeSamplesPath)" Importance="normal" />
+  <!-- Code sample generation disabled for library templates -->
+  <!-- Library templates focus on library code, not executable samples -->
+  <Target Name="GenerateCodeSamples" BeforeTargets="GenerateDocumentation" Condition="false">
+    <!-- Disabled: Library templates should not generate executable code samples -->
   </Target>
 
-  <Target Name="CompileCodeSamples" AfterTargets="GenerateCodeSamples" Condition="'$(CompileSamples)' == 'true' AND Exists('$(CodeSamplesPath)')">
-    <Message Text="Compiling code samples..." Importance="high" />
-
-    <ItemGroup>
-      <SampleProjects Include="$(CodeSamplesPath)\**\*.csproj" />
-      <SampleSourceFiles Include="$(CodeSamplesPath)\**\*.cs" />
-    </ItemGroup>
-
-    <!-- Compile sample projects if they exist -->
-    <MSBuild Projects="@(SampleProjects)" Targets="Build" ContinueOnError="true" />
-
-    <!-- For standalone .cs files, validate syntax -->
-    <Message Text="Validating sample source files: @(SampleSourceFiles->'%(Filename)%(Extension)', ', ')" Importance="normal" />
-
-    <PropertyGroup>
-      <SampleCompilationResults>$(OutputPath)SampleCompilation.xml</SampleCompilationResults>
-    </PropertyGroup>
-
-    <WriteLinesToFile File="$(SampleCompilationResults)"
-                      Lines="Sample compilation completed"
-                      Overwrite="true" />
-    <WriteLinesToFile File="$(SampleCompilationResults)"
-                      Lines="Compilation time: $([System.DateTime]::Now)"
-                      Overwrite="false" />
+  <Target Name="CompileCodeSamples" AfterTargets="GenerateCodeSamples" Condition="false">
+    <!-- Disabled: Library templates should not compile executable code samples -->
   </Target>
 
   <Target Name="GenerateApiChangelog" AfterTargets="Build" Condition="'$(GenerateApiChangeLog)' == 'true' AND '$(Configuration)' == 'Release'">

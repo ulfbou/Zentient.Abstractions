@@ -28,7 +28,9 @@
 
     <!-- Code samples -->
     <GenerateCodeSamples Condition="'$(GenerateCodeSamples)' == ''">true</GenerateCodeSamples>
-    <CodeSamplesPath Condition="'$(CodeSamplesPath)' == ''">$(MSBuildProjectDirectory)\samples</CodeSamplesPath>
+        <!-- Documentation paths -->
+    <DocumentationPath Condition="'$(DocumentationPath)' == ''">$(MSBuildProjectDirectory)\docs</DocumentationPath>
+    <ApiDocumentationPath Condition="'$(ApiDocumentationPath)' == ''">$(DocumentationPath)\api</ApiDocumentationPath>
   </PropertyGroup>
 
   <!-- Documentation Tools (DocFX disabled for template compatibility) -->
@@ -95,7 +97,8 @@
 
     <!-- Include documentation assets -->
     <None Include="docs\**\*.md" Pack="true" PackagePath="docs\" Condition="Exists('docs') AND '$(IncludeConceptualDocs)' == 'true'" />
-    <None Include="samples\**\*" Pack="true" PackagePath="samples\" Condition="Exists('samples') AND '$(GenerateCodeSamples)' == 'true'" />
+    <!-- Documentation files -->
+    <None Include="docs\**\*" Pack="true" PackagePath="docs\" Condition="Exists('docs') AND '$(IncludeDocumentation)' == 'true'" />
   </ItemGroup>
 
   <!-- DocFX Configuration -->
