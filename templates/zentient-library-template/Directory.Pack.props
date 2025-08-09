@@ -74,8 +74,8 @@
     <!-- Include documentation files -->
     <None Include="docs\**\*.md" Pack="true" PackagePath="docs\" Condition="Exists('docs')" />
     
-    <!-- Include code samples -->
-    <None Include="samples\**\*" Pack="true" PackagePath="samples\" Condition="Exists('samples')" />
+    <!-- Include documentation -->
+    <None Include="docs\**\*" Pack="true" PackagePath="docs\" Condition="Exists('docs')" />
   </ItemGroup>
 
   <!-- Package Icon Configuration -->

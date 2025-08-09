@@ -104,7 +104,11 @@ YourLibrary/
 │   └── Zentient.Tests.ruleset # Test ruleset
 ├── docs/                      # Documentation
 │   └── README.md              # Documentation index
-├── samples/                   # Code samples
+├── src/                      # Library source code
+├── tests/                    # Unit tests
+├── docs/                     # Documentation
+├── .vscode/                  # VS Code configuration
+├── .github/                  # GitHub workflows and templates
 │   └── BasicUsage.cs          # Basic usage example
 ├── src/                       # Source code
 │   ├── YourLibrary.csproj     # Main project

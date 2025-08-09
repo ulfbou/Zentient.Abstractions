@@ -70,7 +70,11 @@ YourLibrary/
 │   └── GlobalUsings.cs           # Test global usings
 ├── docs/                         # Documentation
 │   └── getting-started.md        # This file
-├── samples/                      # Code samples (auto-generated)
+├── src/                         # Library source code  
+├── tests/                       # Unit tests
+├── docs/                        # Documentation
+├── .vscode/                     # VS Code configuration
+├── .github/                     # GitHub workflows and templates
 ├── .vscode/                      # VS Code configuration
 ├── analyzers/                    # Code analysis rules
 ├── Directory.*.props             # Build configuration
