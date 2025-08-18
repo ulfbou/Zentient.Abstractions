@@ -27,6 +27,10 @@ namespace Zentient.Abstractions.Messaging
         /// <value>
         /// The event body, or <c>null</c> if not present.
         /// </value>
+#if NETSTANDARD2_0
+        TEvent? Body { get; }
+#else
         TEvent? Body => Value;
+#endif
     }
 }

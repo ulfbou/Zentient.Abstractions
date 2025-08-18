@@ -37,7 +37,7 @@ namespace Zentient.Abstractions.Errors
             out IMetadata Metadata)
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(errorInfo, nameof(errorInfo));
+            Guard.AgainstNull(errorInfo, nameof(errorInfo));
             ErrorDefinition = errorInfo.ErrorDefinition;
             Code = errorInfo.Code;
             Message = errorInfo.Message;
@@ -65,7 +65,7 @@ namespace Zentient.Abstractions.Errors
             out IReadOnlyCollection<IErrorInfo<TErrorDefinition>> InnerErrors)
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(errorInfo, nameof(errorInfo));
+            Guard.AgainstNull(errorInfo, nameof(errorInfo));
             ErrorDefinition = errorInfo.ErrorDefinition;
             Code = errorInfo.Code;
             Message = errorInfo.Message;
@@ -88,7 +88,7 @@ namespace Zentient.Abstractions.Errors
             out string message)
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(errorInfo, nameof(errorInfo));
+            Guard.AgainstNull(errorInfo, nameof(errorInfo));
             errorDefinition = errorInfo.ErrorDefinition;
             code = errorInfo.Code;
             message = errorInfo.Message;
@@ -109,7 +109,7 @@ namespace Zentient.Abstractions.Errors
             out ICode<ICodeDefinition> code)
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(errorInfo, nameof(errorInfo));
+            Guard.AgainstNull(errorInfo, nameof(errorInfo));
             errorDefinition = errorInfo.ErrorDefinition;
             message = errorInfo.Message;
             code = errorInfo.Code;
@@ -132,7 +132,7 @@ namespace Zentient.Abstractions.Errors
             out string instanceId)
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(errorInfo, nameof(errorInfo));
+            Guard.AgainstNull(errorInfo, nameof(errorInfo));
             errorDefinition = errorInfo.ErrorDefinition;
             message = errorInfo.Message;
             code = errorInfo.Code;
@@ -150,7 +150,7 @@ namespace Zentient.Abstractions.Errors
             out TErrorDefinition errorDefinition)
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(errorInfo, nameof(errorInfo));
+            Guard.AgainstNull(errorInfo, nameof(errorInfo));
             errorDefinition = errorInfo.ErrorDefinition;
         }
 
@@ -165,7 +165,7 @@ namespace Zentient.Abstractions.Errors
             out string message)
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(errorInfo, nameof(errorInfo));
+            Guard.AgainstNull(errorInfo, nameof(errorInfo));
             message = errorInfo.Message;
         }
     }

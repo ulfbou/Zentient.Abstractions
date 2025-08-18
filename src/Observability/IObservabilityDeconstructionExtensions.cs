@@ -36,7 +36,7 @@ namespace Zentient.Abstractions.Observability
             out string? activityId,
             out IMetadata metadata)
         {
-            ArgumentNullException.ThrowIfNull(logEntry, nameof(logEntry));
+            Guard.AgainstNull(logEntry, nameof(logEntry));
             timestamp = logEntry.Timestamp;
             level = logEntry.Level;
             message = logEntry.Message;
@@ -58,7 +58,7 @@ namespace Zentient.Abstractions.Observability
             out LogLevel level,
             out string message)
         {
-            ArgumentNullException.ThrowIfNull(logEntry, nameof(logEntry));
+            Guard.AgainstNull(logEntry, nameof(logEntry));
             timestamp = logEntry.Timestamp;
             level = logEntry.Level;
             message = logEntry.Message;
@@ -79,7 +79,7 @@ namespace Zentient.Abstractions.Observability
             out string message,
             out string? activityId)
         {
-            ArgumentNullException.ThrowIfNull(logEntry, nameof(logEntry));
+            Guard.AgainstNull(logEntry, nameof(logEntry));
             timestamp = logEntry.Timestamp;
             level = logEntry.Level;
             message = logEntry.Message;
@@ -101,7 +101,7 @@ namespace Zentient.Abstractions.Observability
             out string message,
             out Exception? exception)
         {
-            ArgumentNullException.ThrowIfNull(logEntry, nameof(logEntry));
+            Guard.AgainstNull(logEntry, nameof(logEntry));
             timestamp = logEntry.Timestamp;
             level = logEntry.Level;
             message = logEntry.Message;
@@ -117,7 +117,7 @@ namespace Zentient.Abstractions.Observability
             this ILogEntry logEntry,
             out string message)
         {
-            ArgumentNullException.ThrowIfNull(logEntry, nameof(logEntry));
+            Guard.AgainstNull(logEntry, nameof(logEntry));
             message = logEntry.Message;
         }
 
@@ -132,7 +132,7 @@ namespace Zentient.Abstractions.Observability
             out LogLevel level,
             out string message)
         {
-            ArgumentNullException.ThrowIfNull(logEntry, nameof(logEntry));
+            Guard.AgainstNull(logEntry, nameof(logEntry));
             level = logEntry.Level;
             message = logEntry.Message;
         }

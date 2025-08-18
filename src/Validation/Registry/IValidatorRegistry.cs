@@ -28,10 +28,17 @@ namespace Zentient.Abstractions.Validation.Registry
         /// <see langword="true"/> if the validator type definition was found;
         /// otherwise, <see langword="false"/>.
         /// </returns>
+#if NETSTANDARD2_0
+        bool TryGet<TValidationDefinition>(
+        string validatorTypeId,
+        [NotNullWhen(true)] out TValidationDefinition? definition)
+            where TValidationDefinition : IValidationDefinition;
+#else
         bool TryGet<TValidationDefinition>(
         string validatorTypeId,
         [MaybeNullWhen(false)] out TValidationDefinition? definition)
             where TValidationDefinition : IValidationDefinition;
+#endif
 
         /// <summary>
         /// Gets a read-only collection of all registered validator type definitions.

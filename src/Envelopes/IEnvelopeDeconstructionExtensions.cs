@@ -33,7 +33,7 @@ namespace Zentient.Abstractions.Errors
             where TCodeDefinition : ICodeDefinition
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(envelope, nameof(envelope));
+            Guard.AgainstNull(envelope, nameof(envelope));
             code = envelope.Code;
             errors = envelope.Errors;
             messages = envelope.Messages;
@@ -59,7 +59,7 @@ namespace Zentient.Abstractions.Errors
             where TCodeDefinition : ICodeDefinition
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(envelope, nameof(envelope));
+            Guard.AgainstNull(envelope, nameof(envelope));
             code = envelope.Code;
             errors = envelope.Errors;
             messages = envelope.Messages;
@@ -81,7 +81,7 @@ namespace Zentient.Abstractions.Errors
             where TCodeDefinition : ICodeDefinition
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(envelope, nameof(envelope));
+            Guard.AgainstNull(envelope, nameof(envelope));
             code = envelope.Code;
             errors = envelope.Errors;
         }
@@ -101,7 +101,7 @@ namespace Zentient.Abstractions.Errors
             where TCodeDefinition : ICodeDefinition
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(envelope, nameof(envelope));
+            Guard.AgainstNull(envelope, nameof(envelope));
             code = envelope.Code;
             messages = envelope.Messages;
         }
@@ -119,7 +119,7 @@ namespace Zentient.Abstractions.Errors
             where TCodeDefinition : ICodeDefinition
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(envelope, nameof(envelope));
+            Guard.AgainstNull(envelope, nameof(envelope));
             code = envelope.Code;
         }
 
@@ -137,7 +137,7 @@ namespace Zentient.Abstractions.Errors
             where TCodeDefinition : ICodeDefinition
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(envelope, nameof(envelope));
+            Guard.AgainstNull(envelope, nameof(envelope));
             value = envelope.Value;
         }
     }

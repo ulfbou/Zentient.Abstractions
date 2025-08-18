@@ -9,8 +9,8 @@
 		- Use EXCLUDE_NET9=true environment variable to force fallback
 		- CI/CD automatically handles .NET 9.0 availability
 		-->
-		<TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
-		<TargetFrameworks Condition="'$(EXCLUDE_NET9)' == 'true'">net6.0;net7.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
+		<TargetFrameworks Condition="'$(EXCLUDE_NET9)' == 'true'">netstandard2.0;net6.0;net7.0;net8.0</TargetFrameworks>
 		
 		<!-- Prefer .NET 9.0 for latest language features when available -->
 		<LangVersion>latest</LangVersion>

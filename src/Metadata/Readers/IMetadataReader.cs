@@ -69,7 +69,7 @@ namespace Zentient.Abstractions.Metadata.Readers
         /// <remarks>
         /// If a tag exists with a <see langword="null"/> value, this method will return
         /// <see langword="true"/>, and <paramref name="value"/> will be <see langword="null"/>.
-        /// It is crucial to differentiate  between a key not existing and a key existing with a
+        /// It is crucial to differentiate between a key not existing and a key existing with a
         /// <see langword="null"/> value.
         /// </remarks>
         /// <exception cref="ArgumentNullException">
@@ -78,7 +78,11 @@ namespace Zentient.Abstractions.Metadata.Readers
         /// <exception cref="ArgumentException">
         /// Thrown if <paramref name="key"/> is empty or whitespace.
         /// </exception>
+#if NETSTANDARD2_0
+        bool TryGetValue(string key, [NotNullWhen(true)] out object? value);
+#else
         bool TryGetValue(string key, [MaybeNullWhen(false)] out object? value);
+#endif
 
         /// <summary>
         /// Attempts to retrieve the value associated with the specified key, casting it to the
@@ -110,7 +114,12 @@ namespace Zentient.Abstractions.Metadata.Readers
         /// <exception cref="ArgumentException">
         /// Thrown if <paramref name="key"/> is empty or whitespace.
         /// </exception>
+#if NETSTANDARD2_0
+        bool TryGetValue<TValue>(string key, [NotNullWhen(true)] out TValue value)
+            where TValue : class;
+#else
         bool TryGetValue<TValue>(string key, [MaybeNullWhen(false)] out TValue value);
+#endif
 
         /// <summary>
         /// Gets the value associated with the specified key, or a default value if the key is

@@ -37,7 +37,7 @@ namespace Zentient.Abstractions.Diagnostics
             where TCodeDefinition : ICodeDefinition
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
+            Guard.AgainstNull(diagnosticResult, nameof(diagnosticResult));
             code = diagnosticResult.Code;
             errors = diagnosticResult.Errors;
             status = diagnosticResult.Status;
@@ -58,7 +58,7 @@ namespace Zentient.Abstractions.Diagnostics
             where TCodeDefinition : ICodeDefinition
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
+            Guard.AgainstNull(diagnosticResult, nameof(diagnosticResult));
             status = diagnosticResult.Status;
         }
 
@@ -77,7 +77,7 @@ namespace Zentient.Abstractions.Diagnostics
             where TCodeDefinition : ICodeDefinition
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
+            Guard.AgainstNull(diagnosticResult, nameof(diagnosticResult));
             status = diagnosticResult.Status;
             errors = diagnosticResult.Errors;
         }
@@ -97,7 +97,7 @@ namespace Zentient.Abstractions.Diagnostics
             where TCodeDefinition : ICodeDefinition
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
+            Guard.AgainstNull(diagnosticResult, nameof(diagnosticResult));
             status = diagnosticResult.Status;
             checkDuration = diagnosticResult.CheckDuration;
         }
@@ -117,7 +117,7 @@ namespace Zentient.Abstractions.Diagnostics
             where TCodeDefinition : ICodeDefinition
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
+            Guard.AgainstNull(diagnosticResult, nameof(diagnosticResult));
             code = diagnosticResult.Code;
             status = diagnosticResult.Status;
         }
@@ -139,7 +139,7 @@ namespace Zentient.Abstractions.Diagnostics
             where TCodeDefinition : ICodeDefinition
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
+            Guard.AgainstNull(diagnosticResult, nameof(diagnosticResult));
             code = diagnosticResult.Code;
             errors = diagnosticResult.Errors;
             status = diagnosticResult.Status;
@@ -164,7 +164,7 @@ namespace Zentient.Abstractions.Diagnostics
             where TCodeDefinition : ICodeDefinition
             where TErrorDefinition : IErrorDefinition
         {
-            ArgumentNullException.ThrowIfNull(diagnosticResult, nameof(diagnosticResult));
+            Guard.AgainstNull(diagnosticResult, nameof(diagnosticResult));
             code = diagnosticResult.Code;
             errors = diagnosticResult.Errors;
             status = diagnosticResult.Status;

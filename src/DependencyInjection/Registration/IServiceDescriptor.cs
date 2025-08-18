@@ -58,6 +58,7 @@ namespace Zentient.Abstractions.DependencyInjection.Registration
         /// <value>The service lifetime that determines instance creation and disposal behavior.</value>
         ServiceLifetime Lifetime { get; }
 
+
         /// <summary>
         /// Gets a value indicating whether this service can be created synchronously.
         /// </summary>
@@ -65,7 +66,11 @@ namespace Zentient.Abstractions.DependencyInjection.Registration
         /// True if the service has a synchronous factory and can be created without async overhead;
         /// otherwise, false.
         /// </value>
+#if NETSTANDARD2_0
+        bool SupportsSynchronousCreation { get; }
+#else
         bool SupportsSynchronousCreation => SyncFactory is not null;
+#endif
 
         /// <summary>
         /// Gets a value indicating whether this service supports decorator patterns.

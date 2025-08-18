@@ -25,7 +25,7 @@ namespace Zentient.Abstractions.Options
             out TValue value)
             where TOptionsDefinition : IOptionsDefinition
         {
-            ArgumentNullException.ThrowIfNull(options, nameof(options));
+            Guard.AgainstNull(options, nameof(options));
             definition = options.Definition;
             value = options.Value;
         }
@@ -42,7 +42,7 @@ namespace Zentient.Abstractions.Options
             out TOptionsDefinition definition)
             where TOptionsDefinition : IOptionsDefinition
         {
-            ArgumentNullException.ThrowIfNull(options, nameof(options));
+            Guard.AgainstNull(options, nameof(options));
             definition = options.Definition;
         }
 
@@ -58,7 +58,7 @@ namespace Zentient.Abstractions.Options
             out TValue value)
             where TOptionsDefinition : IOptionsDefinition
         {
-            ArgumentNullException.ThrowIfNull(options, nameof(options));
+            Guard.AgainstNull(options, nameof(options));
             value = options.Value;
         }
     }

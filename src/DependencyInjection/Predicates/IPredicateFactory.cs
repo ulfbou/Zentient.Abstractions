@@ -132,8 +132,8 @@ namespace Zentient.Abstractions.DependencyInjection.Predicates
         /// <exception cref="ArgumentNullException">Thrown when either predicate is null.</exception>
         public static IMetadataPredicate And(this IMetadataPredicate left, IMetadataPredicate right)
         {
-            ArgumentNullException.ThrowIfNull(left);
-            ArgumentNullException.ThrowIfNull(right);
+            Guard.AgainstNull(left);
+            Guard.AgainstNull(right);
             return left.And(right);
         }
 
@@ -146,8 +146,8 @@ namespace Zentient.Abstractions.DependencyInjection.Predicates
         /// <exception cref="ArgumentNullException">Thrown when either predicate is null.</exception>
         public static IMetadataPredicate Or(this IMetadataPredicate left, IMetadataPredicate right)
         {
-            ArgumentNullException.ThrowIfNull(left);
-            ArgumentNullException.ThrowIfNull(right);
+            Guard.AgainstNull(left);
+            Guard.AgainstNull(right);
             return left.Or(right);
         }
 
@@ -160,7 +160,7 @@ namespace Zentient.Abstractions.DependencyInjection.Predicates
         /// <exception cref="ArgumentException">Thrown when <paramref name="predicates"/> is empty.</exception>
         public static IMetadataPredicate AndAll(this IEnumerable<IMetadataPredicate> predicates)
         {
-            ArgumentNullException.ThrowIfNull(predicates);
+            Guard.AgainstNull(predicates);
             
             var predicateList = predicates.ToList();
             if (predicateList.Count == 0)
@@ -180,7 +180,7 @@ namespace Zentient.Abstractions.DependencyInjection.Predicates
         /// <exception cref="ArgumentException">Thrown when <paramref name="predicates"/> is empty.</exception>
         public static IMetadataPredicate OrAll(this IEnumerable<IMetadataPredicate> predicates)
         {
-            ArgumentNullException.ThrowIfNull(predicates);
+            Guard.AgainstNull(predicates);
             
             var predicateList = predicates.ToList();
             if (predicateList.Count == 0)
@@ -200,7 +200,7 @@ namespace Zentient.Abstractions.DependencyInjection.Predicates
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="predicate"/> is null.</exception>
         public static IMetadataPredicate WithCaching(this IMetadataPredicate predicate, int maxCacheSize = 1000)
         {
-            ArgumentNullException.ThrowIfNull(predicate);
+            Guard.AgainstNull(predicate);
             return new CachedMetadataPredicate(predicate, maxCacheSize);
         }
 
@@ -212,7 +212,7 @@ namespace Zentient.Abstractions.DependencyInjection.Predicates
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="predicate"/> is null.</exception>
         public static IMetadataPredicate Optimized(this IMetadataPredicate predicate)
         {
-            ArgumentNullException.ThrowIfNull(predicate);
+            Guard.AgainstNull(predicate);
             return predicate.Optimize();
         }
     }
@@ -238,7 +238,7 @@ namespace Zentient.Abstractions.DependencyInjection.Predicates
 
         public bool Match(IServiceDescriptor descriptor)
         {
-            ArgumentNullException.ThrowIfNull(descriptor);
+            Guard.AgainstNull(descriptor);
             
             var key = descriptor.Id;
             if (_cache.TryGetValue(key, out var cachedResult))
@@ -258,7 +258,7 @@ namespace Zentient.Abstractions.DependencyInjection.Predicates
 
         public async Task<bool> MatchAsync(IServiceDescriptor descriptor, CancellationToken cancellationToken = default)
         {
-            ArgumentNullException.ThrowIfNull(descriptor);
+            Guard.AgainstNull(descriptor);
             
             var key = descriptor.Id;
             if (_cache.TryGetValue(key, out var cachedResult))

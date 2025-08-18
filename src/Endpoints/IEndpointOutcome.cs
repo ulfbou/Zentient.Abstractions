@@ -39,76 +39,122 @@ namespace Zentient.Abstractions.Endpoints
         /// <summary>Gets a value indicating whether the operation succeeded.</summary>
         /// <value><see langword="true"/> if the operation succeeded; otherwise, <see langword="false"/>.</value>
         /// <remarks>This property is typically true when <see cref="Errors"/> is empty.</remarks>
-        bool IsSuccess => Errors.Count == 0;
+#if NETSTANDARD2_0
+        bool IsSuccess { get; }
+#else
+        bool IsSuccess
+            => !Errors.Any();
+#endif
 
         /// <summary>Gets a value indicating whether the operation failed.</summary>
         /// <value>
         /// Always equals the negation of <see cref="IsSuccess" /> unless a custom implementation diverges.
         /// </value>
-        bool IsFailure => Errors.Count > 0;
+#if NETSTANDARD2_0
+        bool IsFailure { get; }
+#else
+        bool IsFailure
+            => !IsSuccess;
+#endif
 
         /// <summary>
         /// Gets all error messages extracted from the <see cref="Errors"/> collection.
         /// </summary>
+#if NETSTANDARD2_0
+        IReadOnlyList<string> ErrorMessages { get; }
+#else
         IReadOnlyList<string> ErrorMessages =>
             Errors.Select(e => e.Message).ToList();
+#endif
 
         /// <summary>
         /// Gets the first error message, or <see langword="null"/> if no errors exist.
         /// </summary>
+#if NETSTANDARD2_0
+        string? ErrorMessage { get; }
+#else
         string? ErrorMessage
             =>
             Errors.Count == 0
                 ? null
                 : Errors[0].Message;
+#endif
 
         /// <summary>
         /// Gets a single-line summary concatenating all error messages,
         /// or <see langword="null"/> if there are no errors.
         /// </summary>
+#if NETSTANDARD2_0
+        string? ErrorSummary { get; }
+#else
         string? ErrorSummary =>
             Errors.Count == 0
                 ? null
                 : string.Join("; ", ErrorMessages);
+#endif
 
         /// <summary>
         /// Gets errors grouped by their <see cref="IErrorDefinition"/>,
         /// useful for stratified handling in adapters or telemetry.
         /// </summary>
+#if NETSTANDARD2_0
+        IReadOnlyDictionary<IErrorDefinition, IReadOnlyList<IErrorInfo<IErrorDefinition>>> ErrorsByCategory { get; }
+#else
         IReadOnlyDictionary<IErrorDefinition, IReadOnlyList<IErrorInfo<IErrorDefinition>>> ErrorsByCategory =>
             Errors
                 .GroupBy(e => e.ErrorDefinition)
                 .ToDictionary(
                     g => g.Key,
                     g => (IReadOnlyList<IErrorInfo<IErrorDefinition>>)g.ToList());
+#endif
 
         /// <summary>
         /// Indicates whether any errors of category <see cref="IValidationDefinition"/> are present.
         /// </summary>
+#if NETSTANDARD2_0
+        bool HasValidationErrors { get; }
+#else
         bool HasValidationErrors =>
             Errors.Any(e => e.ErrorDefinition is IValidationDefinition);
+#endif
 
         /// <summary>Indicates whether any errors exist.</summary>
+#if NETSTANDARD2_0
+        bool HasErrors { get; }
+#else
         bool HasErrors =>
             Errors.Count > 0;
+#endif
 
         /// <summary>
         /// Gets all distinct error codes in the result, in order of occurrence.
         /// </summary>
+#if NETSTANDARD2_0
+        IReadOnlyList<ICode<ICodeDefinition>> ErrorCodes { get; }
+#else
         IReadOnlyList<ICode<ICodeDefinition>> ErrorCodes =>
             Errors.Select(e => e.Code).Distinct().ToList();
+#endif
 
         /// <summary>
         /// Gets the first error's code, or <see langword="null"/> if no errors exist.
         /// </summary>
+#if NETSTANDARD2_0
+        ICode<ICodeDefinition>? PrimaryErrorCode { get; }
+#else
         ICode<ICodeDefinition>? PrimaryErrorCode => Errors.Count == 0
             ? null
             : Errors[0].Code;
+#endif
 
         /// <summary>
         /// Flattens nested <see cref="Errors"/> into a single sequence.
         /// </summary>
+#if NETSTANDARD2_0
+        IEnumerable<IErrorInfo<IErrorDefinition>> FlattenErrors { get; }
+#else
         IEnumerable<IErrorInfo<IErrorDefinition>> FlattenErrors() =>
             Errors.SelectMany(e => new[] { e }.Concat(e.InnerErrors));
+#endif
     }
 }

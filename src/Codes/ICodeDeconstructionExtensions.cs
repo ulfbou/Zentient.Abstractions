@@ -27,7 +27,7 @@ namespace Zentient.Abstractions.Codes
             out IMetadata metadata)
             where TCodeDefinition : ICodeDefinition
         {
-            ArgumentNullException.ThrowIfNull(code, nameof(code));
+            Guard.AgainstNull(code, nameof(code));
             definition = code.Definition;
             metadata = code.Metadata;
         }
@@ -43,7 +43,7 @@ namespace Zentient.Abstractions.Codes
             out TCodeDefinition definition)
             where TCodeDefinition : ICodeDefinition
         {
-            ArgumentNullException.ThrowIfNull(code, nameof(code));
+            Guard.AgainstNull(code, nameof(code));
             definition = code.Definition;
         }
 
@@ -58,7 +58,7 @@ namespace Zentient.Abstractions.Codes
             out IMetadata metadata)
             where TCodeDefinition : ICodeDefinition
         {
-            ArgumentNullException.ThrowIfNull(code, nameof(code));
+            Guard.AgainstNull(code, nameof(code));
             metadata = code.Metadata;
         }
     }

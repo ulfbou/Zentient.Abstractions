@@ -18,6 +18,10 @@ namespace Zentient.Abstractions.Messaging.Events
         /// <value>
         /// The full type name of the event, or the type name if the full name is not available.
         /// </value>
+#if NETSTANDARD2_0
+        string EventType { get; }
+#else
         string EventType => GetType().FullName ?? GetType().Name;
+#endif
     }
 }

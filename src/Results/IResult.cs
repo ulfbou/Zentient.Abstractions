@@ -17,8 +17,12 @@ namespace Zentient.Abstractions.Results
         /// <value>
         /// <see langword="true" /> if the result is successful and contains no errors; otherwise, <see langword="false" />.
         /// </value>
+#if NETSTANDARD2_0
+        bool IsSuccess { get; }
+#else
         bool IsSuccess
             => !Errors.Any();
+#endif
 
         /// <summary>
         /// Gets a read-only list of messages associated with the result (success or failure).
@@ -42,7 +46,11 @@ namespace Zentient.Abstractions.Results
         /// <value>
         /// The message of the first error if present; otherwise, <see langword="null" />.
         /// </value>
+#if NETSTANDARD2_0
+        string? ErrorMessage { get; }
+#else
         string? ErrorMessage
             => Errors.FirstOrDefault()?.Message;
+#endif
     }
 }

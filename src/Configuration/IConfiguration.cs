@@ -3,7 +3,6 @@
 // </copyright>
 
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Intrinsics.X86;
 
 using Zentient.Abstractions.Common;
 using Zentient.Abstractions.Configuration.Definitions;

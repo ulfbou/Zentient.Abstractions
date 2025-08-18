@@ -35,7 +35,7 @@ namespace Zentient.Abstractions.Common
             out IRelationCategory? category,
             out IReadOnlyCollection<IRelationDefinition> relations)
         {
-            ArgumentNullException.ThrowIfNull(definition, nameof(definition));
+            Guard.AgainstNull(definition, nameof(definition));
             id = definition.Id;
             name = definition.Name;
             version = definition.Version;
@@ -60,7 +60,7 @@ namespace Zentient.Abstractions.Common
             out string version,
             out string description)
         {
-            ArgumentNullException.ThrowIfNull(definition, nameof(definition));
+            Guard.AgainstNull(definition, nameof(definition));
             id = definition.Id;
             name = definition.Name;
             version = definition.Version;
@@ -84,7 +84,7 @@ namespace Zentient.Abstractions.Common
             out string description,
             out string categoryName)
         {
-            ArgumentNullException.ThrowIfNull(definition, nameof(definition));
+            Guard.AgainstNull(definition, nameof(definition));
             id = definition.Id;
             name = definition.Name;
             version = definition.Version;
@@ -111,7 +111,7 @@ namespace Zentient.Abstractions.Common
             out string categoryName,
             out IRelationCategory? category)
         {
-            ArgumentNullException.ThrowIfNull(definition, nameof(definition));
+            Guard.AgainstNull(definition, nameof(definition));
             id = definition.Id;
             name = definition.Name;
             version = definition.Version;
@@ -137,7 +137,7 @@ namespace Zentient.Abstractions.Common
             out string description,
             out IReadOnlyCollection<IRelationDefinition> relations)
         {
-            ArgumentNullException.ThrowIfNull(definition, nameof(definition));
+            Guard.AgainstNull(definition, nameof(definition));
             id = definition.Id;
             name = definition.Name;
             version = definition.Version;

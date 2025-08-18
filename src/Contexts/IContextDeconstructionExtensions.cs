@@ -29,7 +29,7 @@ namespace Zentient.Abstractions.Contexts
             out string correlationId)
             where TContextDefinition : IContextDefinition
         {
-            ArgumentNullException.ThrowIfNull(context, nameof(context));
+            Guard.AgainstNull(context, nameof(context));
             definition = context.Definition;
             metadata = context.Metadata;
             parent = context.Parent;
@@ -49,7 +49,7 @@ namespace Zentient.Abstractions.Contexts
             out IMetadata metadata)
             where TContextDefinition : IContextDefinition
         {
-            ArgumentNullException.ThrowIfNull(context, nameof(context));
+            Guard.AgainstNull(context, nameof(context));
             definition = context.Definition;
             metadata = context.Metadata;
         }
@@ -69,7 +69,7 @@ namespace Zentient.Abstractions.Contexts
             out string correlationId)
             where TContextDefinition : IContextDefinition
         {
-            ArgumentNullException.ThrowIfNull(context, nameof(context));
+            Guard.AgainstNull(context, nameof(context));
             definition = context.Definition;
             metadata = context.Metadata;
             correlationId = context.CorrelationId;
@@ -90,7 +90,7 @@ namespace Zentient.Abstractions.Contexts
             out IContext<IContextDefinition>? parent)
             where TContextDefinition : IContextDefinition
         {
-            ArgumentNullException.ThrowIfNull(context, nameof(context));
+            Guard.AgainstNull(context, nameof(context));
             definition = context.Definition;
             metadata = context.Metadata;
             parent = context.Parent;
@@ -107,7 +107,7 @@ namespace Zentient.Abstractions.Contexts
             out TContextDefinition definition)
             where TContextDefinition : IContextDefinition
         {
-            ArgumentNullException.ThrowIfNull(context, nameof(context));
+            Guard.AgainstNull(context, nameof(context));
             definition = context.Definition;
         }
     }
