@@ -25,13 +25,50 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B622F0D4-75EB-4455-81D5-7BF796B121B7}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
+		docfx.json = docfx.json
+		favicon.png = favicon.png
+		global.json = global.json
+		LICENSE = LICENSE
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{3E11B713-44A2-4F7E-82F0-EB66892DB2E6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "architecture", "architecture", "{3742C4C2-7C13-44FC-ABF1-1D0C1183C0C7}"
 	ProjectSection(SolutionItems) = preProject
-		docs\DX_ANALYSIS.md = docs\DX_ANALYSIS.md
-		docs\IZENTIENT_DESIGN.md = docs\IZENTIENT_DESIGN.md
-		docs\README.md = docs\README.md
+		docs\architecture\caching-system.md = docs\architecture\caching-system.md
+		docs\architecture\configuration-management.md = docs\architecture\configuration-management.md
+		docs\architecture\cqrs-messaging.md = docs\architecture\cqrs-messaging.md
+		docs\architecture\dependency-injection.md = docs\architecture\dependency-injection.md
+		docs\architecture\README.md = docs\architecture\README.md
+		docs\architecture\validation-framework.md = docs\architecture\validation-framework.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "concepts", "concepts", "{4BBC43EA-C4E5-4E74-97F8-2D1DBEE7388B}"
+	ProjectSection(SolutionItems) = preProject
+		docs\concepts\four-pillars.md = docs\concepts\four-pillars.md
+		docs\concepts\philosophy.md = docs\concepts\philosophy.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "developer-experience", "developer-experience", "{CF31BAB4-A8E8-4C5B-B565-25CA11DC1FE0}"
+	ProjectSection(SolutionItems) = preProject
+		docs\developer-experience\debugging.md = docs\developer-experience\debugging.md
+		docs\developer-experience\ide-integration.md = docs\developer-experience\ide-integration.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "guides", "guides", "{F67658DB-A2F6-4F8C-8E1D-2119FA9D89A0}"
+	ProjectSection(SolutionItems) = preProject
+		docs\guides\best-practices.md = docs\guides\best-practices.md
+		docs\guides\getting-started.md = docs\guides\getting-started.md
+		docs\guides\MIGRATION_GUIDE_2.x_to_3.0.md = docs\guides\MIGRATION_GUIDE_2.x_to_3.0.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "releases", "releases", "{97A9E666-EA49-4762-956D-993E65FBA3A2}"
+	ProjectSection(SolutionItems) = preProject
+		docs\releases\RELEASE_NOTES_3.0.1.md = docs\releases\RELEASE_NOTES_3.0.1.md
+		RELEASE_NOTES_3.0.2.md = RELEASE_NOTES_3.0.2.md
 	EndProjectSection
 EndProject
 Global
@@ -63,6 +100,11 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{4AC835A0-C002-4D79-A6F1-CF4A0A3D1324} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{FB9E6AC7-6813-408E-AEE4-70B4BA8DFE47} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{3742C4C2-7C13-44FC-ABF1-1D0C1183C0C7} = {3E11B713-44A2-4F7E-82F0-EB66892DB2E6}
+		{4BBC43EA-C4E5-4E74-97F8-2D1DBEE7388B} = {3E11B713-44A2-4F7E-82F0-EB66892DB2E6}
+		{CF31BAB4-A8E8-4C5B-B565-25CA11DC1FE0} = {3E11B713-44A2-4F7E-82F0-EB66892DB2E6}
+		{F67658DB-A2F6-4F8C-8E1D-2119FA9D89A0} = {3E11B713-44A2-4F7E-82F0-EB66892DB2E6}
+		{97A9E666-EA49-4762-956D-993E65FBA3A2} = {3E11B713-44A2-4F7E-82F0-EB66892DB2E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {414DBF63-2E69-41B9-8039-4B6A7A8F27B3}

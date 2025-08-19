@@ -5,6 +5,39 @@
 
 ---
 
+## 📦 [3.0.2] — 2025-08-19
+
+🛠️ **Build System & Framework Compatibility Enhancements**
+
+> A patch release focused on improving multi-targeting support, refining build organization, and ensuring full compatibility with legacy frameworks like `netstandard2.0`.
+
+### 🧱 Added
+
+- **📁 Solution Folder: Builds** — Introduced a new `Builds` folder to organize shared build assets (`Directory.Build.props`, `.targets`), improving project clarity.
+- **🛡️ Guard.cs Utility** — Added `Guard.cs` in `src/Common` for concise argument validation (`AgainstNull`, `AgainstNullOrEmpty`, etc.), replacing verbose `ArgumentNullException.ThrowIfNull` calls.
+- **📦 Netstandard2.0 Shims** — Added `Netstandard2_0Shims.cs` to polyfill modern features (`NotNullWhen`, `ValueTask`) for legacy compatibility.
+- **🧩 Interface Extensions for Legacy Support** — Introduced `_Extensions.cs` files for interfaces (`IEndpointOutcome`, `IEvent`, `IMessageEnvelope`, `IMetadataReader`, `IResult`, `IValidatorRegistry`) to avoid DIMs and ensure full functionality on `netstandard2.0`.
+
+### 🔧 Changed
+
+- **⚙️ Conditional Compilation** — Updated `Directory.Build.props` to conditionally define `DefineConstants` per target framework, enabling framework-specific logic at compile time.
+- **📄 Project File Update** — Modified `Zentient.Abstractions.csproj` to include `netstandard2.0` in `TargetFrameworks`, officially supporting older .NET environments.
+
+### 📂 Infrastructure
+
+- Improved solution structure for multi-targeting clarity
+- Enhanced build logic to support conditional compilation across frameworks
+
+### 🏗️ Framework Support
+
+- ✅ .NET Standard 2.0  
+- ✅ .NET 6.0  
+- ✅ .NET 7.0  
+- ✅ .NET 8.0  
+- ✅ .NET 9.0  
+
+---
+
 ## 📦 [3.0.1] — 2025-08-08
 
 🔧 **DocFX Documentation & Workflow Improvements**
