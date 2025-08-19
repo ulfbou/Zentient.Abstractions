@@ -185,15 +185,14 @@ jobs:
         run: |
           PACKAGE="zentient.abstractions"
           VERSION="${{ needs.build-and-pack.outputs.nuget_version_v2 }}"
-          EXISTS=$(curl -s "https://api.nuget.org/v3-flatcontainer/${PACKAGE}/${VERSION}/index.json" | grep "$VERSION" || true)
-          if [ -n "$EXISTS" ]; then
-            echo "Version $VERSION already exists on NuGet.org"
+          STATUS_CODE=$(curl -sL -w "%{http_code}" "https://api.nuget.org/v3-flatcontainer/${PACKAGE}/${VERSION}/index.json" -o /dev/null)
+          echo "DEBUG: Querying package ${PACKAGE} version ${VERSION}. HTTP Status: ${STATUS_CODE}"
+          if [ "$STATUS_CODE" == "200" ]; then
             echo "exists=true" >> $GITHUB_OUTPUT
           else
-            echo "Version $VERSION does not exist on NuGet.org"
             echo "exists=false" >> $GITHUB_OUTPUT
           fi
-  
+
       - name: Push NuGet Packages to NuGet.org
         if: steps.check-version.outputs.exists != 'true'
         env:
