@@ -146,7 +146,7 @@ jobs:
       contents: write
       packages: write
       id-token: write
-
+  
     if: |
       success() && (
         startsWith(github.ref, 'refs/heads/release/') ||
@@ -157,15 +157,15 @@ jobs:
           startsWith(github.base_ref, 'release/')
         ))
       )
-
+  
     steps:
       - name: Checkout Repository (for release notes)
         uses: actions/checkout@v4
         with:
           ref: ${{ github.sha }}
           fetch-depth: 0
-
-      - name: Setup .NET SDK (for dotnet nuget push)
+  
+      - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
@@ -173,91 +173,88 @@ jobs:
             7.0.x
             8.0.x
             9.0.x
-
+  
       - name: Download NuGet Packages Artifact
         uses: actions/download-artifact@v4
         with:
           name: nuget-packages-${{ needs.build-and-pack.outputs.head_sha }}
           path: artifacts/packages
-      - name: Debug NuGet Package Info (for NuGet.org push)
+  
+      - name: Check if NuGet Version Exists
+        id: check-version
         run: |
-          echo "Debug Info for NuGet Push:"
-          echo "github.ref: ${{ github.ref }}"
-          echo "github.ref_type: ${{ github.ref_type }}"
-          echo "GitVersion nuget_version_v2: ${{ needs.build-and-pack.outputs.nuget_version_v2 }}"
-          echo "Contents of artifacts/packages:"
-          ls -R artifacts/packages || true
-          echo "Attempting to find package using direct path and wildcard:"
-          find artifacts/packages -name "*.${{ needs.build-and-pack.outputs.nuget_version_v2 }}.nupkg" -print || true
-          find artifacts/packages -name "*.snupkg" -print || true
-
+          PACKAGE="zentient.abstractions"
+          VERSION="${{ needs.build-and-pack.outputs.nuget_version_v2 }}"
+          EXISTS=$(curl -s "https://api.nuget.org/v3-flatcontainer/${PACKAGE}/${VERSION}/index.json" | grep "$VERSION" || true)
+          if [ -n "$EXISTS" ]; then
+            echo "Version $VERSION already exists on NuGet.org"
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Version $VERSION does not exist on NuGet.org"
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+  
       - name: Push NuGet Packages to NuGet.org
+        if: steps.check-version.outputs.exists != 'true'
         env:
           NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+          NUGET_SOURCE_URL: https://api.nuget.org/v3/index.json
         run: |
           if [ -z "$NUGET_API_KEY" ]; then
-            echo "WARNING: NUGET_API_KEY secret is not set. Skipping NuGet package push."
-            echo "To enable NuGet publishing, add the NUGET_API_KEY secret to your repository."
+            echo "WARNING: NUGET_API_KEY is not set. Skipping push."
             exit 0
           fi
-
-          PACKAGE_BASE_NAME="Zentient.Abstractions"
-          PACKAGE_VERSION="${{ needs.build-and-pack.outputs.nuget_version_v2 }}"
-
-          PRIMARY_PACKAGE_GLOB="artifacts/packages/${PACKAGE_BASE_NAME}.${PACKAGE_VERSION}.nupkg"
-          SYMBOL_PACKAGE_GLOB="artifacts/packages/${PACKAGE_BASE_NAME}.${PACKAGE_VERSION}.snupkg"
-
-          if find "$PRIMARY_PACKAGE_GLOB" -print -quit | grep -q .; then
-            echo "Publishing primary package: $PRIMARY_PACKAGE_GLOB..."
-            dotnet nuget push "$PRIMARY_PACKAGE_GLOB" \
-              --source "${{ env.NUGET_SOURCE_URL }}" \
-              --api-key "$NUGET_API_KEY" \
-              --skip-duplicate
+  
+          PACKAGE_BASE="Zentient.Abstractions"
+          VERSION="${{ needs.build-and-pack.outputs.nuget_version_v2 }}"
+          NUPKG="artifacts/packages/${PACKAGE_BASE}.${VERSION}.nupkg"
+          SNUPKG="artifacts/packages/${PACKAGE_BASE}.${VERSION}.snupkg"
+  
+          if [ -f "$NUPKG" ]; then
+            echo "Pushing $NUPKG..."
+            dotnet nuget push "$NUPKG" --source "$NUGET_SOURCE_URL" --api-key "$NUGET_API_KEY"
           else
-            echo "Primary NuGet package not found for '$PACKAGE_BASE_NAME'. Expected: $PRIMARY_PACKAGE_GLOB. Skipping push."
+            echo "ERROR: Primary package not found: $NUPKG"
             exit 1
           fi
-
-          if find "$SYMBOL_PACKAGE_GLOB" -print -quit | grep -q .; then
-            echo "Publishing symbols package: $SYMBOL_PACKAGE_GLOB..."
-            dotnet nuget push "$SYMBOL_PACKAGE_GLOB" \
-              --source "${{ env.NUGET_SOURCE_URL }}" \
-              --api-key "$NUGET_API_KEY" \
-              --skip-duplicate
+  
+          if [ -f "$SNUPKG" ]; then
+            echo "Pushing $SNUPKG..."
+            dotnet nuget push "$SNUPKG" --source "$NUGET_SOURCE_URL" --api-key "$NUGET_API_KEY"
           else
-            echo "Symbols NuGet package not found for '$PACKAGE_BASE_NAME'. Expected: $SYMBOL_PACKAGE_GLOB. Skipping symbols push."
+            echo "Symbols package not found: $SNUPKG"
           fi
-
+  
       - name: Extract Release Notes
         id: extract_release_notes
         run: |
-          CHANGELOG_PATH="CHANGELOG.md"
-          RELEASE_VERSION="${{ needs.build-and-pack.outputs.major_minor_patch }}"
-          
-          if [ ! -f "$CHANGELOG_PATH" ]; then
-            echo "WARNING: CHANGELOG.md not found at $CHANGELOG_PATH. Skipping release notes extraction."
+          CHANGELOG="CHANGELOG.md"
+          VERSION="${{ needs.build-and-pack.outputs.major_minor_patch }}"
+  
+          if [ ! -f "$CHANGELOG" ]; then
+            echo "CHANGELOG.md not found. Skipping notes."
             echo "body_path=NO_CHANGELOG_FOUND" >> $GITHUB_OUTPUT
             exit 0
           fi
-
-          awk "/^## \\[${RELEASE_VERSION}\\]/,/^## /" "$CHANGELOG_PATH" > release-notes.md.tmp
-          
+  
+          awk "/^## \\[${VERSION}\\]/,/^## \[/" "$CHANGELOG" > release-notes.md.tmp
+  
           sed -i '1d' release-notes.md.tmp
-          sed -i '/^## /d' release-notes.md.tmp
+          sed -i '/^## \\[/d' release-notes.md.tmp
           sed -i -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' release-notes.md.tmp
           sed -i '/^$/d' release-notes.md.tmp
-
+  
           if [ ! -s release-notes.md.tmp ]; then
-            echo "WARNING: No release notes content found for version ${RELEASE_VERSION} in $CHANGELOG_PATH."
+            echo "No release notes found for version $VERSION."
             echo "body_path=NO_RELEASE_NOTES" >> $GITHUB_OUTPUT
-            echo "No release notes content available for this version." > release-notes.md
+            echo "No release notes available." > release-notes.md
           else
             mv release-notes.md.tmp release-notes.md
             echo "body_path=release-notes.md" >> $GITHUB_OUTPUT
-            echo "Release notes extracted for version ${RELEASE_VERSION}."
           fi
-
+  
       - name: Create GitHub Release
+        if: steps.check-version.outputs.exists != 'true' || startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
