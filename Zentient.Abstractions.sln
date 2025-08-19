@@ -37,7 +37,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{3E11B713-44A2-4F7E-82F0-EB66892DB2E6}"
 	ProjectSection(SolutionItems) = preProject
+		docs\api-reference.md = docs\api-reference.md
+		docs\implementation-roadmap.md = docs\implementation-roadmap.md
+		docs\index.md = docs\index.md
 		docs\README.md = docs\README.md
+		docs\toc.yml = docs\toc.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "architecture", "architecture", "{3742C4C2-7C13-44FC-ABF1-1D0C1183C0C7}"
