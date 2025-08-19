@@ -26,6 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		CHANGELOG.md = CHANGELOG.md
 		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
 		docfx.json = docfx.json
 		favicon.png = favicon.png
@@ -35,6 +36,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{3E11B713-44A2-4F7E-82F0-EB66892DB2E6}"
+	ProjectSection(SolutionItems) = preProject
+		docs\README.md = docs\README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "architecture", "architecture", "{3742C4C2-7C13-44FC-ABF1-1D0C1183C0C7}"
 	ProjectSection(SolutionItems) = preProject
@@ -68,7 +72,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "releases", "releases", "{97A9E666-EA49-4762-956D-993E65FBA3A2}"
 	ProjectSection(SolutionItems) = preProject
 		docs\releases\RELEASE_NOTES_3.0.1.md = docs\releases\RELEASE_NOTES_3.0.1.md
-		RELEASE_NOTES_3.0.2.md = RELEASE_NOTES_3.0.2.md
+		docs\releases\RELEASE_NOTES_3.0.2.md = docs\releases\RELEASE_NOTES_3.0.2.md
+		docs\releases\v3.0.1-release-notes.md = docs\releases\v3.0.1-release-notes.md
+		docs\releases\v3.0.2-release-notes.md = docs\releases\v3.0.2-release-notes.md
 	EndProjectSection
 EndProject
 Global
