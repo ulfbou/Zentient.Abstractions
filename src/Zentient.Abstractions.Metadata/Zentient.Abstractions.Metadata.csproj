@@ -9,7 +9,7 @@
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 
-		<RootNamespace>Zentient.Core</RootNamespace>
+		<RootNamespace>Zentient.Metadata</RootNamespace>
 		<IsPackable>true</IsPackable>
 		<Description>Comprehensive abstractions for Zentient Framework 3.0 - Definition-centric core types (ITypeDefinition, ICode, IEnvelope), Universal result handling, Fluent DI builders (IContainerBuilder), Built-in Observability (IValidator, IDiagnosticCheck), Configuration management, and cross-cutting concerns with optimized developer experience.</Description>
 		<AssemblyOriginatorKeyFile>..\Zentient.snk</AssemblyOriginatorKeyFile>
