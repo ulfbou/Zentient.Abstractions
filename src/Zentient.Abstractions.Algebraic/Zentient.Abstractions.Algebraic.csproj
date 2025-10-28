@@ -1,0 +1,77 @@
+﻿<!-- Zentient Abstractions Project File -->
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- 
+		Target Frameworks: Full support for .NET 6.0, 7.0, 8.0, and 9.0
+		- Primary build includes all frameworks including .NET 9.0
+		- Fallback build excludes .NET 9.0 for older SDK environments
+		- Use EXCLUDE_NET9=true environment variable to force fallback
+		- CI/CD automatically handles .NET 9.0 availability
+		-->
+		<TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+		<TargetFrameworks Condition="'$(EXCLUDE_NET9)' == 'true'">net8.0</TargetFrameworks>
+		
+		<!-- Prefer .NET 9.0 for latest language features when available -->
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+
+		<RootNamespace>Zentient.Core</RootNamespace>
+		<IsPackable>true</IsPackable>
+		<Description>Comprehensive abstractions for Zentient Framework 3.0 - Definition-centric core types (ITypeDefinition, ICode, IEnvelope), Universal result handling, Fluent DI builders (IContainerBuilder), Built-in Observability (IValidator, IDiagnosticCheck), Configuration management, and cross-cutting concerns with optimized developer experience.</Description>
+		<AssemblyOriginatorKeyFile>..\Zentient.snk</AssemblyOriginatorKeyFile>
+		<PackageId>Zentient.Abstractions</PackageId>
+		<PackageTags>Zentient;Framework;Abstractions;DI;DependencyInjection;Configuration;Validation;Observability;Results;Envelopes;TypeDefinitions;Diagnostics;DeveloperExperience;Architecture</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		
+		<!-- Enhanced NuGet Package Metadata for Better DX -->
+		<PackageProjectUrl>https://github.com/ulfbou/Zentient.Abstractions</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/ulfbou/Zentient.Abstractions</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Authors>Zentient Framework Team</Authors>
+		<Company>Zentient Framework</Company>
+		<Product>Zentient Framework</Product>
+		<Copyright>Copyright © 2025 Zentient Framework Team. All rights reserved.</Copyright>
+		
+		<!-- Developer Experience Features -->
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		
+		<!-- Framework Positioning -->
+		<Title>Zentient.Abstractions - Framework Foundation</Title>
+		<Summary>Production-ready abstractions enabling the four pillars of Zentient Framework: Definition-centric discovery, Universal envelopes, Fluent DI composition, and Built-in observability.</Summary>
+		
+		<!-- Version and Release Management -->
+		<Version>3.0.1</Version>
+		<AssemblyVersion>3.0.1.0</AssemblyVersion>
+		<FileVersion>3.0.1.0</FileVersion>
+		<PackageVersion>3.0.1</PackageVersion>
+		<PackageReleaseNotes>Zentient Framework 3.0.1 - Patch release: DocFX deployment fixes, .NET 9.0 badge restoration, workflow optimizations, NUGET_API_KEY validation, and documentation improvements since 3.0.0.</PackageReleaseNotes>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Pipelines\Steps\**" />
+	  <Compile Remove="Relations\Builders\IRelationDefinitionBuilder.cs" />
+	  <EmbeddedResource Remove="Pipelines\Steps\**" />
+	  <None Remove="Pipelines\Steps\**" />
+	</ItemGroup>
+
+	<!-- Source Link Support for Better Debugging DX -->
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="All" />
+		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0" PrivateAssets="All" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="$(SolutionDir)README.md" Pack="true" PackagePath="\" />
+		<None Include="$(SolutionDir)LICENSE" Pack="true" PackagePath="\" />
+		<None Include="$(SolutionDir)Zentient.snk" Pack="true" PackagePath="\" />
+		<None Include="$(SolutionDir)CHANGELOG.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+</Project>
